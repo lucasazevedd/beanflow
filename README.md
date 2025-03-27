@@ -1,64 +1,98 @@
 # BeanFlow
 
-**BeanFlow** é uma aplicação de Business Intelligence em tempo real voltada para o gerenciamento de vendas, visualização de dados e automações. Combinando o poder do Apache Superset com tecnologias modernas como React, Firebase e PostgreSQL, a plataforma oferece dashboards personalizados e integrados à experiência de usuário final.
+**BeanFlow** é uma aplicação de Business Intelligence (BI) que utiliza o Apache Superset para criar dashboards interativos e em tempo real, conectados a bancos de dados PostgreSQL.  
+Seu objetivo é fornecer uma visualização intuitiva e automatizada de dados financeiros e de vendas para pequenas empresas e empreendedores.
+
+---
 
 ## 🚀 Tecnologias Utilizadas
 
-- **Apache Superset** – Visualização de dados e criação de dashboards
-- **Docker** – Containerização dos serviços
-- **PostgreSQL** – Banco de dados relacional
-- **Firebase** – Autenticação e funcionalidades em tempo real (a ser integrado)
-- **React** – Interface web para exibição dos dashboards e demais recursos da aplicação
-- **Railway / Render / Vercel** – Alternativas de hospedagem para backend, banco de dados ou frontend
+- [Apache Superset](https://superset.apache.org/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- PostgreSQL (via container)
+- React (em desenvolvimento)
+- Firebase (em desenvolvimento)
 
 ---
 
-## 📦 Como rodar o Superset na sua máquina (Windows)
+## 📁 Estrutura Atual do Projeto
 
-### Pré-requisitos
+```
+beanflow/
+├── LICENSE
+└── superset/
+```
 
-- Docker instalado ([link para download](https://www.docker.com/products/docker-desktop/))
-- Git instalado ([link para download](https://git-scm.com/downloads))
+> Por enquanto o projeto inclui apenas a pasta `superset`. Outras pastas como `frontend-react` serão adicionadas futuramente.
 
-### Passo a passo
+---
 
-1. **Clone este repositório**:
+## 🛠️ Requisitos
 
+- Git instalado
+- Docker instalado
+- Docker Compose instalado
+- 4 GB de RAM disponíveis (mínimo)
+- Conexão com a internet para baixar imagens
+
+---
+
+## 📦 Como rodar o Superset localmente (Windows, macOS ou Linux)
+
+### 1. Clone o repositório
 ```bash
 git clone https://github.com/lucasazevedd/beanflow.git
-cd beanflow
+cd beanflow/superset
 ```
 
-2. **Entre na pasta do Superset**:
-
+### 2. Copie o arquivo de configuração
 ```bash
-cd superset
+cp docker-compose-non-dev.yml docker-compose.yml
 ```
 
-3. **Rode o Superset usando Docker**:
+> No **Windows** (PowerShell), use:
+```powershell
+Copy-Item -Path "docker-compose-non-dev.yml" -Destination "docker-compose.yml"
+```
 
+### 3. Construa os containers (pode demorar bastante da primeira vez)
 ```bash
-docker-compose -f docker-compose-non-dev.yml up --build
+docker compose -f docker-compose.yml up --build
 ```
 
-Esse processo pode demorar a primeira vez, pois o Superset será baixado e instalado dentro do container Docker.
-
-4. **Acesse no navegador**:
-
+### 4. Crie um usuário administrador (em outro terminal)
+```bash
+docker exec -it superset_app superset fab create-admin
 ```
-http://localhost:8088
+
+Preencha os dados solicitados no terminal (nome, e-mail, usuário, senha).
+
+---
+
+## ▶️ Parar e iniciar novamente
+
+### Para parar:
+```bash
+docker compose down
+```
+
+### Para retomar (sem rebuild):
+```bash
+docker compose up
 ```
 
 ---
 
-## 💡 Observações
+## 🧪 Testando o Superset
 
-- O banco de dados PostgreSQL já está incluído na configuração via Docker, não sendo necessária uma instalação manual.
-- A pasta `superset` é baseada diretamente no repositório oficial do Apache Superset.
-- Em breve o sistema contará com um frontend React personalizado que será integrado diretamente a este repositório.
+Acesse em seu navegador:  
+[http://localhost:8088](http://localhost:8088)
+
+Entre com o usuário e senha que você criou no passo 4.
 
 ---
 
-## 📃 Licença
+## 📝 Licença
 
-Este projeto está licenciado sob a **MIT License**.
+Este projeto está licenciado sob a [MIT License](LICENSE).

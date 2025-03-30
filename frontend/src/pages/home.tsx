@@ -1,8 +1,10 @@
+import { Sidebar } from "../components/sidebar";
+
 export default function Home() {
-    return (
-      <div>
-        <h1>Dashboard BeanFlow</h1>
-      </div>
-    )
-  }
-  
+  return (
+    <div className="home">
+      <Sidebar />
+      {/* outros conteúdos aqui */}
+    </div>
+  );
+}

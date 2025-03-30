@@ -1,12 +1,13 @@
-import { ReactComponent as FileIcon } from '../assets/icons/file-icon.svg'
-import { ReactComponent as PaymentIcon } from '../assets/icons/credit-card.svg'
-import { ReactComponent as CheckIcon } from '../assets/icons/check-icon.svg'
-import { ReactComponent as SettingsIcon } from '../assets/icons/settings-icon.svg'
-import { ReactComponent as LogoIcon } from '../assets/icons/bean-logo.svg'
+import { ReactComponent as FileIcon } from '../assets/icons/file-icon.svg?react'
+import { ReactComponent as PaymentIcon } from '../assets/icons/credit-card.svg?react'
+import { ReactComponent as CheckIcon } from '../assets/icons/check-icon.svg?react'
+import { ReactComponent as SettingsIcon } from '../assets/icons/settings-icon.svg?react'
+import { ReactComponent as LogoIcon } from '../assets/icons/bean-logo.svg?react'
 
-import './sidebar.css'
+import "../styles/sidebar.css";
 
 export function Sidebar() {
+  console.log("Sidebar renderizou");
   return (
     <aside className="sidebar">
       <div className="top">
@@ -15,13 +16,13 @@ export function Sidebar() {
       </div>
 
       <nav className="menu">
-        <button><FileIcon width={20} height={20} /> Cotações</button>
-        <button><PaymentIcon width={20} height={20} /> Boletos</button>
-        <button><CheckIcon width={20} height={20} /> Tarefas</button>
+        <button><FileIcon className='sidebar-icons' width={40} height={40}/> Cotações</button>
+        <button><PaymentIcon className='sidebar-icons' width={24} height={24}/> Boletos</button>
+        <button><CheckIcon className='sidebar-icons' width={24} height={24}/> Tarefas</button>
       </nav>
 
       <div className="bottom">
-        <button><SettingsIcon width={20} height={20} /> Config</button>
+        <button><SettingsIcon className='sidebar-icons'/> Config</button>
       </div>
     </aside>
   )

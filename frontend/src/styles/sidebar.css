@@ -1,35 +1,52 @@
 .sidebar {
-    width: 80px;
-    background-color: #e0e0e0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px 0;
-  }
-  
-  .top, .bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .logo {
-    width: 40px;
-    margin-bottom: 20px;
-  }
-  
-  .menu button,
-  .bottom button {
-    background: none;
-    border: none;
-    margin: 10px 0;
-    cursor: pointer;
-  }
-  
-  .menu button:hover,
-  .bottom button:hover {
-    background-color: #d0d0d0;
-    border-radius: 8px;
-  }
-  
+  width: 80px;
+  height: 100vh;
+  background-color: white;
+  border-right: 1px solid #D9D9D9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  box-sizing: border-box;
+  position: fixed;
+}
+
+.top,
+.menu,
+.bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+}
+
+.menu button,
+.bottom button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu button:hover,
+.bottom button:hover {
+  opacity: 0.7;
+}
+
+.sidebar-icon {
+  fill: #1B5E4B;
+  stroke: #1B5E4B;
+}
+
+.logo-text {
+  display: none; /* Escondido por padrão */
+}

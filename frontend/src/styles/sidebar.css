@@ -1,0 +1,35 @@
+.sidebar {
+    width: 80px;
+    background-color: #e0e0e0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+  
+  .top, .bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 40px;
+    margin-bottom: 20px;
+  }
+  
+  .menu button,
+  .bottom button {
+    background: none;
+    border: none;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  
+  .menu button:hover,
+  .bottom button:hover {
+    background-color: #d0d0d0;
+    border-radius: 8px;
+  }
+  

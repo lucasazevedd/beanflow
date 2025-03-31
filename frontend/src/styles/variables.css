@@ -1,0 +1,32 @@
+:root {
+    /* Fontes */
+    --font-title: 'Comfortaa', sans-serif;
+    --font-subtitle: 'Quicksand', sans-serif;
+    --font-body: 'Quicksand', sans-serif;
+  
+    /* Tamanhos de fonte */
+    --font-size-title: 24px;
+    --font-size-subtitle: 18px;
+    --font-size-body: 14px;
+  
+    /* Pesos de fonte */
+    --font-weight-title: 700;
+    --font-weight-subtitle: 500;
+    --font-weight-subtitle-bold: 600;
+    --font-weight-body: 300;
+  
+    /* Cores */
+    --primary-color: #1B5E4B;
+    --secondary-color: #F5F5F5;
+    --accent-color: #FFB703;
+    --text-color: #212121;
+    --background-color: #ffffff;
+  
+    /* Espaçamento */
+    --padding-default: 16px;
+    --margin-default: 16px;
+  
+    /* Bordas */
+    --border-radius: 8px;
+  }
+  

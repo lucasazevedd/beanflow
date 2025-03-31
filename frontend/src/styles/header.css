@@ -1,0 +1,36 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    background-color: white;
+    color: #1b5e4b;
+  }
+  
+  .greeting span,
+  .date span {
+    font-size: 16px;
+    color: #1b5e4b;
+    font-weight: 500;
+  }
+
+.header-right, header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+  
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+ 

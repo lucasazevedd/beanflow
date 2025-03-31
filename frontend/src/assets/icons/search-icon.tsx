@@ -9,7 +9,7 @@ function SvgComponent(props: SVGProps<SVGSVGElement>) {
       viewBox="0 0 18 18"
       {...props}
     >
-      <g fill="#212121" className="nc-icon-wrapper">
+      <g fill="#currentColor" className="nc-icon-wrapper">
         <path
           d="M15.25 16a.744.744 0 01-.53-.22l-3.965-3.965a.75.75 0 111.061-1.061l3.965 3.965a.75.75 0 01-.53 1.281z"
           data-color="color-2"

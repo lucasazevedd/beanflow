@@ -1,0 +1,15 @@
+.footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 16px;
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-body);
+    padding-left: 96px;
+  }
+  
+  .footer-text {
+    margin: 0;
+  }
+  

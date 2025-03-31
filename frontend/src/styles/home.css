@@ -29,4 +29,65 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     margin-bottom: 24px;
   }
+
+  .layout {
+    display: flex;
+    height: 100vh;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: #eee;
+  }
+  
+  .footer {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 12px;
+    padding: 12px 24px;
+    text-align: right;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto auto;
+    gap: 16px;
+    padding: var(--padding-default);
+    padding-left: 96px;
+    min-height: 80%;
+  }
+  
+  /* Cards */
+  
+  .cotacoes-card {
+    grid-column: span 4;
+    grid-row: span 2;
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 16px;
+  }
+  
+  .boletos-card {
+    grid-column: span 4;
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 16px;
+  }
+  
+  .tarefas-card {
+    grid-column: span 4;
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 16px;
+  }
+  
+  .status-card {
+    grid-column: span 8;
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 16px;
+  }
   

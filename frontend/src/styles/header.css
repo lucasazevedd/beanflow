@@ -7,30 +7,37 @@
     color: #1b5e4b;
   }
   
-  .greeting span,
-  .date span {
-    font-size: 16px;
-    color: #1b5e4b;
-    font-weight: 500;
-  }
-
-.header-right, header-left {
+  .header-left,
+  .header-right {
     display: flex;
     align-items: center;
     gap: 16px;
   }
-
-.header-left, .header-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
   
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
- 
+  .greeting {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: var(--font-title);
+  }
+  
+  .date {
+    font-size: 16px;
+    font-weight: 500;
+    font-family: var(--font-body);
+    color: #1b5e4b;
+  }
+  
+  .header-icons {
+    width: 24px;
+    height: 24px;
+    fill: #1b5e4b;
+  }
+  
+  .icon-button {
+    background: none;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    fill: #1b5e4b;
+  }
+  

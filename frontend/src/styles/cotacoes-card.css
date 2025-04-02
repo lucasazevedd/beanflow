@@ -1,35 +1,97 @@
 .cotacoes-card {
-    background-color: white;
-    padding: 16px;
     border-radius: 8px;
     color: var(--text-color);
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-  }
-  
-  .cotacoes-card ul {
+    background-color: null;
+    height: 100%;
+}
+
+.add-cotacao {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-subtitle);
+    font-weight: var(--font-weight-subtitle);
+    font-size: var(--font-size-subtitle);
+    cursor: pointer;
+    transition: filter 0.2s;
+    margin-bottom: 24px;
+}
+
+.cotacoes-card ul {
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-  
-  .cotacoes-card li {
+}
+
+.cotacoes-card li {
     display: flex;
-    margin-bottom: 8px;
-    font-family: var(--text-font);
-    flex-direction: column;
-    height: 100px;
-  }
-  
-  .ver-todas {
-    align-self: flex-end;
+    background-color: white;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 12px;
+    height: 80px;
+}
+
+.linha-lateral {
+    width: 4px;
     background-color: var(--primary-color);
-    color: white;
+    border-radius: 4px 0 0 4px;
+    margin: 12px;
+    margin-right: 0;
+}
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 12px;
+}
+
+.conteudo .cliente {
+    font-family: var(--font-subtitle);
+    font-weight: var(--font-weight-subtitle);
+    font-size: var(--font-size-subtitle);
+    color: var(--text-color);
+}
+
+.conteudo .status {
+    font-family: var(--font-body);
+    font-weight: var(--font-weight-body);
+    font-size: var(--font-size-body);
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.add-new-icon {
+    fill: #ffffff;
+    width: 24px;
+    padding: 0;
+    margin: 0;
+}
+
+.right-arrow-icon {
+    fill: var(--primary-color);
+    width: 24px;
+    height: 24px;
+}
+
+.ver-todas {
+    align-self: flex-end;
     padding: 8px 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
-  
+    background-color: transparent;
+    color: var(--primary-color);
+    align-items: center;
+    gap: 4px;
+}

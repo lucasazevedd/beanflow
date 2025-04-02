@@ -65,9 +65,7 @@
   .cotacoes-card {
     grid-column: span 4;
     grid-row: span 2;
-    background-color: white;
     border-radius: var(--border-radius);
-    padding: 16px;
   }
   
   .boletos-card {

@@ -1,3 +1,6 @@
+import AddNewIcon from "../assets/icons/add-new-icon";
+import RightArrowIcon from "../assets/icons/right-arrow-icon";
+
 import '../styles/cotacoes-card.css';
 
 const CotacoesCard = () => {
@@ -27,15 +30,25 @@ const CotacoesCard = () => {
 
   return (
     <div className="cotacoes-card">
+      <button className='add-cotacao'>
+        <AddNewIcon className="add-new-icon" />
+        NOVO ORÇAMENTO
+      </button>
       <ul>
         {cotacoes.slice(0, 5).map((item, index) => (
             <li key={index}>
-                <span>{item.cliente}</span>
-                <span>{item.status}</span>
+                <div className='linha-lateral'></div>
+                <div className='conteudo'>
+                    <span className='cliente'>{item.cliente}</span>
+                    <span className='status'>{item.status}</span>
+                </div>
             </li>
         ))}
       </ul>
-      <button className="ver-todas">Ver todas</button>
+      <button className="ver-todas">
+        VER TODAS
+        <RightArrowIcon className="right-arrow-icon"/>
+      </button>
     </div>
   );
 };

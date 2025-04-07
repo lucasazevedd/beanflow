@@ -1,40 +1,35 @@
 # BeanFlow
 
-**BeanFlow** é uma aplicação de Business Intelligence (BI) que utiliza o Apache Superset para criar dashboards interativos e em tempo real, conectados a bancos de dados PostgreSQL.  
-Seu objetivo é fornecer uma visualização intuitiva e automatizada de dados financeiros e de vendas para pequenas empresas e empreendedores.
+**BeanFlow** é uma aplicação de Business Intelligence (BI) voltada para pequenas empresas e empreendedores que desejam tomar decisões baseadas em dados.  
+A plataforma permite o controle e visualização em tempo real de indicadores financeiros, operacionais e comerciais por meio de dashboards interativos, conectando-se a um banco de dados PostgreSQL.
 
 ---
 
 ## 🚀 Tecnologias Utilizadas
 
-- [Apache Superset](https://superset.apache.org/)
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
-- PostgreSQL (via container)
-- React (em desenvolvimento)
-- Firebase (em desenvolvimento)
+- **Apache Superset** — Dashboards e visualização de dados
+- **PostgreSQL** — Banco de dados relacional
+- **Node.js + Express** — Backend (API REST)
+- **React + Vite + TypeScript** — Frontend
+- **Docker** — Contêineres para backend e Superset
+- **Railway** — Hospedagem do banco de dados, backend e frontend
+- **Git e GitHub** — Versionamento e colaboração
+- **CSS puro + Google Fonts** — Estilização
+- **Figma** — Prototipação da interface
 
 ---
 
-## 📁 Estrutura Atual do Projeto
+## 🔧 Estrutura do Projeto
 
 ```
 beanflow/
-├── LICENSE
-└── superset/
+├── backend/             # API Express + Node.js (em desenvolvimento)
+├── frontend/            # Interface em React com Vite e TypeScript
+├── superset/            # Dashboards Superset com Docker
+├── .gitignore
+├── README.md
+└── LICENSE
 ```
-
-> Por enquanto o projeto inclui apenas a pasta `superset`. Outras pastas como `frontend-react` serão adicionadas futuramente.
-
----
-
-## 🛠️ Requisitos
-
-- Git instalado
-- Docker instalado
-- Docker Compose instalado
-- 4 GB de RAM disponíveis (mínimo)
-- Conexão com a internet para baixar imagens
 
 ---
 
@@ -66,7 +61,7 @@ docker compose -f docker-compose.yml up --build
 docker exec -it superset_app superset fab create-admin
 ```
 
-Preencha os dados solicitados no terminal (nome, e-mail, usuário, senha).
+Preencha os dados solicitados (nome, e-mail, usuário, senha).
 
 ---
 
@@ -84,12 +79,28 @@ docker compose up
 
 ---
 
-## 🧪 Testando o Superset
+## 🌐 Fluxo da Aplicação
 
-Acesse em seu navegador:  
-[http://localhost:8088](http://localhost:8088)
+1. **Frontend (React)**: acessa dados da API e exibe gráficos do Superset embutidos.
+2. **Backend (Node/Express)**: processa dados e envia para o frontend ou Superset.
+3. **PostgreSQL (Railway)**: banco central dos dados.
+4. **Superset (Docker ou Railway)**: visualização dos dados conectados ao banco.
+5. **Hospedagem (Railway)**: cada serviço (frontend, backend, banco) pode ser implantado separadamente.
 
-Entre com o usuário e senha que você criou no passo 4.
+---
+
+## 📊 Exemplo de Integração
+
+- O React pode exibir dashboards Superset por iframe.
+- A API se comunica com o banco PostgreSQL para fornecer dados ao Superset e frontend.
+
+---
+
+## 💸 Possíveis Custos
+
+- **Railway**: plano gratuito cobre até 500 horas/mês por ambiente. Após isso, será cobrado conforme uso.
+- **Hospedagem Superset na nuvem** (opcional): se quiser deixar o Superset sempre online, precisará de plano pago na Railway, Render, Fly.io ou outra.
+- **Domínio personalizado** (opcional): pode ser comprado por R$30~70/ano.
 
 ---
 

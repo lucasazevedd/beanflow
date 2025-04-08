@@ -24,6 +24,14 @@ const CotacoesCard = () => {
         {
           cliente: "QUINTAS DO CALHAU",
           status: "Faturar pedido",
+        },
+        {
+          cliente: "QUINTAS DO CALHAU",
+          status: "Faturar pedido",
+        },
+        {
+          cliente: "QUINTAS DO CALHAU",
+          status: "Faturar pedido",
         }
       ];
       
@@ -35,7 +43,7 @@ const CotacoesCard = () => {
         NOVO ORÇAMENTO
       </button>
       <ul>
-        {cotacoes.slice(0, 5).map((item, index) => (
+        {cotacoes.slice(0, 7).map((item, index) => (
             <li key={index}>
                 <div className='linha-lateral'></div>
                 <div className='conteudo'>

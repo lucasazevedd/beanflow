@@ -2,6 +2,7 @@ import { Sidebar } from "../components/sidebar";
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 import CotacoesCard from "../components/cotacoes-card";
+import BoletosCard from "../components/boletos-card";
 
 import "../styles/home.css";
 
@@ -16,7 +17,9 @@ export default function Home() {
             <div className="cotacoes-card">
               <CotacoesCard />
             </div>
-            <div className="boletos-card">BOLETOS</div>
+            <div className="boletos-card">
+              <BoletosCard />
+            </div>
             <div className="tarefas-card">TAREFAS</div>
             <div className="status-card">STATUS GERAL</div>
           </div>

@@ -1,101 +1,105 @@
 .cotacoes-card {
-    border-radius: 8px;
-    color: var(--text-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: null;
-    height: 100%;
+  border-radius: 8px;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  height: 100%;
+  overflow: hidden;
 }
 
 .add-cotacao {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    gap: 8px;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 12px;
-    font-family: var(--font-subtitle);
-    font-weight: var(--font-weight-subtitle);
-    font-size: var(--font-size-subtitle);
-    cursor: pointer;
-    transition: filter 0.2s;
-    margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 8px;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-family: var(--font-subtitle);
+  font-weight: var(--font-weight-subtitle);
+  font-size: var(--font-size-subtitle);
+  cursor: pointer;
+  transition: filter 0.2s;
+  margin-bottom: 16px;
 }
 
 .cotacoes-card ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .cotacoes-card li {
-    display: flex;
-    background-color: white;
-    margin-bottom: 20px;
-    overflow: hidden;
-    border-radius: 12px;
-    height: 80px;
+  display: flex;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-radius: 12px;
+  height: 80px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .linha-lateral {
-    width: 4px;
-    background-color: var(--primary-color);
-    border-radius: 4px 0 0 4px;
-    margin: 12px;
-    margin-right: 0;
+  width: 4px;
+  background-color: var(--primary-color);
+  border-radius: 4px 0 0 4px;
+  margin: 12px;
+  margin-right: 0;
 }
 
 .conteudo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 12px;
 }
 
 .conteudo .cliente {
-    font-family: var(--font-subtitle);
-    font-weight: var(--font-weight-subtitle);
-    font-size: var(--font-size-subtitle);
-    color: var(--text-color);
+  font-family: var(--font-subtitle);
+  font-weight: var(--font-weight-subtitle);
+  font-size: var(--font-size-subtitle);
+  color: var(--text-color);
 }
 
 .conteudo .status {
-    font-family: var(--font-body);
-    font-weight: var(--font-weight-body);
-    font-size: var(--font-size-body);
-    color: var(--text-color);
-    opacity: 0.7;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  font-size: var(--font-size-body);
+  color: var(--text-color);
+  opacity: 0.7;
 }
 
 .add-new-icon {
-    fill: #ffffff;
-    width: 24px;
-    padding: 0;
-    margin: 0;
+  fill: #ffffff;
+  width: 24px;
+  padding: 0;
+  margin: 0;
 }
 
 .right-arrow-icon {
-    fill: var(--primary-color);
-    width: 24px;
-    height: 24px;
+  fill: var(--primary-color);
+  width: 24px;
+  height: 24px;
 }
 
 .ver-todas {
-    display: flex;
-    align-self: flex-end;
-    padding: 8px 12px;
-    padding-bottom: 2px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: transparent;
-    color: var(--primary-color);
-    align-items: center;
-    gap: 4px;
-    font-family: var(--font-subtitle);
-    font-weight: var(--font-weight-subtitle);
+  display: flex;
+  align-self: flex-end;
+  padding: 8px 12px;
+  padding-bottom: 2px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--primary-color);
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-subtitle);
+  font-weight: var(--font-weight-subtitle);
 }

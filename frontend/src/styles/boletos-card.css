@@ -1,0 +1,72 @@
+.boletos-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .boletos-header .titulo {
+    font-family: var(--font-subtitle);
+    font-size: var(--font-size-subtitle);
+    font-weight: var(--font-weight-subtitle);
+    color: var(--primary-color);
+  }
+  
+  .boletos-lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .boleto-item {
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+  }
+  
+  /* Cores de status */
+  .boleto-item.ok {
+    background-color: #d4fcd9;
+  }
+  
+  .boleto-item.atencao {
+    background-color: #fcd4d4;
+  }
+  
+  .boleto-item.alerta {
+    background-color: #ffe7c2;
+  }
+  
+  .boleto-info {
+    display: flex;
+    justify-content: space-between;
+    font-weight: var(--font-weight-subtitle);
+    color: var(--text-color);
+  }
+  
+  .vencimento {
+    font-size: 12px;
+    color: #666;
+    margin-left: 2px;
+  }
+  
+  .ver-todos {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-weight: var(--font-weight-subtitle);
+    font-family: var(--font-subtitle);
+    cursor: pointer;
+  }
+  
+  

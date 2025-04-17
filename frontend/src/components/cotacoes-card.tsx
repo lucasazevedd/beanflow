@@ -35,7 +35,7 @@ const CotacoesCard = () => {
       </ul>
 
       <button className="ver-todas">
-        <span>➡️ Ver todas as cotações</span>
+        <span>➡️ VER TODAS AS COTAÇÕES</span>
         <RightArrowIcon className="right-arrow-icon" />
       </button>
     </div>

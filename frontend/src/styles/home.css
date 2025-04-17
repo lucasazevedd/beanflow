@@ -1,7 +1,7 @@
 .home {
     display: flex;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     background-color: #EBEBEB;
   }
   
@@ -10,6 +10,14 @@
     position: fixed;
     top: 0;
     left: 0;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 100vh;
+    margin-left: 80px;
   }
   
   .content {
@@ -24,7 +32,6 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 24px;
-    padding-left: 96px;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     margin-bottom: 24px;
@@ -53,13 +60,11 @@
   .grid-container {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    /* grid-template-rows: auto auto; */
     grid-auto-rows: 1fr;
     gap: 16px;
     padding: var(--padding-default);
-    padding-left: 96px;
-    min-height: 80%;
-    height: 100%;
+    flex: 1;
+    overflow-y: auto;
   }
   
   /* Cards */

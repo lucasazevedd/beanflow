@@ -12,7 +12,7 @@ const BoletosCard = () => {
   return (
     <div className="boletos-card">
       <div className="boletos-header">
-        <span className="titulo">⏳ Boletos próximos do vencimento</span>
+        <span className="titulo">⏳ BOLETOS PRÓXIMOS AO VENCIMENTO</span>
       </div>
 
       <ul className="boletos-lista">
@@ -28,7 +28,7 @@ const BoletosCard = () => {
       </ul>
 
       <button className="ver-todas">
-        <span>ver todos</span>
+        <span>VER TODOS</span>
         <RightArrowIcon className="right-arrow-icon"/>
       </button>
     </div>

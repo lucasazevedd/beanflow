@@ -22,8 +22,14 @@
 }
 
 .logo {
+  fill: #1B5E4B;
   width: 32px;
   height: 32px;
+}
+
+.logo:hover {
+  fill: #90A4AE;
+  transition: 0.3s;
 }
 
 .menu button,
@@ -46,6 +52,11 @@
   fill: #1B5E4B;
   width: 32px;
   margin: 20px;
+}
+
+.sidebar-icons:hover {
+  fill: #90A4AE;
+  transition: 0.3s;
 }
 
 .logo-text {

@@ -43,7 +43,7 @@ const BoletosCard = () => {
       </ul>
 
       <button className="ver-todas">
-        <span>VER TODOS</span>
+        <span>➡️ VER TODOS OS BOLETOS</span>
         <RightArrowIcon className="right-arrow-icon"/>
       </button>
     </div>

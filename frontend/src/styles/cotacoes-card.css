@@ -66,12 +66,13 @@
   color: var(--text-color);
 }
 
-.conteudo .status {
+.conteudo .etapas {
   font-family: var(--font-body);
   font-weight: var(--font-weight-body);
   font-size: var(--font-size-body);
   color: var(--text-color);
   opacity: 0.7;
+  color: #211212;
 }
 
 .add-new-icon {

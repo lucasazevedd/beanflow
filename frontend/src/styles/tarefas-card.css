@@ -1,0 +1,85 @@
+.tarefas-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .tarefas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .tarefas-header .titulo {
+    font-family: var(--font-subtitle);
+    font-size: var(--font-size-subtitle);
+    font-weight: var(--font-weight-subtitle);
+    color: var(--primary-color);
+  }
+  
+  .nova-tarefa {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-family: var(--font-subtitle);
+    font-weight: var(--font-weight-subtitle);
+    font-size: var(--font-size-body);
+    cursor: pointer;
+  }
+
+  .nova-tarefa:hover {
+    text-decoration: underline;
+    transition: 0.3s;
+  }
+  
+  .tarefas-lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .tarefa-item {
+    background-color: #e6f0fa;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .tarefa-titulo {
+    font-family: var(--font-subtitle);
+    font-weight: var(--font-weight-subtitle);
+    font-size: var(--font-size-subtitle);
+    color: var(--text-color);
+  }
+  
+  .tarefa-descricao {
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    color: var(--text-color);
+    opacity: 0.7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .ver-todos {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-weight: var(--font-weight-subtitle);
+    font-family: var(--font-subtitle);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  

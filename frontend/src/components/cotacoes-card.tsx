@@ -28,7 +28,7 @@ const CotacoesCard = () => {
             <div className="linha-lateral"></div>
             <div className="conteudo">
               <span className="cliente">{item.cliente}</span>
-              <span className="status">{statusCotacoes(item.status)}</span>
+              <span className="etapas">{statusCotacoes(item.status)}</span>
             </div>
           </li>
         ))}

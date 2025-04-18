@@ -13,19 +13,19 @@ export function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="top">
-        <LogoIcon className="logo"/>
+        <Link to="/"><LogoIcon className="logo"/></Link>
         <span className="logo-text">BeanFlow</span>
       </div>
 
       <nav className="menu">
-        <button><FileIcon className='sidebar-icons'/></button>
-        <button><PaymentIcon className='sidebar-icons'/></button>
-        <button><CheckIcon className='sidebar-icons'/></button>
+        <Link to=""><FileIcon className='sidebar-icons'/></Link>
+        <Link to=""><PaymentIcon className='sidebar-icons'/></Link>
+        <Link to=""><CheckIcon className='sidebar-icons'/></Link>
         <Link to="/clientes/novo"><ClientsIcon className='sidebar-icons'/></Link>
       </nav>
 
       <div className="bottom">
-        <button><SettingsIcon className='sidebar-icons'/></button>
+        <Link to=""><SettingsIcon className='sidebar-icons'/></Link>
       </div>
     </aside>
   )

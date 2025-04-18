@@ -1,7 +1,7 @@
 .boletos-card {
     background-color: white;
     border-radius: 12px;
-    padding: 16px;
+    padding: 12px 16px;
     padding-top: 8px;
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
   }
   
   .boleto-item {
@@ -61,14 +61,54 @@
     margin-left: 2px;
   }
   
-  .ver-todos {
-    align-self: flex-end;
-    background: none;
-    border: none;
-    color: var(--primary-color);
-    font-weight: var(--font-weight-subtitle);
-    font-family: var(--font-subtitle);
-    cursor: pointer;
+  .boleto-item {
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   }
   
+  /* Cores de status */
+  .boleto-item.vencido,
+  .boleto-item.vermelho {
+    background-color: #fcd4d4;
+  }
+  
+  .boleto-item.laranja {
+    background-color: #ffe7c2;
+  }
+  
+  .boleto-item.amarelo {
+    background-color: #fff6c2;
+  }
+  
+  .boleto-item.verde {
+    background-color: #d4fcd9;
+  }
+  
+  .boleto-item.branco {
+    background-color: #f0f0f0;
+  }
+  
+  .boleto-info {
+    display: flex;
+    justify-content: space-between;
+    font-weight: var(--font-weight-subtitle);
+    color: var(--text-color);
+  }
+  
+  .status {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .valor {
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--text-color);
+  }
   

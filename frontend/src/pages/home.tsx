@@ -4,7 +4,10 @@ import { Footer } from "../components/footer";
 import CotacoesCard from "../components/cotacoes-card";
 import BoletosCard from "../components/boletos-card";
 
+import { useNavigate } from 'react-router-dom';
 import "../styles/home.css";
+
+
 
 export default function Home() {
   return (

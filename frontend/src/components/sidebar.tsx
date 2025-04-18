@@ -5,6 +5,7 @@ import PaymentIcon from "../assets/icons/payment-icon";
 import LogoIcon from "../assets/icons/bean-flow-logo";
 import SettingsIcon from "../assets/icons/settings-icon";
 
+import { Link } from "react-router-dom";
 import "../styles/sidebar.css";
 
 export function Sidebar() {
@@ -20,7 +21,7 @@ export function Sidebar() {
         <button><FileIcon className='sidebar-icons'/></button>
         <button><PaymentIcon className='sidebar-icons'/></button>
         <button><CheckIcon className='sidebar-icons'/></button>
-        <button><ClientsIcon className='sidebar-icons'/></button>
+        <Link to="/clientes/novo"><ClientsIcon className='sidebar-icons'/></Link>
       </nav>
 
       <div className="bottom">

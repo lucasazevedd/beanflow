@@ -56,7 +56,7 @@
   
   .grupo input {
     padding: 12px;
-    border: 1px solid #ccc;
+    border: 1px solid #1B5E4B;
     border-radius: 8px;
     font-size: var(--font-size-body);
     font-family: var(--font-body);
@@ -72,12 +72,16 @@
     border-radius: 8px;
     padding: 12px 24px;
     font-family: var(--font-subtitle);
-    font-weight: var(--font-weight-subtitle);
+    font-weight: var(--font-weight-title);
+    font-size: 16px;
     cursor: pointer;
     transition: background 0.3s;
   }
   
   button[type="submit"]:hover {
-    background-color: #115f4c;
+    background-color: white;
+    color: #1B5E4B;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #1B5E4B;  
   }
   

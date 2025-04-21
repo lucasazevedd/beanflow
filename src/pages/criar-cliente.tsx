@@ -23,18 +23,17 @@ export default function CriarCliente() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await cadastrarCliente(form);
-      alert("Cliente cadastrado com sucesso!");
-      setForm({
-        nome: "",
-        cnpj: "",
-        razaoSocial: "",
-        email: "",
-        telefone: ""
+      await cadastrarCliente({
+        nome: form.nome,
+        razao_social: form.razaoSocial,
+        cnpj: form.cnpj,
+        telefone: form.telefone,
+        email: form.email,
       });
+      alert("Cliente cadastrado com sucesso!");
     } catch (error) {
-      alert("Erro ao cadastrar cliente.");
-      console.error(error);
+      console.error("Erro ao cadastrar cliente", error);
+      alert("Erro ao cadastrar cliente");
     }
   };
 

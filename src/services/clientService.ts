@@ -9,16 +9,15 @@ export async function getClientes() {
 }
 
 export async function cadastrarCliente(cliente: any) {
-    const response = await fetch(`${API_BASE_URL}/clientes`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(cliente)
-    });
-  
-    if (!response.ok) {
-      throw new Error("Erro ao cadastrar cliente");
-    }
-  
-    return response.json();
+  const response = await fetch(`${API_BASE_URL}/clientes`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(cliente),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao cadastrar cliente");
   }
-  
+
+  return response.json();
+}

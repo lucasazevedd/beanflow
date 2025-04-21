@@ -1,0 +1,28 @@
+.lista-clientes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: var(--padding-default);
+    padding-bottom: 0;
+    height: 100%;
+  }
+  
+  .top-bar-clientes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .botoes-clientes {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .search-bar {
+    flex: 1;
+    min-width: 200px;
+  }
+  

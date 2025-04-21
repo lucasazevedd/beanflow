@@ -21,7 +21,7 @@ export function Sidebar() {
         <Link to=""><FileIcon className='sidebar-icons'/></Link>
         <Link to=""><PaymentIcon className='sidebar-icons'/></Link>
         <Link to=""><CheckIcon className='sidebar-icons'/></Link>
-        <Link to="/clientes/novo"><ClientsIcon className='sidebar-icons'/></Link>
+        <Link to="/clientes"><ClientsIcon className='sidebar-icons'/></Link>
       </nav>
 
       <div className="bottom">

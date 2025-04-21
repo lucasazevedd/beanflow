@@ -1,8 +1,0 @@
-{
-    "build": {
-      "builder": "NIXPACKS",
-      "buildCommand": "cd frontend && npm install && npm run build",
-      "startCommand": "cd frontend && npm run preview"
-    }
-  }
-  

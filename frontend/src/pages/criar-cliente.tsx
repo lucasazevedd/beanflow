@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Sidebar } from "../components/sidebar";
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
+import { cadastrarCliente } from "../services/clientService";
 
 import "../styles/criar-cliente.css";
 
@@ -19,17 +20,28 @@ export default function CriarCliente() {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Cliente cadastrado:", form);
+    try {
+      await cadastrarCliente(form);
+      alert("Cliente cadastrado com sucesso!");
+      setForm({
+        nome: "",
+        cnpj: "",
+        razaoSocial: "",
+        email: "",
+        telefone: ""
+      });
+    } catch (error) {
+      alert("Erro ao cadastrar cliente.");
+      console.error(error);
+    }
   };
 
   function formatarTelefone(valor: string) {
-    const somenteNumeros = valor.replace(/\D/g, "").slice(0, 11); // limita a 11 dígitos
+    const somenteNumeros = valor.replace(/\D/g, "").slice(0, 11);
     const match = somenteNumeros.match(/^(\d{0,2})(\d{0,5})(\d{0,4})$/);
-  
     if (!match) return valor;
-  
     const [, ddd, parte1, parte2] = match;
     if (parte2) return `(${ddd}) ${parte1}-${parte2}`;
     if (parte1) return `(${ddd}) ${parte1}`;
@@ -38,11 +50,9 @@ export default function CriarCliente() {
   }
 
   function formatarCNPJ(valor: string) {
-    const numeros = valor.replace(/\D/g, "").slice(0, 14); // limita a 14 dígitos
+    const numeros = valor.replace(/\D/g, "").slice(0, 14);
     const match = numeros.match(/^(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})$/);
-  
     if (!match) return valor;
-  
     const [, parte1, parte2, parte3, parte4, parte5] = match;
     let resultado = "";
     if (parte1) resultado += parte1;
@@ -51,7 +61,7 @@ export default function CriarCliente() {
     if (parte4) resultado += `/${parte4}`;
     if (parte5) resultado += `-${parte5}`;
     return resultado;
-  }  
+  }
 
   return (
     <div className="home">
@@ -83,13 +93,12 @@ export default function CriarCliente() {
                     name="cnpj"
                     id="cnpj"
                     value={form.cnpj}
-                    onChange={(e) => {
-                        const formatado = formatarCNPJ(e.target.value);
-                        setForm({ ...form, cnpj: formatado });
-                    }}
+                    onChange={(e) =>
+                      setForm({ ...form, cnpj: formatarCNPJ(e.target.value) })
+                    }
                     placeholder="00.000.000/0000-00"
                     required
-                    />
+                  />
                 </div>
 
                 <div className="grupo">
@@ -124,10 +133,9 @@ export default function CriarCliente() {
                     name="telefone"
                     id="telefone"
                     value={form.telefone}
-                    onChange={(e) => {
-                        const formatado = formatarTelefone(e.target.value);
-                        setForm({ ...form, telefone: formatado });
-                    }}
+                    onChange={(e) =>
+                      setForm({ ...form, telefone: formatarTelefone(e.target.value) })
+                    }
                     placeholder="(00) 00000-0000"
                   />
                 </div>

@@ -70,7 +70,7 @@ export default function CriarCliente() {
           <Header />
           <div className="criar-cliente-wrapper">
             <form className="form-cliente" onSubmit={handleSubmit}>
-              <h2>Novo Cliente</h2>
+              <h2>NOVO CLIENTE</h2>
 
               <div className="grupo">
                 <label htmlFor="nome">Nome<span>*</span></label>

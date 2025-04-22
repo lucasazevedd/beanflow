@@ -31,7 +31,7 @@ export default function CriarCotacao() {
           <Header />
           <div className="criar-cotacao-wrapper">
             <form className="form-cotacao" onSubmit={handleSubmit}>
-              <h2>Novo Orçamento</h2>
+              <h2>NOVO ORÇAMENTO</h2>
 
               <div className="linha">
                 <div className="grupo">

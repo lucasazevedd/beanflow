@@ -26,6 +26,7 @@
     text-align: center;
     color: var(--primary-color);
     margin-bottom: 16px;
+    margin-top: 16px;
   }
   
   .linha {

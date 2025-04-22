@@ -33,8 +33,8 @@ const CotacoesCard = () => {
 
   return (
     <div className="cotacoes-card">
-      <button className="add-cotacao">
-        <AddNewIcon className="add-new-icon" onClick={() => navigate("/cotacoes/novo")}/>
+      <button className="add-cotacao" onClick={() => navigate("/cotacoes/novo")}>
+        <AddNewIcon className="add-new-icon" />
         NOVO ORÇAMENTO
       </button>
 

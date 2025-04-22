@@ -4,6 +4,7 @@ import CriarCliente from "./pages/criar-cliente";
 import ListaClientes from "./pages/clientes";
 import ListaCotacoes from "./pages/cotacoes";
 import CriarCotacao from "./pages/criar-cotacao";
+import Login from "./pages/login";
 
 export default function AppRoutes() {
   return (
@@ -14,6 +15,7 @@ export default function AppRoutes() {
         <Route path="/clientes/novo" element={<CriarCliente />} />
         <Route path="/cotacoes" element={<ListaCotacoes />} />
         <Route path="/cotacoes/novo" element={<CriarCotacao />} /> 
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

@@ -50,7 +50,7 @@ const CotacoesCard = () => {
         ))}
       </ul>
 
-      <button className="ver-todas">
+      <button className="ver-todas" onClick={() => navigate("/cotacoes")}>
         <span>➡️ VER TODAS AS COTAÇÕES</span>
         <RightArrowIcon className="right-arrow-icon" />
       </button>

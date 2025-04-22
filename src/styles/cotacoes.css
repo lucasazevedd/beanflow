@@ -1,0 +1,20 @@
+.lista-cotacoes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    flex: 1;
+  }
+  
+  .top-bar-cotacoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  
+  .botoes-cotacoes {
+    display: flex;
+    gap: 12px;
+  }
+  

@@ -1,0 +1,82 @@
+.criar-cotacao-wrapper {
+    background-color: white;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 800px;
+    margin: 32px auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex: 1;
+    align-items: center;
+  }
+  
+  .form-cotacao h2 {
+    text-align: center;
+    margin-bottom: 32px;
+    font-family: var(--font-title);
+    font-weight: var(--font-weight-title);
+    color: var(--primary-color);
+  }
+  
+  .form-cotacao .linha {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  
+  .form-cotacao .grupo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-cotacao label {
+    margin-bottom: 8px;
+    font-family: var(--font-subtitle);
+    font-size: var(--font-size-subtitle);
+    font-weight: var(--font-weight-title);
+    color: var(--primary-color);
+  }
+  
+  .form-cotacao input,
+  .form-cotacao textarea {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    background-color: #f0f0f0;
+    resize: none;
+  }
+  
+  .form-cotacao textarea {
+    height: 140px;
+  }
+  
+  .form-cotacao button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-subtitle);
+    font-weight: var(--font-weight-title);
+    font-size: 16px;
+    cursor: pointer;
+    float: right;
+    margin-top: 16px;
+    transition: 0.2s ease;
+  }
+  
+  .form-cotacao button:hover {
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+  }
+  
+  @media (max-width: 768px) {
+    .form-cotacao .linha {
+      flex-direction: column;
+    }
+  }
+  

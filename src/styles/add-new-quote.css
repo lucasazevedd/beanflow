@@ -1,0 +1,35 @@
+.botao-nova-cotacao {
+    align-self: flex-end;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-family: var(--font-subtitle);
+    font-weight: var(--font-weight-title);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-new-quote {
+    fill: white;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    transition: fill 0.3s;
+  }
+  
+  .botao-nova-cotacao:hover {
+    background-color: white;
+    color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--primary-color);
+  }
+  
+  .botao-nova-cotacao:hover .add-new-quote {
+    fill: var(--primary-color);
+  }
+  

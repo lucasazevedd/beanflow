@@ -81,6 +81,7 @@
   }
   
   .form-login button:hover {
-    background-color: #134e3b;
+    background-color: white;
+    fill: var(--primary-color);
   }
   

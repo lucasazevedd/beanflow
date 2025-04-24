@@ -43,9 +43,8 @@ export default function ListaClientes() {
         setLoading(false);
       }
     }
-    // getClientes()
-    //   .then(setClientes)
-    //   .catch((err) => console.error("Erro ao buscar clientes:", err));
+  
+    carregarClientes();
   }, []);
 
   return (

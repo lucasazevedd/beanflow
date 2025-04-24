@@ -1,15 +1,20 @@
 import SearchIcon from "../assets/icons/search-icon";
 import "../styles/search-bar.css";
 
-export default function SearchBar() {
+interface SearchBarProps {
+  onSearch: (termo: string) => void;
+}
+
+export default function SearchBar({ onSearch }: SearchBarProps) {
   return (
     <div className="search-bar">
       <input
         type="text"
         placeholder="Digite um nome ou CNPJ..."
+        onChange={(e) => onSearch(e.target.value)}
         className="search-input"
       />
-      <button className="search-button">
+      <button className="search-button" type="button" onClick={() => onSearch((document.querySelector('.search-input') as HTMLInputElement).value)}>
         <SearchIcon className="search-icon"/>
       </button>
     </div>

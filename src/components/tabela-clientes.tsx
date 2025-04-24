@@ -1,21 +1,20 @@
 import "../styles/tabela-clientes.css";
 
 interface Cliente {
-  id: number | string;
+  id: number;
   nome: string;
   cnpj: string;
-  razaoSocial: string;
+  razaoSocial?: string;
   telefone: string;
   email: string;
-  // Caso você já tenha o campo de último pedido no futuro
   ultimoPedido?: string;
 }
 
-interface Props {
+interface TabelaClientesProps {
   clientes: Cliente[];
 }
 
-export default function TabelaClientes({ clientes }: Props) {
+export default function TabelaClientes({ clientes }: TabelaClientesProps) {
   return (
     <div className="tabela-clientes-wrapper">
       <table className="tabela-clientes">

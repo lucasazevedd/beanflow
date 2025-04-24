@@ -22,7 +22,9 @@ interface Cliente {
 import "../styles/clientes.css";
 
 export default function ListaClientes() {
+  
   const [clientes, setClientes] = useState<Cliente[]>([]);
+  const [termoBusca, setTermoBusca] = useState("");
 
   useEffect(() => {
     getClientes()
@@ -39,7 +41,7 @@ export default function ListaClientes() {
 
           <div className="lista-clientes-container">
             <div className="top-bar-clientes">
-              <SearchBar />
+              <SearchBar onSearch={setTermoBusca} />
               <div className="botoes-clientes">
                 <BotaoFiltro />
                 <BotaoNovoCliente />
@@ -47,7 +49,13 @@ export default function ListaClientes() {
             </div>
 
             {/* 👉 Agora passando os dados pro componente da tabela */}
-            <TabelaClientes clientes={clientes} />
+            <TabelaClientes
+              clientes={clientes.filter(cliente =>
+                cliente.nome.toLowerCase().includes(termoBusca.toLowerCase()) ||
+                cliente.cnpj.toLowerCase().includes(termoBusca.toLowerCase()) ||
+                cliente.razaoSocial?.toLowerCase().includes(termoBusca.toLowerCase())
+              )}
+            />
           </div>
 
           <Footer />

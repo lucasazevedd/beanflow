@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { Sidebar } from "../components/sidebar";
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
+
 import SearchBar from "../components/search-bar";
 import BotaoFiltro from "../components/filters";
 import BotaoNovaCotacao from "../components/add-new-quote";
+
 import { getCotacoes } from "../services/quoteService";
 
 import "../styles/cotacoes.css";
@@ -22,6 +24,8 @@ interface Cotacao {
 export default function ListaCotacoes() {
   const [cotacoes, setCotacoes] = useState<Cotacao[]>([]);
   const [loading, setLoading] = useState(true);
+  const [termoBusca, setTermoBusca] = useState("");
+
 
   useEffect(() => {
     async function carregarCotacoes() {
@@ -38,6 +42,12 @@ export default function ListaCotacoes() {
     carregarCotacoes();
   }, []);
 
+  const cotacoesFiltradas = cotacoes.filter((cotacao) =>
+    cotacao.cliente.toLowerCase().includes(termoBusca.toLowerCase()) ||
+    cotacao.status.toLowerCase().includes(termoBusca.toLowerCase()) ||
+    cotacao.etapa.toLowerCase().includes(termoBusca.toLowerCase())
+  );
+
   return (
     <div className="home">
       <Sidebar />
@@ -47,7 +57,7 @@ export default function ListaCotacoes() {
 
           <div className="lista-cotacoes-container">
             <div className="top-bar-cotacoes">
-              <SearchBar />
+              <SearchBar onSearch={setTermoBusca} />
               <div className="botoes-cotacoes">
                 <BotaoFiltro />
                 <BotaoNovaCotacao />

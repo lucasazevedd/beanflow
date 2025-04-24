@@ -25,11 +25,27 @@ export default function ListaClientes() {
   
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [termoBusca, setTermoBusca] = useState("");
+  const [loading, setLoading] = useState(true);
+  const clientesFiltrados = clientes.filter(cliente =>
+    cliente.nome.toLowerCase().includes(termoBusca.toLowerCase()) ||
+    cliente.cnpj.toLowerCase().includes(termoBusca.toLowerCase()) ||
+    cliente.razaoSocial?.toLowerCase().includes(termoBusca.toLowerCase())
+  );
 
   useEffect(() => {
-    getClientes()
-      .then(setClientes)
-      .catch((err) => console.error("Erro ao buscar clientes:", err));
+    async function carregarClientes() {
+      try {
+        const data = await getClientes();
+        setClientes(data);
+      } catch (error) {
+        console.error("Erro ao buscar clientes:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    // getClientes()
+    //   .then(setClientes)
+    //   .catch((err) => console.error("Erro ao buscar clientes:", err));
   }, []);
 
   return (
@@ -49,13 +65,8 @@ export default function ListaClientes() {
             </div>
 
             {/* 👉 Agora passando os dados pro componente da tabela */}
-            <TabelaClientes
-              clientes={clientes.filter(cliente =>
-                cliente.nome.toLowerCase().includes(termoBusca.toLowerCase()) ||
-                cliente.cnpj.toLowerCase().includes(termoBusca.toLowerCase()) ||
-                cliente.razaoSocial?.toLowerCase().includes(termoBusca.toLowerCase())
-              )}
-            />
+            <TabelaClientes clientes={clientesFiltrados} loading={loading} />
+
           </div>
 
           <Footer />

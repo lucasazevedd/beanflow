@@ -83,7 +83,7 @@ export default function ListaCotacoes() {
                   ) : cotacoes.length === 0 ? (
                     <tr><td colSpan={7}>Nenhuma cotação encontrada</td></tr>
                   ) : (
-                    cotacoes.map((cotacao) => (
+                    cotacoesFiltradas.map((cotacao) => (
                       <tr key={cotacao.id}>
                         <td>{cotacao.id}</td>
                         <td>{cotacao.cliente}</td>
@@ -91,7 +91,7 @@ export default function ListaCotacoes() {
                         <td>{cotacao.status}</td>
                         <td>{cotacao.etapa}</td>
                         <td>{new Date(cotacao.ultima_atualizacao).toLocaleDateString()}</td>
-                        <td>{cotacao.observacoes}</td>
+                        <td>{cotacao.observacoes || "-"}</td>
                       </tr>
                     ))
                   )}

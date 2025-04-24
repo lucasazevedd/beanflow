@@ -12,9 +12,10 @@ interface Cliente {
 
 interface TabelaClientesProps {
   clientes: Cliente[];
+  loading: boolean;
 }
 
-export default function TabelaClientes({ clientes }: TabelaClientesProps) {
+export default function TabelaClientes({ clientes, loading }: TabelaClientesProps) {
   return (
     <div className="tabela-clientes-wrapper">
       <table className="tabela-clientes">
@@ -30,17 +31,27 @@ export default function TabelaClientes({ clientes }: TabelaClientesProps) {
           </tr>
         </thead>
         <tbody>
-          {clientes.map((cliente, index) => (
-            <tr key={index}>
-              <td>{cliente.id}</td>
-              <td>{cliente.nome}</td>
-              <td>{cliente.cnpj}</td>
-              <td>{cliente.razaoSocial}</td>
-              <td>{cliente.telefone}</td>
-              <td>{cliente.email}</td>
-              <td>{cliente.ultimoPedido || "-"}</td>
+          {loading ? (
+            <tr>
+              <td colSpan={7}>Carregando...</td>
             </tr>
-          ))}
+          ) : clientes.length === 0 ? (
+            <tr>
+              <td colSpan={7}>Nenhum cliente encontrado</td>
+            </tr>
+          ) : (
+            clientes.map((cliente, index) => (
+              <tr key={index}>
+                <td>{cliente.id}</td>
+                <td>{cliente.nome}</td>
+                <td>{cliente.cnpj}</td>
+                <td>{cliente.razaoSocial}</td>
+                <td>{cliente.telefone}</td>
+                <td>{cliente.email}</td>
+                <td>{cliente.ultimoPedido || "-"}</td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

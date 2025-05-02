@@ -1,4 +1,4 @@
-import NotificationsIcon from "../assets/icons/notifications-icon";
+// import NotificationsIcon from "../assets/icons/notifications-icon";
 
 import { useEffect, useState } from "react";
 import "../styles/header.css";
@@ -24,9 +24,6 @@ export function Header() {
           <span className="greeting">Olá, Jairo Marinho 👋</span>
         </div>
         <div className="header-right">
-            {/* <button className="icon-button" aria-label="Pesquisar">
-                <SearchIcon className="header-icons" />
-            </button> */}
             {/* <button className="icon-button" aria-label="Notificações">
                 <NotificationsIcon className="header-icons"/>
             </button> */}

@@ -27,9 +27,9 @@ export function Header() {
             {/* <button className="icon-button" aria-label="Pesquisar">
                 <SearchIcon className="header-icons" />
             </button> */}
-            <button className="icon-button" aria-label="Notificações">
+            {/* <button className="icon-button" aria-label="Notificações">
                 <NotificationsIcon className="header-icons"/>
-            </button>
+            </button> */}
             <span className="date">📅 {dataAtual}</span>
         </div>
     </header>

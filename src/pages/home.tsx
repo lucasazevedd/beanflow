@@ -1,5 +1,5 @@
 import { Sidebar } from "../components/sidebar";
-import { Header } from "../components/header";
+// import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 import CotacoesCard from "../components/cotacoes-card";
 import BoletosCard from "../components/boletos-card";
@@ -13,7 +13,7 @@ export default function Home() {
       <Sidebar />
       <div className="main">
         <div className="content">
-          <Header />
+          {/* <Header /> */}
           <div className="grid-container">
             <div className="cotacoes-card">
               <CotacoesCard />

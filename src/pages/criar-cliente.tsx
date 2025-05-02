@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Sidebar } from "../components/sidebar";
-import { Header } from "../components/header";
+// import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 import { cadastrarCliente } from "../services/clientService";
 
@@ -67,7 +67,7 @@ export default function CriarCliente() {
       <Sidebar />
       <div className="main">
         <div className="content">
-          <Header />
+          {/* <Header /> */}
           <div className="criar-cliente-wrapper">
             <form className="form-cliente" onSubmit={handleSubmit}>
               <h2>NOVO CLIENTE</h2>

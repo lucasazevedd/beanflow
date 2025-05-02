@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Sidebar } from "../components/sidebar";
-import { Header } from "../components/header";
+// import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 
 import SearchBar from "../components/search-bar";
@@ -53,8 +53,7 @@ export default function ListaCotacoes() {
       <Sidebar />
       <div className="main">
         <div className="content">
-          <Header />
-
+          {/* <Header /> */}
           <div className="lista-cotacoes-container">
             <div className="top-bar-cotacoes">
               <SearchBar onSearch={setTermoBusca} />

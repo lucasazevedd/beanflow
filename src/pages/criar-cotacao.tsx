@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Sidebar } from "../components/sidebar";
-import { Header } from "../components/header";
+// import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 import "../styles/criar-cotacao.css";
 
@@ -28,7 +28,7 @@ export default function CriarCotacao() {
       <Sidebar />
       <div className="main">
         <div className="content">
-          <Header />
+          {/* <Header /> */}
           <div className="criar-cotacao-wrapper">
             <form className="form-cotacao" onSubmit={handleSubmit}>
               <h2>NOVO ORÇAMENTO</h2>

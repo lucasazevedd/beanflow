@@ -1,5 +1,5 @@
 import { Sidebar } from "../components/sidebar";
-import { Header } from "../components/header";
+// import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 
 import SearchBar from "../components/search-bar";
@@ -52,8 +52,7 @@ export default function ListaClientes() {
       <Sidebar />
       <div className="main">
         <div className="content">
-          <Header />
-
+          {/* <Header /> */}
           <div className="lista-clientes-container">
             <div className="top-bar-clientes">
               <SearchBar onSearch={setTermoBusca} />

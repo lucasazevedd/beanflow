@@ -1,5 +1,5 @@
 import SearchIcon from "../assets/icons/search-icon";
-import "../styles/search-bar.css";
+import "../styles/components/search-bar.css";
 
 interface SearchBarProps {
   onSearch: (termo: string) => void;

@@ -1,4 +1,4 @@
-import "../styles/tabela-clientes.css";
+import "../styles/components/tabela-clientes.css";
 
 interface Cliente {
   id: number;

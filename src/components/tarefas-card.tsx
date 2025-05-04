@@ -1,5 +1,5 @@
 import RightArrowIcon from "../assets/icons/right-arrow-icon";
-import "../styles/tarefas-card.css";
+import "../styles/components/tarefas-card.css";
 
 export default function TarefasCard() {
   const tarefas = [

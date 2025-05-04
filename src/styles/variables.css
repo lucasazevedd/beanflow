@@ -1,32 +1,42 @@
 :root {
-    /* Fontes */
-    --font-title: 'Comfortaa', sans-serif;
-    --font-subtitle: 'Quicksand', sans-serif;
-    --font-body: 'Quicksand', sans-serif;
-  
-    /* Tamanhos de fonte */
-    --font-size-title: 24px;
-    --font-size-subtitle: 18px;
-    --font-size-body: 14px;
-  
-    /* Pesos de fonte */
-    --font-weight-title: 700;
-    --font-weight-subtitle: 500;
-    --font-weight-subtitle-bold: 600;
-    --font-weight-body: 300;
-  
-    /* Cores */
-    --primary-color: #1B5E4B;
-    --secondary-color: #F5F5F5;
-    --accent-color: #FFB703;
-    --text-color: #212121;
-    --background-color: #ffffff;
-  
-    /* Espaçamento */
-    --padding-default: 16px;
-    --margin-default: 16px;
-  
-    /* Bordas */
-    --border-radius: 8px;
-  }
-  
+  /* Fontes */
+  --font-title: 'Comfortaa', sans-serif;
+  --font-subtitle: 'Quicksand', sans-serif;
+  --font-body: 'Quicksand', sans-serif;
+
+  /* Tamanhos de fonte */
+  --font-size-title: 24px;
+  --font-size-subtitle: 18px;
+  --font-size-body: 14px;
+
+  /* Pesos de fonte */
+  --font-weight-title: 700;
+  --font-weight-subtitle: 500;
+  --font-weight-body: 300;
+
+  /* Cores principais do Beanflow */
+  --primary-color: #1B5E4B;         /* Verde escuro principal */
+  --secondary-color: #F5F5F5;       /* Cinza claro */
+  --accent-color: #FFB703;          /* Amarelo destaque */
+  --text-color: #212121;            /* Preto suave para texto */
+  --background-color: #ebebeb;      /* Fundo branco padrão */
+  --white-color: #FFFFFF;          /* Branco puro */
+
+  /* Cores adicionais */
+  --input-background: #f0f0f0;
+  --input-border: #ccc;
+  --table-header-bg: #f3f3f3;
+  --table-border: #e0e0e0;
+
+  /* Layout e espaçamento */
+  --border-radius: 12px;
+  --padding-default: 16px;
+  --margin-default: 16px;
+  --container-max-width: 1200px;
+
+  /* Sombreamento */
+  --box-shadow-default: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  /* Outros */
+  --transition-default: all 0.3s ease;
+}

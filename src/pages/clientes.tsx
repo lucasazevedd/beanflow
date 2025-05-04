@@ -4,7 +4,7 @@ import { Footer } from "../components/footer";
 
 import SearchBar from "../components/search-bar";
 import BotaoFiltro from "../components/filters";
-import BotaoNovoCliente from "../components/add-new-client";
+import BotaoNovo from "../components/botao-novo";
 import TabelaClientes from "../components/tabela-clientes";
 
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ interface Cliente {
   telefone: string;
 }
 
-import "../styles/clientes.css";
+import "../styles/pages/lista-pages.css";
 
 export default function ListaClientes() {
   
@@ -53,12 +53,12 @@ export default function ListaClientes() {
       <div className="main">
         <div className="content">
           {/* <Header /> */}
-          <div className="lista-clientes-container">
-            <div className="top-bar-clientes">
+          <div className="lista-page-container">
+            <div className="top-bar">
               <SearchBar onSearch={setTermoBusca} />
-              <div className="botoes-clientes">
+              <div className="botoes">
                 <BotaoFiltro />
-                <BotaoNovoCliente />
+                <BotaoNovo rota="/clientes/novo" texto="NOVO CLIENTE" />
               </div>
             </div>
 

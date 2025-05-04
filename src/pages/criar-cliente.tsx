@@ -4,7 +4,7 @@ import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
 import { cadastrarCliente } from "../services/clientService";
 
-import "../styles/criar-cliente.css";
+import "../styles/pages/criar-pages.css";
 
 export default function CriarCliente() {
   const [form, setForm] = useState({
@@ -68,8 +68,8 @@ export default function CriarCliente() {
       <div className="main">
         <div className="content">
           {/* <Header /> */}
-          <div className="criar-cliente-wrapper">
-            <form className="form-cliente" onSubmit={handleSubmit}>
+          <div className="criar-form-wrapper">
+            <form className="criar-form" onSubmit={handleSubmit}>
               <h2>NOVO CLIENTE</h2>
 
               <div className="grupo">

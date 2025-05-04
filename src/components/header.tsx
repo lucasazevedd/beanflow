@@ -1,7 +1,7 @@
 // import NotificationsIcon from "../assets/icons/notifications-icon";
 
 import { useEffect, useState } from "react";
-import "../styles/header.css";
+import "../styles/components/header.css";
 
 export function Header() {
 

@@ -2,14 +2,25 @@ import { useState } from "react";
 import { Sidebar } from "../components/sidebar";
 // import { Header } from "../components/header";
 import { Footer } from "../components/footer";
-import "../styles/criar-cotacao.css";
+
+import "../styles/pages/criar-pages.css";
+
+function formatarValor(valor: string) {
+  const somenteNumeros = valor.replace(/\D/g, "");
+  const valorFormatado = (parseInt(somenteNumeros || "0") / 100).toFixed(2);
+  return "R$ " + valorFormatado.replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
 
 export default function CriarCotacao() {
   const [form, setForm] = useState({
     cliente: "",
     data: "",
-    observacoes: ""
+    observacoes: "",
+    valor: "",
   });
+
+  const hoje = new Date().toISOString().split("T")[0];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -18,10 +29,14 @@ export default function CriarCotacao() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+  
+    if (parseFloat(form.valor) <= 0 || isNaN(parseFloat(form.valor))) {
+      alert("O valor da cotação deve ser maior que zero.");
+      return;
+    }
+  
     console.log("Nova cotação:", form);
   };
-
-  const hoje = new Date().toISOString().split("T")[0];
 
   return (
     <div className="home">
@@ -29,33 +44,48 @@ export default function CriarCotacao() {
       <div className="main">
         <div className="content">
           {/* <Header /> */}
-          <div className="criar-cotacao-wrapper">
-            <form className="form-cotacao" onSubmit={handleSubmit}>
+          <div className="criar-form-wrapper">
+            <form className="criar-form" onSubmit={handleSubmit}>
               <h2>NOVO ORÇAMENTO</h2>
+
+              <div className="grupo">
+                <label htmlFor="cliente">Cliente<span>*</span></label>
+                <input
+                  type="text"
+                  name="cliente"
+                  id="cliente"
+                  value={form.cliente}
+                  onChange={handleChange}
+                  required
+                  placeholder="Digite um nome ou CNPJ..."
+                />
+              </div>
+
+              <div className="grupo">
+                <label htmlFor="valor">Valor Total (R$)<span>*</span></label>
+                <input
+                  type="text"
+                  name="valor"
+                  id="valor"
+                  value={form.valor}
+                  onChange={(e) =>
+                    setForm({ ...form, valor: formatarValor(e.target.value) })
+                  }
+                  placeholder="R$ 0,00"
+                  required
+                />
+              </div>
 
               <div className="linha">
                 <div className="grupo">
-                  <label htmlFor="cliente">Cliente</label>
-                  <input
-                    type="text"
-                    name="cliente"
-                    id="cliente"
-                    placeholder="Digite um nome ou CNPJ..."
-                    value={form.cliente}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="grupo">
-                  <label htmlFor="data">Data</label>
+                  <label htmlFor="data">Data<span>*</span></label>
                   <input
                     type="date"
                     name="data"
                     id="data"
-                    max={hoje}
                     value={form.data}
                     onChange={handleChange}
+                    max={hoje}
                     required
                   />
                 </div>
@@ -75,8 +105,8 @@ export default function CriarCotacao() {
               <button type="submit">Criar</button>
             </form>
           </div>
-          <Footer />
         </div>
+        <Footer />
       </div>
     </div>
   );

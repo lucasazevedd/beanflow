@@ -4,7 +4,7 @@ import { statusCotacoes } from "../constants/statusCotacoes";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import '../styles/cotacoes-card.css';
+import '../styles/components/cotacoes-card.css';
 
 interface Cotacao {
   cliente: string;

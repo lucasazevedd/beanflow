@@ -5,11 +5,10 @@ import { Footer } from "../components/footer";
 
 import SearchBar from "../components/search-bar";
 import BotaoFiltro from "../components/filters";
-import BotaoNovaCotacao from "../components/add-new-quote";
-
+import BotaoNovo from "../components/botao-novo";
 import { getCotacoes } from "../services/quoteService";
 
-import "../styles/cotacoes.css";
+import "../styles/pages/lista-pages.css";
 
 interface Cotacao {
   id: number;
@@ -17,9 +16,10 @@ interface Cotacao {
   data: string;
   status: string;
   etapa: string;
-  ultima_atualizacao: string;
+  valor: string;
   observacoes: string;
 }
+
 
 export default function ListaCotacoes() {
   const [cotacoes, setCotacoes] = useState<Cotacao[]>([]);
@@ -54,47 +54,48 @@ export default function ListaCotacoes() {
       <div className="main">
         <div className="content">
           {/* <Header /> */}
-          <div className="lista-cotacoes-container">
-            <div className="top-bar-cotacoes">
+          <div className="lista-page-container">
+            <div className="top-bar">
               <SearchBar onSearch={setTermoBusca} />
-              <div className="botoes-cotacoes">
+              <div className="botoes">
                 <BotaoFiltro />
-                <BotaoNovaCotacao />
+                <BotaoNovo rota="/cotacoes/novo" texto="NOVO ORÇAMENTO" />
               </div>
             </div>
 
             <div className="tabela-clientes-wrapper">
               <table className="tabela-clientes">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Data</th>
-                    <th>Status</th>
-                    <th>Próxima Etapa</th>
-                    <th>Última Atualização</th>
-                    <th>Observações</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {loading ? (
-                    <tr><td colSpan={7}>Carregando...</td></tr>
-                  ) : cotacoes.length === 0 ? (
-                    <tr><td colSpan={7}>Nenhuma cotação encontrada</td></tr>
-                  ) : (
-                    cotacoesFiltradas.map((cotacao) => (
-                      <tr key={cotacao.id}>
-                        <td>{cotacao.id}</td>
-                        <td>{cotacao.cliente}</td>
-                        <td>{cotacao.data}</td>
-                        <td>{cotacao.status}</td>
-                        <td>{cotacao.etapa}</td>
-                        <td>{new Date(cotacao.ultima_atualizacao).toLocaleDateString()}</td>
-                        <td>{cotacao.observacoes || "-"}</td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Cliente</th>
+                  <th>Data</th>
+                  <th>Status</th>
+                  <th>Etapa</th>
+                  <th>Valor</th>
+                  <th>Observações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {loading ? (
+                  <tr><td colSpan={7}>Carregando...</td></tr>
+                ) : cotacoes.length === 0 ? (
+                  <tr><td colSpan={7}>Nenhuma cotação encontrada</td></tr>
+                ) : (
+                  cotacoesFiltradas.map((cotacao) => (
+                    <tr key={cotacao.id}>
+                      <td>{cotacao.id}</td>
+                      <td>{cotacao.cliente}</td>
+                      <td>{new Date(cotacao.data).toLocaleDateString()}</td>
+                      <td>{cotacao.status}</td>
+                      <td>{cotacao.etapa}</td>
+                      <td>{cotacao["valor"] || "R$ 0,00"}</td>
+                      <td>{cotacao.observacoes || "-"}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+
               </table>
             </div>
           </div>

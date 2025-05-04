@@ -1,4 +1,4 @@
-import "../styles/login.css";
+import "../styles/pages/login.css";
 import LogoIcon from "../assets/icons/bean-flow-logo";
 
 export default function Login() {

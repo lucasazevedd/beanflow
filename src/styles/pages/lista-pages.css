@@ -1,4 +1,4 @@
-.lista-cotacoes-container {
+.lista-page-container {
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -6,15 +6,16 @@
     flex: 1;
   }
   
-  .top-bar-cotacoes {
+  .top-bar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     gap: 24px;
   }
   
-  .botoes-cotacoes {
+  .botoes {
     display: flex;
-    gap: 12px;
+    gap: 24px;
+    white-space: nowrap;
   }
   

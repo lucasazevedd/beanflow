@@ -1,5 +1,5 @@
 import RightArrowIcon from "../assets/icons/right-arrow-icon";
-import "../styles/boletos-card.css";
+import "../styles/components/boletos-card.css";
 
 const getStatusBoleto = (vencimento: string) => {
   const hoje = new Date();

@@ -6,7 +6,7 @@ import LogoIcon from "../assets/icons/bean-flow-logo";
 import SettingsIcon from "../assets/icons/settings-icon";
 
 import { Link } from "react-router-dom";
-import "../styles/sidebar.css";
+import "../styles/components/sidebar.css";
 
 export function Sidebar() {
   console.log("Sidebar renderizou");

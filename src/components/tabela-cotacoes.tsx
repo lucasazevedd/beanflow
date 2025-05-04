@@ -1,4 +1,4 @@
-import "../styles/tabela-cotacoes.css";
+import "../styles/components/tabela-cotacoes.css";
 
 const cotacoes = [
   {

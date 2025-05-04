@@ -5,7 +5,7 @@ import CotacoesCard from "../components/cotacoes-card";
 import BoletosCard from "../components/boletos-card";
 import TarefasCard from "../components/tarefas-card";
 
-import "../styles/home.css";
+import "../styles/pages/home.css";
 
 export default function Home() {
   return (

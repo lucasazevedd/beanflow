@@ -1,0 +1,28 @@
+.botao-novo {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-family: var(--font-subtitle);
+    font-weight: var(--font-weight-title);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    fill: var(--white-color);
+  }
+  
+  .botao-novo:hover {
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    fill: var(--primary-color);
+  }
+  
+  .icone-novo {
+    width: 20px;
+    height: 20px;
+  }

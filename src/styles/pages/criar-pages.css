@@ -112,3 +112,26 @@ button[type="submit"]:hover {
   border: 1px solid var(--primary-color);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
+
+.sugestoes-clientes {
+  list-style: none;
+  background: white;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 4px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  padding: 0;
+}
+
+.sugestoes-clientes li {
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.sugestoes-clientes li:hover {
+  background-color: var(--primary-color-transparent);
+}

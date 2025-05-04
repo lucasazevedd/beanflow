@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Sidebar } from "../components/sidebar";
 // import { Header } from "../components/header";
 import { Footer } from "../components/footer";
+import { getClientes } from "../services/clientService";
 
 import "../styles/pages/criar-pages.css";
 
@@ -11,13 +12,12 @@ function formatarValor(valor: string) {
   return "R$ " + valorFormatado.replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-
 export default function CriarCotacao() {
   const [form, setForm] = useState({
-    cliente: "",
+    clienteId: "",
     data: "",
     observacoes: "",
-    valor: "",
+    valor: ""
   });
 
   const hoje = new Date().toISOString().split("T")[0];
@@ -30,13 +30,45 @@ export default function CriarCotacao() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
   
-    if (parseFloat(form.valor) <= 0 || isNaN(parseFloat(form.valor))) {
+    if (!form.clienteId) {
+      alert("Selecione um cliente válido.");
+      return;
+    }
+  
+    const valorNumerico = parseFloat(
+      form.valor.replace(/[^\d,]/g, "").replace(",", ".")
+    );
+    if (valorNumerico <= 0 || isNaN(valorNumerico)) {
       alert("O valor da cotação deve ser maior que zero.");
       return;
     }
   
     console.log("Nova cotação:", form);
   };
+  
+
+  interface Cliente {
+    id: number;
+    nome: string;
+    cnpj: string;
+  }
+
+  const [clientes, setClientes] = useState<Cliente[]>([]);
+
+  useEffect(() => {
+    async function carregarClientes() {
+      try {
+        const data = await getClientes(); // serviço que busca os clientes
+        setClientes(data);
+      } catch (error) {
+        console.error("Erro ao buscar clientes:", error);
+      }
+    }
+    carregarClientes();
+  }, []);
+
+  const [clienteBusca, setClienteBusca] = useState("");
+  const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
 
   return (
     <div className="home">
@@ -49,16 +81,40 @@ export default function CriarCotacao() {
               <h2>NOVO ORÇAMENTO</h2>
 
               <div className="grupo">
-                <label htmlFor="cliente">Cliente<span>*</span></label>
+                <label htmlFor="cliente">Cliente</label>
                 <input
                   type="text"
-                  name="cliente"
                   id="cliente"
-                  value={form.cliente}
-                  onChange={handleChange}
-                  required
-                  placeholder="Digite um nome ou CNPJ..."
+                  placeholder="Digite o nome do cliente"
+                  value={clienteBusca}
+                  onChange={(e) => {
+                    setClienteBusca(e.target.value);
+                    setClienteSelecionado(null);
+                  }}
+                  disabled={!!clienteSelecionado}
                 />
+                {clienteBusca && (
+                  <ul className="sugestoes-clientes">
+                    {clientes
+                      .filter((c) =>
+                        c.nome.toLowerCase().includes(clienteBusca.toLowerCase()) ||
+                        c.cnpj.includes(clienteBusca)
+                      )
+                      .slice(0, 5)
+                      .map((cliente) => (
+                        <li
+                          key={cliente.id}
+                          onClick={() => {
+                            setClienteSelecionado(cliente);
+                            setClienteBusca(cliente.nome + " – " + cliente.cnpj);
+                            setForm({ ...form, clienteId: cliente.id.toString() });
+                          }}
+                        >
+                          {cliente.nome} – {cliente.cnpj}
+                        </li>
+                      ))}
+                  </ul>
+                )}
               </div>
 
               <div className="grupo">

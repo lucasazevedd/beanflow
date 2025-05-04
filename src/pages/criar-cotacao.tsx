@@ -3,6 +3,7 @@ import { Sidebar } from "../components/sidebar";
 // import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 import { getClientes } from "../services/clientService";
+import { createCotacao } from "../services/quoteService";
 
 import "../styles/pages/criar-pages.css";
 
@@ -27,24 +28,34 @@ export default function CriarCotacao() {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
-    if (!form.clienteId) {
-      alert("Selecione um cliente válido.");
-      return;
-    }
   
     const valorNumerico = parseFloat(
       form.valor.replace(/[^\d,]/g, "").replace(",", ".")
     );
+  
     if (valorNumerico <= 0 || isNaN(valorNumerico)) {
       alert("O valor da cotação deve ser maior que zero.");
       return;
     }
   
-    console.log("Nova cotação:", form);
+    try {
+      const response = await createCotacao({
+        clienteId: parseInt(form.clienteId),
+        valor: form.valor,
+        observacoes: form.observacoes
+      });
+  
+      console.log("Cotação criada:", response.cotacao);
+      alert("Cotação cadastrada com sucesso!");
+      // Você pode redirecionar aqui se quiser
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao criar cotação.");
+    }
   };
+  
   
 
   interface Cliente {

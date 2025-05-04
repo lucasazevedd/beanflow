@@ -123,7 +123,7 @@ button[type="submit"]:hover {
   border-radius: 6px;
   position: absolute;
   z-index: 10;
-  width: 100%;
+  max-width: 30%;
   padding: 0;
 }
 

@@ -42,21 +42,20 @@ export default function CriarCotacao() {
   
     try {
       const response = await createCotacao({
-        clienteId: parseInt(form.clienteId),
-        valor: form.valor,
-        observacoes: form.observacoes
+        cliente_id: parseInt(form.clienteId),
+        valor_total: valorNumerico,
+        observacoes: form.observacoes,
+        etapa: "Realizar orçamento", // opcional
       });
   
       console.log("Cotação criada:", response.cotacao);
       alert("Cotação cadastrada com sucesso!");
-      // Você pode redirecionar aqui se quiser
+      // redirecionar se quiser
     } catch (error) {
       console.error(error);
       alert("Erro ao criar cotação.");
     }
   };
-  
-  
 
   interface Cliente {
     id: number;

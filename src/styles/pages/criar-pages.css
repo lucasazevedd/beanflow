@@ -125,6 +125,7 @@ button[type="submit"]:hover {
   z-index: 10;
   max-width: 30%;
   padding: 0;
+  font-family: var(--font-body);
 }
 
 .sugestoes-clientes li {

@@ -4,6 +4,7 @@ import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
 import { getClientes } from "../services/clientService";
 import { createCotacao } from "../services/quoteService";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/pages/criar-pages.css";
 
@@ -16,46 +17,54 @@ function formatarValor(valor: string) {
 export default function CriarCotacao() {
   const [form, setForm] = useState({
     clienteId: "",
-    data: "",
+    // data: "",
     observacoes: "",
     valor: ""
   });
 
-  const hoje = new Date().toISOString().split("T")[0];
+  // const hoje = new Date().toISOString().split("T")[0];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
+    if (!clienteSelecionado) {
+      alert("Selecione um cliente da lista.");
+      return;
+    }
+
     const valorNumerico = parseFloat(
       form.valor.replace(/[^\d,]/g, "").replace(",", ".")
     );
-  
+
     if (valorNumerico <= 0 || isNaN(valorNumerico)) {
       alert("O valor da cotação deve ser maior que zero.");
       return;
     }
-  
+
     try {
       const response = await createCotacao({
         cliente_id: Number(form.clienteId),
         valor_total: valorNumerico,
-        observacoes: form.observacoes,
-        etapa: "Realizar orçamento", 
+        observacoes: form.observacoes || undefined,
+        // etapa é opcional, então pode ser omitida
       });
-  
+
       console.log("Cotação criada:", response.cotacao);
       alert("Cotação cadastrada com sucesso!");
-      // redirecionar se quiser
+      navigate("/cotacoes");
     } catch (error) {
       console.error(error);
       alert("Erro ao criar cotação.");
     }
   };
+
 
   interface Cliente {
     id: number;
@@ -142,7 +151,7 @@ export default function CriarCotacao() {
                 />
               </div>
 
-              <div className="linha">
+              {/* <div className="linha">
                 <div className="grupo">
                   <label htmlFor="data">Data<span>*</span></label>
                   <input
@@ -155,7 +164,7 @@ export default function CriarCotacao() {
                     required
                   />
                 </div>
-              </div>
+              </div> */}
 
               <div className="grupo">
                 <label htmlFor="observacoes">Observações</label>

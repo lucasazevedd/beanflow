@@ -14,14 +14,16 @@ export async function createCotacao(data: {
   cliente_id: number;
   valor_total: number;
   observacoes?: string;
-  etapa?: string;
+  etapa?: string; // o backend aceita, mas também define default se não vier
 }) {
+  const bodyData = { ...data };
+
   const response = await fetch(`${API_BASE_URL}/cotacoes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(bodyData),
   });
 
   if (!response.ok) {

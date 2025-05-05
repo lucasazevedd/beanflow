@@ -42,10 +42,10 @@ export default function CriarCotacao() {
   
     try {
       const response = await createCotacao({
-        cliente_id: parseInt(form.clienteId),
+        cliente_id: Number(form.clienteId),
         valor_total: valorNumerico,
         observacoes: form.observacoes,
-        etapa: "Realizar orçamento", // opcional
+        etapa: "Realizar orçamento", 
       });
   
       console.log("Cotação criada:", response.cotacao);
@@ -99,31 +99,31 @@ export default function CriarCotacao() {
                   value={clienteBusca}
                   onChange={(e) => {
                     setClienteBusca(e.target.value);
-                    setClienteSelecionado(null);
+                    setClienteSelecionado(null); // Limpa seleção anterior
                   }}
                   disabled={!!clienteSelecionado}
                 />
                 {clienteBusca && (
                   <ul className="sugestoes-clientes">
-                    {clientes
-                      .filter((c) =>
-                        c.nome.toLowerCase().includes(clienteBusca.toLowerCase()) ||
-                        c.cnpj.includes(clienteBusca)
-                      )
-                      .slice(0, 5)
-                      .map((cliente) => (
-                        <li
-                          key={cliente.id}
-                          onClick={() => {
-                            setClienteSelecionado(cliente);
-                            setClienteBusca(cliente.nome + " – " + cliente.cnpj);
-                            setForm({ ...form, clienteId: cliente.id.toString() });
-                          }}
-                        >
-                          {cliente.nome} – {cliente.cnpj}
-                        </li>
-                      ))}
-                  </ul>
+                  {clientes
+                    .filter((c) =>
+                      c.nome.toLowerCase().includes(clienteBusca.toLowerCase()) ||
+                      c.cnpj.includes(clienteBusca)
+                    )
+                    .slice(0, 5)
+                    .map((cliente) => (
+                      <li
+                        key={cliente.id}
+                        onClick={() => {
+                          setClienteSelecionado(cliente); // salva o cliente completo
+                          setClienteBusca(`${cliente.nome} – ${cliente.cnpj}`); // preenche o campo de texto
+                          setForm({ ...form, clienteId: cliente.id.toString() }); // salva apenas o ID
+                        }}
+                      >
+                        {cliente.nome} – {cliente.cnpj}
+                      </li>
+                    ))}
+                </ul>
                 )}
               </div>
 

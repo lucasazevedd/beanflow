@@ -92,6 +92,28 @@
   border: 1px solid var(--primary-color);
 }
 
+.logoff {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px;
+  font-size: var(--font-size-body);
+  font-family: var(--font-subtitle);
+  font-weight: var(--font-weight-subtitle);
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition-default);
+}
+
+.logoff:hover {
+  background-color: var(--white-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  box-shadow: var(--box-shadow-default)
+}
+
 button[type="submit"] {
   align-self: flex-end;
   background-color: var(--primary-color);
@@ -116,16 +138,17 @@ button[type="submit"]:hover {
 .sugestoes-clientes {
   list-style: none;
   background: white;
-  border: 1px solid #ccc;
+  border: 1px solid var(--primary-color);
   max-height: 200px;
   overflow-y: auto;
   margin-top: 4px;
-  border-radius: 6px;
+  border-radius: 8px;
   position: absolute;
   z-index: 10;
   max-width: 30%;
   padding: 0;
   font-family: var(--font-body);
+  color: var(--primary-color);
 }
 
 .sugestoes-clientes li {

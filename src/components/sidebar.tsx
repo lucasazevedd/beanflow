@@ -19,13 +19,13 @@ export function Sidebar() {
 
       <nav className="menu">
         <Link to="/cotacoes"><FileIcon className='sidebar-icons'/></Link>
-        <Link to=""><PaymentIcon className='sidebar-icons'/></Link>
-        <Link to=""><CheckIcon className='sidebar-icons'/></Link>
+        <Link to="/boletos"><PaymentIcon className='sidebar-icons'/></Link>
+        <Link to="/tarefas"><CheckIcon className='sidebar-icons'/></Link>
         <Link to="/clientes"><ClientsIcon className='sidebar-icons'/></Link>
       </nav>
 
       <div className="bottom">
-        <Link to=""><SettingsIcon className='sidebar-icons'/></Link>
+        <Link to="/configuracoes"><SettingsIcon className='sidebar-icons'/></Link>
       </div>
     </aside>
   )

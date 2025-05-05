@@ -3,7 +3,7 @@ import { Sidebar } from "../components/sidebar";
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 import { useParams } from "react-router-dom";
-import "../styles/components/editar-cotacoes.css";
+import "../styles/pages/editar-cotacoes.css";
 
 interface Etapa {
   nome: string;

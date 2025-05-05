@@ -7,6 +7,9 @@ import CriarCotacao from "./pages/criar-cotacao";
 import Login from "./pages/login";
 import EditarCotacao from "./pages/editar-cotacoes";
 import CriarBoleto from "./pages/criar-boleto";
+import CriarTarefa from "./pages/criar-tarefas";
+import Configuracoes from "./pages/configuracoes";
+import ListaTarefas from "./pages/tarefas";
 
 export default function AppRoutes() {
   return (
@@ -18,8 +21,11 @@ export default function AppRoutes() {
         <Route path="/cotacoes" element={<ListaCotacoes />} />
         <Route path="/cotacoes/novo" element={<CriarCotacao />} /> 
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/cotacoes/editar/:id" element={<EditarCotacao />} /> */}
+        <Route path="/cotacoes/editar/:id" element={<EditarCotacao />} />
         <Route path="/boletos/novo" element={<CriarBoleto />} />
+        <Route path="/tarefas/novo" element={<CriarTarefa />} />
+        <Route path="/configuracoes" element={<Configuracoes />} />
+        <Route path="/tarefas" element={<ListaTarefas />} />
       </Routes>
     </BrowserRouter>
   );

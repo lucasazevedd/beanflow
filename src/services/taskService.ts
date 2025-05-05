@@ -1,23 +1,24 @@
 import { API_BASE_URL } from "./api";
 
 export async function createTarefa(tarefa: {
-  responsavel: string;
-  descricao: string;
-}) {
-  const response = await fetch(`${API_BASE_URL}/tarefas`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(tarefa),
-  });
-
-  if (!response.ok) {
-    throw new Error("Erro ao criar tarefa");
+    titulo: string;
+    descricao: string;
+  }) {
+    const response = await fetch(`${API_BASE_URL}/tarefas`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(tarefa),
+    });
+  
+    if (!response.ok) {
+      throw new Error("Erro ao criar tarefa");
+    }
+  
+    return response.json();
   }
-
-  return response.json();
-}
+  
 
 export async function getTarefas() {
     const response = await fetch(`${API_BASE_URL}/tarefas`, {

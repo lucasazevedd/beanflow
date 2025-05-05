@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
+import { createTarefa } from "../services/taskService";
+
 import "../styles/pages/criar-pages.css";
 
 export default function CriarTarefa() {
@@ -23,8 +25,10 @@ export default function CriarTarefa() {
     }
 
     try {
-      // Substitua pela função correta de serviço
-      console.log("Enviando tarefa:", form);
+      await createTarefa({
+        titulo: form.titulo,
+        descricao: form.descricao,
+      });
       alert("Tarefa criada com sucesso!");
       setForm({ titulo: "", descricao: "" });
     } catch (error) {

@@ -43,9 +43,9 @@ export default function ListaCotacoes() {
   }, []);
 
   const cotacoesFiltradas = cotacoes.filter((cotacao) =>
-    cotacao.cliente.toLowerCase().includes(termoBusca.toLowerCase()) ||
-    cotacao.status.toLowerCase().includes(termoBusca.toLowerCase()) ||
-    cotacao.etapa.toLowerCase().includes(termoBusca.toLowerCase())
+    cotacao.cliente?.toLowerCase().includes(termoBusca.toLowerCase()) ||
+    cotacao.status?.toLowerCase().includes(termoBusca.toLowerCase()) ||
+    cotacao.etapa?.toLowerCase().includes(termoBusca.toLowerCase())
   );
 
   return (

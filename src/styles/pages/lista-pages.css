@@ -18,4 +18,8 @@
     gap: 24px;
     white-space: nowrap;
   }
-  
+
+  .task-buttons {
+    outline: none;
+    margin: 0 10px;
+  }

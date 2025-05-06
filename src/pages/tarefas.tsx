@@ -85,11 +85,11 @@ export default function ListaTarefas() {
                         <td>{tarefa.titulo}</td>
                         <td>{tarefa.descricao}</td>
                         <td>
-                          <button onClick={() => handleExcluir(tarefa.id)} title="Concluir">
-                            ✅
+                          <button className="task-buttons" onClick={() => handleExcluir(tarefa.id)} title="Concluir">
+                            Concluir ✅
                           </button>
-                          <button onClick={() => handleExcluir(tarefa.id)} title="Excluir">
-                            ❌
+                          <button className="task-buttons" onClick={() => handleExcluir(tarefa.id)} title="Excluir">
+                            Excluir ❌
                           </button>
                         </td>
                       </tr>

@@ -58,8 +58,10 @@ export default function CriarCotacao() {
       return;
     }
 
-    const valorNumerico = parseFloat(
-      form.valor.replace(/[^\d,]/g, "").replace(",", ".")
+    const valorNumerico = Number(
+      parseFloat(
+        form.valor.replace(/[^\d,]/g, "").replace(",", ".")
+      ).toFixed(2)
     );
 
     if (isNaN(valorNumerico) || valorNumerico <= 0) {

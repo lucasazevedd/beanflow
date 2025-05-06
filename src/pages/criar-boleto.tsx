@@ -1,15 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
+import { getClientes } from "../services/clientService"; // ⬅️ Adicionado
 import "../styles/pages/criar-pages.css";
+
+interface Cliente {
+  id: number;
+  nome: string;
+  cnpj: string;
+}
 
 export default function CriarBoleto() {
   const [form, setForm] = useState({
-    cliente: "",
     data: new Date().toISOString().split("T")[0],
     vencimento: "30",
     valor: ""
   });
+
+  const [clienteBusca, setClienteBusca] = useState("");
+  const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
+  const [clientes, setClientes] = useState<Cliente[]>([]);
+
+  useEffect(() => {
+    async function carregarClientes() {
+      try {
+        const data = await getClientes();
+        setClientes(data);
+      } catch (error) {
+        console.error("Erro ao buscar clientes:", error);
+      }
+    }
+
+    carregarClientes();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -18,7 +41,7 @@ export default function CriarBoleto() {
 
   const formatarValor = (valor: string) => {
     const apenasNumeros = valor.replace(/\D/g, "");
-    const numero = (parseInt(apenasNumeros) / 100).toFixed(2);
+    const numero = (parseInt(apenasNumeros || "0") / 100).toFixed(2);
     return "R$ " + numero.replace(".", ",");
   };
 
@@ -35,15 +58,23 @@ export default function CriarBoleto() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!clienteSelecionado) {
+      alert("Selecione um cliente.");
+      return;
+    }
+
     const dataVencimento = calcularDataVencimento(parseInt(form.vencimento));
 
     const boleto = {
-      ...form,
-      vencimento: dataVencimento
+      cliente_id: clienteSelecionado.id, // 👈 pega ID do cliente
+      data: form.data,
+      vencimento: dataVencimento,
+      valor: form.valor
     };
 
     console.log("Novo boleto:", boleto);
-    // enviar para backend futuramente
+    // Enviar para backend futuramente
   };
 
   return (
@@ -57,16 +88,40 @@ export default function CriarBoleto() {
 
               <div className="linha">
                 <div className="grupo">
-                  <label htmlFor="cliente">Cliente</label>
+                  <label htmlFor="cliente">Cliente<span>*</span></label>
                   <input
                     type="text"
-                    name="cliente"
                     id="cliente"
                     placeholder="Digite um nome ou CNPJ..."
-                    value={form.cliente}
-                    onChange={handleChange}
+                    value={clienteBusca}
+                    onChange={(e) => {
+                      setClienteBusca(e.target.value);
+                      setClienteSelecionado(null);
+                    }}
+                    disabled={!!clienteSelecionado}
                     required
                   />
+                  {clienteBusca && !clienteSelecionado && (
+                    <ul className="sugestoes-clientes">
+                      {clientes
+                        .filter((c) =>
+                          c.nome.toLowerCase().includes(clienteBusca.toLowerCase()) ||
+                          c.cnpj.includes(clienteBusca)
+                        )
+                        .slice(0, 5)
+                        .map((cliente) => (
+                          <li
+                            key={cliente.id}
+                            onClick={() => {
+                              setClienteSelecionado(cliente);
+                              setClienteBusca(`${cliente.nome} – ${cliente.cnpj}`);
+                            }}
+                          >
+                            {cliente.nome} – {cliente.cnpj}
+                          </li>
+                        ))}
+                    </ul>
+                  )}
                 </div>
 
                 <div className="grupo">

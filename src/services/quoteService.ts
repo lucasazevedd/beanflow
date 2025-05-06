@@ -4,6 +4,7 @@ export async function getCotacoes() {
   const response = await fetch(`${API_BASE_URL}/cotacoes`);
 
   if (!response.ok) {
+    console.error("Erro ao buscar cotações:", response.statusText);
     throw new Error("Erro ao buscar cotações");
   }
 
@@ -14,19 +15,19 @@ export async function createCotacao(data: {
   cliente_id: number;
   valor_total: number;
   observacoes?: string;
-  etapa?: string; // o backend aceita, mas também define default se não vier
+  etapa?: string;
 }) {
-  const bodyData = { ...data };
-
   const response = await fetch(`${API_BASE_URL}/cotacoes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(bodyData),
+    body: JSON.stringify(data),
   });
 
   if (!response.ok) {
+    const errorText = await response.text();
+    console.error("Erro ao criar cotação:", errorText);
     throw new Error("Erro ao criar cotação");
   }
 

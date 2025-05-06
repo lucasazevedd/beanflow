@@ -17,7 +17,7 @@ function formatarValor(valor: string) {
 
 export default function CriarCotacao() {
   const [form, setForm] = useState({
-    cliente_id: "",
+    clienteId: "",
     valor: "",
     observacoes: "",
   });
@@ -101,9 +101,9 @@ export default function CriarCotacao() {
                 <select
                   id="clienteId"
                   name="clienteId"
-                  value={form.cliente_id}
+                  value={form.clienteId}
                   onChange={(e) =>
-                    setForm({ ...form, cliente_id: e.target.value })
+                    setForm({ ...form, clienteId: e.target.value })
                   }
                   required
                 >

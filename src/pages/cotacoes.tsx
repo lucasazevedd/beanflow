@@ -87,7 +87,7 @@ export default function ListaCotacoes() {
                         <td>{new Date(cotacao.data_criacao).toLocaleDateString()}</td>
                         <td>{cotacao.status}</td>
                         <td>{cotacao.etapa}</td>
-                        <td>{cotacao.valor_total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</td>
+                        <td>{cotacao.valor_total ? Number(cotacao.valor_total).toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) : "R$ 0,00"}</td>
                         <td>{cotacao.observacoes || "-"}</td>
                       </tr>
                     ))

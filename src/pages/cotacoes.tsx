@@ -12,20 +12,18 @@ import "../styles/pages/lista-pages.css";
 
 interface Cotacao {
   id: number;
-  cliente: string;
-  data: string;
+  cliente_id: number;
+  data_criacao: string;
   status: string;
   etapa: string;
-  valor: string;
+  valor_total: number;
   observacoes: string;
 }
-
 
 export default function ListaCotacoes() {
   const [cotacoes, setCotacoes] = useState<Cotacao[]>([]);
   const [loading, setLoading] = useState(true);
   const [termoBusca, setTermoBusca] = useState("");
-
 
   useEffect(() => {
     async function carregarCotacoes() {
@@ -43,9 +41,9 @@ export default function ListaCotacoes() {
   }, []);
 
   const cotacoesFiltradas = cotacoes.filter((cotacao) =>
-    cotacao.cliente?.toLowerCase().includes(termoBusca.toLowerCase()) ||
     cotacao.status?.toLowerCase().includes(termoBusca.toLowerCase()) ||
-    cotacao.etapa?.toLowerCase().includes(termoBusca.toLowerCase())
+    cotacao.etapa?.toLowerCase().includes(termoBusca.toLowerCase()) ||
+    String(cotacao.cliente_id).includes(termoBusca)
   );
 
   return (
@@ -65,41 +63,39 @@ export default function ListaCotacoes() {
 
             <div className="tabela-clientes-wrapper">
               <table className="tabela-clientes">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Cliente</th>
-                  <th>Data</th>
-                  <th>Status</th>
-                  <th>Etapa</th>
-                  <th>Valor</th>
-                  <th>Observações</th>
-                </tr>
-              </thead>
-              <tbody>
-                {loading ? (
-                  <tr><td colSpan={7}>Carregando...</td></tr>
-                ) : cotacoes.length === 0 ? (
-                  <tr><td colSpan={7}>Nenhuma cotação encontrada</td></tr>
-                ) : (
-                  cotacoesFiltradas.map((cotacao) => (
-                    <tr key={cotacao.id}>
-                      <td>{cotacao.id}</td>
-                      <td>{cotacao.cliente}</td>
-                      <td>{new Date(cotacao.data).toLocaleDateString()}</td>
-                      <td>{cotacao.status}</td>
-                      <td>{cotacao.etapa}</td>
-                      <td>{cotacao["valor"] || "R$ 0,00"}</td>
-                      <td>{cotacao.observacoes || "-"}</td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Data</th>
+                    <th>Status</th>
+                    <th>Etapa</th>
+                    <th>Valor</th>
+                    <th>Observações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {loading ? (
+                    <tr><td colSpan={7}>Carregando...</td></tr>
+                  ) : cotacoesFiltradas.length === 0 ? (
+                    <tr><td colSpan={7}>Nenhuma cotação encontrada</td></tr>
+                  ) : (
+                    cotacoesFiltradas.map((cotacao) => (
+                      <tr key={cotacao.id}>
+                        <td>{cotacao.id}</td>
+                        <td>{`ID ${cotacao.cliente_id}`}</td>
+                        <td>{new Date(cotacao.data_criacao).toLocaleDateString()}</td>
+                        <td>{cotacao.status}</td>
+                        <td>{cotacao.etapa}</td>
+                        <td>{cotacao.valor_total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</td>
+                        <td>{cotacao.observacoes || "-"}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
               </table>
             </div>
           </div>
-
           <Footer />
         </div>
       </div>

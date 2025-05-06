@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import "../styles/pages/criar-pages.css";
 
+// Função para formatar o valor exibido no campo
 function formatarValor(valor: string) {
   const somenteNumeros = valor.replace(/\D/g, "");
   const valorFormatado = (parseInt(somenteNumeros || "0") / 100).toFixed(2);
@@ -16,20 +17,38 @@ function formatarValor(valor: string) {
 
 export default function CriarCotacao() {
   const [form, setForm] = useState({
-    clienteId: "",
-    // data: "",
+    valor: "",
     observacoes: "",
-    valor: ""
   });
 
-  // const hoje = new Date().toISOString().split("T")[0];
+  const [clienteBusca, setClienteBusca] = useState("");
+  const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
+  const [clientes, setClientes] = useState<Cliente[]>([]);
+  const navigate = useNavigate();
+
+  interface Cliente {
+    id: number;
+    nome: string;
+    cnpj: string;
+  }
+
+  useEffect(() => {
+    async function carregarClientes() {
+      try {
+        const data = await getClientes();
+        setClientes(data);
+      } catch (error) {
+        console.error("Erro ao buscar clientes:", error);
+      }
+    }
+
+    carregarClientes();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,17 +62,16 @@ export default function CriarCotacao() {
       form.valor.replace(/[^\d,]/g, "").replace(",", ".")
     );
 
-    if (valorNumerico <= 0 || isNaN(valorNumerico)) {
-      alert("O valor da cotação deve ser maior que zero.");
+    if (isNaN(valorNumerico) || valorNumerico <= 0) {
+      alert("Digite um valor válido para a cotação.");
       return;
     }
 
     try {
       const response = await createCotacao({
-        cliente_id: Number(form.clienteId),
+        cliente_id: clienteSelecionado.id,
         valor_total: valorNumerico,
         observacoes: form.observacoes || undefined,
-        // etapa é opcional, então pode ser omitida
       });
 
       console.log("Cotação criada:", response.cotacao);
@@ -64,30 +82,6 @@ export default function CriarCotacao() {
       alert("Erro ao criar cotação.");
     }
   };
-
-
-  interface Cliente {
-    id: number;
-    nome: string;
-    cnpj: string;
-  }
-
-  const [clientes, setClientes] = useState<Cliente[]>([]);
-
-  useEffect(() => {
-    async function carregarClientes() {
-      try {
-        const data = await getClientes(); // serviço que busca os clientes
-        setClientes(data);
-      } catch (error) {
-        console.error("Erro ao buscar clientes:", error);
-      }
-    }
-    carregarClientes();
-  }, []);
-
-  const [clienteBusca, setClienteBusca] = useState("");
-  const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
 
   return (
     <div className="home">
@@ -108,31 +102,30 @@ export default function CriarCotacao() {
                   value={clienteBusca}
                   onChange={(e) => {
                     setClienteBusca(e.target.value);
-                    setClienteSelecionado(null); // Limpa seleção anterior
+                    setClienteSelecionado(null);
                   }}
                   disabled={!!clienteSelecionado}
                 />
-                {clienteBusca && (
+                {clienteBusca && !clienteSelecionado && (
                   <ul className="sugestoes-clientes">
-                  {clientes
-                    .filter((c) =>
-                      c.nome.toLowerCase().includes(clienteBusca.toLowerCase()) ||
-                      c.cnpj.includes(clienteBusca)
-                    )
-                    .slice(0, 5)
-                    .map((cliente) => (
-                      <li
-                        key={cliente.id}
-                        onClick={() => {
-                          setClienteSelecionado(cliente); // salva o cliente completo
-                          setClienteBusca(`${cliente.nome} – ${cliente.cnpj}`); // preenche o campo de texto
-                          setForm({ ...form, clienteId: cliente.id.toString() }); // salva apenas o ID
-                        }}
-                      >
-                        {cliente.nome} – {cliente.cnpj}
-                      </li>
-                    ))}
-                </ul>
+                    {clientes
+                      .filter((c) =>
+                        c.nome.toLowerCase().includes(clienteBusca.toLowerCase()) ||
+                        c.cnpj.includes(clienteBusca)
+                      )
+                      .slice(0, 5)
+                      .map((cliente) => (
+                        <li
+                          key={cliente.id}
+                          onClick={() => {
+                            setClienteSelecionado(cliente);
+                            setClienteBusca(`${cliente.nome} – ${cliente.cnpj}`);
+                          }}
+                        >
+                          {cliente.nome} – {cliente.cnpj}
+                        </li>
+                      ))}
+                  </ul>
                 )}
               </div>
 
@@ -150,21 +143,6 @@ export default function CriarCotacao() {
                   required
                 />
               </div>
-
-              {/* <div className="linha">
-                <div className="grupo">
-                  <label htmlFor="data">Data<span>*</span></label>
-                  <input
-                    type="date"
-                    name="data"
-                    id="data"
-                    value={form.data}
-                    onChange={handleChange}
-                    max={hoje}
-                    required
-                  />
-                </div>
-              </div> */}
 
               <div className="grupo">
                 <label htmlFor="observacoes">Observações</label>

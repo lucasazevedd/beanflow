@@ -23,7 +23,9 @@ export default function CriarCotacao() {
   const [form, setForm] = useState({
     valor: "",
     observacoes: "",
+    etapa: "",
   });
+  
 
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [clienteBusca, setClienteBusca] = useState("");
@@ -70,6 +72,7 @@ export default function CriarCotacao() {
         cliente_id: clienteSelecionado.id,
         valor_total: valorNumerico,
         observacoes: form.observacoes || undefined,
+        etapa: form.etapa || undefined,
       });
 
       console.log("Cotação criada:", response.cotacao);
@@ -124,6 +127,22 @@ export default function CriarCotacao() {
                       ))}
                   </ul>
                 )}
+              </div>
+
+              <div className="grupo">
+                <label htmlFor="etapa">Etapa<span>*</span></label>
+                <select
+                  id="etapa"
+                  name="etapa"
+                  value={form.etapa || ""}
+                  onChange={(e) => setForm({ ...form, etapa: e.target.value })}
+                  required
+                >
+                  <option value="">Selecione a etapa</option>
+                  <option value="Prospecção">Prospecção</option>
+                  <option value="Em negociação">Em negociação</option>
+                  <option value="Concluído">Concluído</option>
+                </select>
               </div>
 
               <div className="grupo">

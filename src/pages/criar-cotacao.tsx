@@ -139,9 +139,9 @@ export default function CriarCotacao() {
                   required
                 >
                   <option value="">Selecione a etapa</option>
-                  <option value="Prospecção">Prospecção</option>
-                  <option value="Em negociação">Em negociação</option>
-                  <option value="Concluído">Concluído</option>
+                  <option value="Realizar orçamento">Prospecção</option>
+                  <option value="2">Em negociação</option>
+                  <option value="3">Concluído</option>
                 </select>
               </div>
 

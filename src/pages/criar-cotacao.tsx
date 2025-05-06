@@ -140,8 +140,6 @@ export default function CriarCotacao() {
                 >
                   <option value="">Selecione a etapa</option>
                   <option value="Realizar orçamento">Prospecção</option>
-                  <option value="2">Em negociação</option>
-                  <option value="3">Concluído</option>
                 </select>
               </div>
 

@@ -17,6 +17,7 @@ function formatarValor(valor: string) {
 
 export default function CriarCotacao() {
   const [form, setForm] = useState({
+    cliente_id: "",
     valor: "",
     observacoes: "",
   });
@@ -96,39 +97,23 @@ export default function CriarCotacao() {
               <h2>NOVO ORÇAMENTO</h2>
 
               <div className="grupo">
-                <label htmlFor="cliente">Cliente</label>
-                <input
-                  type="text"
-                  id="cliente"
-                  placeholder="Digite o nome do cliente"
-                  value={clienteBusca}
-                  onChange={(e) => {
-                    setClienteBusca(e.target.value);
-                    setClienteSelecionado(null);
-                  }}
-                  disabled={!!clienteSelecionado}
-                />
-                {clienteBusca && !clienteSelecionado && (
-                  <ul className="sugestoes-clientes">
-                    {clientes
-                      .filter((c) =>
-                        c.nome.toLowerCase().includes(clienteBusca.toLowerCase()) ||
-                        c.cnpj.includes(clienteBusca)
-                      )
-                      .slice(0, 5)
-                      .map((cliente) => (
-                        <li
-                          key={cliente.id}
-                          onClick={() => {
-                            setClienteSelecionado(cliente);
-                            setClienteBusca(`${cliente.nome} – ${cliente.cnpj}`);
-                          }}
-                        >
-                          {cliente.nome} – {cliente.cnpj}
-                        </li>
-                      ))}
-                  </ul>
-                )}
+                <label htmlFor="clienteId">Cliente<span>*</span></label>
+                <select
+                  id="clienteId"
+                  name="clienteId"
+                  value={form.cliente_id}
+                  onChange={(e) =>
+                    setForm({ ...form, cliente_id: e.target.value })
+                  }
+                  required
+                >
+                  <option value="">Selecione um cliente</option>
+                  {clientes.map((cliente) => (
+                    <option key={cliente.id} value={cliente.id}>
+                      {cliente.nome} – {cliente.cnpj}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="grupo">

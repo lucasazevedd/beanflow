@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
-import { getClientes } from "../services/clientService"; // ⬅️ Adicionado
+import { getClientes } from "../services/clientService";
 import "../styles/pages/criar-pages.css";
 
 interface Cliente {
@@ -59,15 +59,15 @@ export default function CriarBoleto() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!clienteSelecionado) {
-      alert("Selecione um cliente.");
+    if (!clienteSelecionado || !clienteSelecionado.id) {
+      alert("Selecione um cliente válido da lista.");
       return;
     }
 
     const dataVencimento = calcularDataVencimento(parseInt(form.vencimento));
 
     const boleto = {
-      cliente_id: clienteSelecionado.id, // 👈 pega ID do cliente
+      cliente_id: clienteSelecionado.id,
       data: form.data,
       vencimento: dataVencimento,
       valor: form.valor
@@ -87,20 +87,34 @@ export default function CriarBoleto() {
               <h2>NOVO BOLETO</h2>
 
               <div className="linha">
-                <div className="grupo">
+                <div className="grupo grupo-cliente">
                   <label htmlFor="cliente">Cliente<span>*</span></label>
-                  <input
-                    type="text"
-                    id="cliente"
-                    placeholder="Digite um nome ou CNPJ..."
-                    value={clienteBusca}
-                    onChange={(e) => {
-                      setClienteBusca(e.target.value);
-                      setClienteSelecionado(null);
-                    }}
-                    disabled={!!clienteSelecionado}
-                    required
-                  />
+                  <div className="campo-cliente">
+                    <input
+                      type="text"
+                      id="cliente"
+                      placeholder="Digite um nome ou CNPJ..."
+                      value={clienteBusca}
+                      onChange={(e) => {
+                        setClienteBusca(e.target.value);
+                        setClienteSelecionado(null);
+                      }}
+                      disabled={!!clienteSelecionado}
+                      required
+                    />
+                    {clienteSelecionado && (
+                      <button
+                        type="button"
+                        className="limpar-cliente"
+                        onClick={() => {
+                          setClienteBusca("");
+                          setClienteSelecionado(null);
+                        }}
+                      >
+                        ❌
+                      </button>
+                    )}
+                  </div>
                   {clienteBusca && !clienteSelecionado && (
                     <ul className="sugestoes-clientes">
                       {clientes

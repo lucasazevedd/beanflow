@@ -1,5 +1,15 @@
+import { useEffect, useState } from "react";
 import RightArrowIcon from "../assets/icons/right-arrow-icon";
+import { getBoletos } from "../services/boletoService";
 import "../styles/components/boletos-card.css";
+
+interface Boleto {
+  id: number;
+  cliente: string;
+  valor: string;
+  vencimento: string;
+  pago: boolean;
+}
 
 const getStatusBoleto = (vencimento: string) => {
   const hoje = new Date();
@@ -11,27 +21,44 @@ const getStatusBoleto = (vencimento: string) => {
   if (diffDias <= 3) return { emoji: "🟠", status: `Vence em ${diffDias} dias`, classe: "laranja" };
   if (diffDias <= 7) return { emoji: "🟡", status: `Vence em ${diffDias} dias`, classe: "amarelo" };
   if (diffDias <= 14) return { emoji: "🟢", status: `Vence em ${diffDias} dias`, classe: "verde" };
-  return { emoji: "⚪️", status: `Vence em ${diffDias} dias`, classe: "branco" };
+  return null; // Se não estiver dentro da janela de 14 dias, ignora
 };
 
 const BoletosCard = () => {
-  const boletos = [
-    { cliente: "CONDOMÍNIO EDIFÍCIO VANCOUVER", valor: "R$ 1.120,00", vencimento: "2025-04-27" },
-    { cliente: "SMARTFIT VINHAIS", valor: "R$ 420,00", vencimento: "2025-04-17" },
-    { cliente: "CONDOMÍNIO PORTAL DA LAGOA", valor: "R$ 980,00", vencimento: "2025-04-20" },
-  ];
+  const [boletos, setBoletos] = useState<Boleto[]>([]);
+
+  useEffect(() => {
+    async function fetchBoletos() {
+      try {
+        const data = await getBoletos();
+        const boletosFiltrados = data.filter((boleto: Boleto) => {
+          const status = getStatusBoleto(boleto.vencimento);
+          return status !== null;
+        });
+        setBoletos(boletosFiltrados);
+      } catch (error) {
+        console.error("Erro ao buscar boletos:", error);
+      }
+    }
+
+    fetchBoletos();
+  }, []);
 
   return (
-    <div className="boletos-card">
+    <div className="boletos-card-root">
       <div className="boletos-header">
         <span className="titulo">⏳ BOLETOS PRÓXIMOS AO VENCIMENTO</span>
       </div>
 
       <ul className="boletos-lista">
-        {boletos.map((boleto, index) => {
-          const { emoji, status, classe } = getStatusBoleto(boleto.vencimento);
+        {boletos.map((boleto) => {
+          const statusInfo = getStatusBoleto(boleto.vencimento);
+          if (!statusInfo) return null;
+
+          const { emoji, status, classe } = statusInfo;
+
           return (
-            <li key={index} className={`boleto-item ${classe}`}>
+            <li key={boleto.id} className={`boleto-item ${classe}`}>
               <div className="boleto-info">
                 <span className="cliente">{emoji} {boleto.cliente}</span>
                 <span className="status">{status}</span>
@@ -42,7 +69,7 @@ const BoletosCard = () => {
         })}
       </ul>
 
-      <button className="ver-todas">
+      <button className="ver-todas" onClick={() => window.location.href = "/boletos"}>
         <span>➡️ VER TODOS OS BOLETOS</span>
         <RightArrowIcon className="right-arrow-icon"/>
       </button>

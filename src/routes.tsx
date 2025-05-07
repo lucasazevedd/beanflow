@@ -10,6 +10,7 @@ import CriarBoleto from "./pages/criar-boleto";
 import CriarTarefa from "./pages/criar-tarefas";
 import Configuracoes from "./pages/configuracoes";
 import ListaTarefas from "./pages/tarefas";
+import Boletos from "./pages/boletos";
 
 export default function AppRoutes() {
   return (
@@ -26,6 +27,7 @@ export default function AppRoutes() {
         <Route path="/tarefas/novo" element={<CriarTarefa />} />
         <Route path="/configuracoes" element={<Configuracoes />} />
         <Route path="/tarefas" element={<ListaTarefas />} />
+        <Route path="/boletos" element={<Boletos />} />
       </Routes>
     </BrowserRouter>
   );

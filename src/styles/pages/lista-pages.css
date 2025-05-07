@@ -23,3 +23,25 @@
     outline: none;
     margin: 0 10px;
   }
+
+  .boletos-abertos {
+    grid-column: span 4;
+    grid-row: span 8;
+    background-color: var(--white-color);
+    border-radius: var(--border-radius);
+  }
+
+  .boletos-vencidos, .faturamento-mensal {
+    grid-column: span 8;
+    grid-row: span 3;
+    background-color: var(--white-color);
+    border-radius: var(--border-radius);
+  }
+
+  .faturamento-boletos, .faturamento-cotacoes {
+    grid-column: span 4;
+    grid-row: span 2;
+    background-color: var(--white-color);
+    border-radius: var(--border-radius);
+  }
+

@@ -66,6 +66,7 @@
 .grid-container {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, 1fr);
   grid-auto-rows: 1fr;
   gap: 16px;
   padding: var(--padding-default);
@@ -76,29 +77,31 @@
 
 /* Cards */
 
+.cotacoes-card,
+.boletos-card,
+.tarefas-card,
+.status-card {
+  height: 100%;
+  width: 100%;
+  border-radius: var(--border-radius);
+}
+
 .cotacoes-card {
   grid-column: span 4;
-  grid-row: span 2;
-  border-radius: var(--border-radius);
+  grid-row: span 8;
 }
 
 .boletos-card {
   grid-column: span 4;
-  background-color: white;
-  border-radius: var(--border-radius);
-  padding: 16px;
+  grid-row: span 4;
 }
 
 .tarefas-card {
   grid-column: span 4;
-  background-color: white;
-  border-radius: var(--border-radius);
-  padding: 16px;
+  grid-row: span 4;
 }
 
 .status-card {
   grid-column: span 8;
-  background-color: white;
-  border-radius: var(--border-radius);
-  padding: 16px;
+  grid-row: span 4;
 }

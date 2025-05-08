@@ -162,10 +162,8 @@ button[type="submit"]:hover {
 
 .limpar-cliente {
   position: absolute;
-  right: 8px;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 16px;
-  color: #999;
+  font-size: var(--font-size-body);
 }

@@ -1,11 +1,12 @@
 /* Container principal da página */
 .editar-cotacao-container {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 280px 1fr;
+  align-items: flex-start;
   gap: 32px;
-  background-color: var(--background-color);
   padding: var(--padding-default);
-  border-radius: var(--border-radius);
+  background-color: var(--background-color);
+  min-height: 100%;
 }
 
 /* Etapas laterais */

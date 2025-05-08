@@ -14,7 +14,7 @@ interface Etapa {
 interface Cotacao {
   id: number;
   cliente_id: number;
-  valor: number;
+  valor_total: number;
   data_criacao: string;
   status: string;
   etapa: string;
@@ -74,10 +74,10 @@ export default function EditarCotacao() {
     if (etapaSelecionada.concluida || (index > 0 && !etapas[index - 1].concluida)) return;
 
     try {
-      await fetch(`${API_BASE_URL}/etapas-cotacao`, {
-        method: "POST",
+      await fetch(`${API_BASE_URL}/cotacoes/${cotacao.id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cotacao_id: cotacao.id, etapa: etapaSelecionada.nome }),
+        body: JSON.stringify({ etapa: etapaSelecionada.nome }),
       });
 
       const novasEtapas = etapas.map((etapa, i) =>
@@ -94,7 +94,7 @@ export default function EditarCotacao() {
     if (!cotacao) return;
     try {
       await fetch(`${API_BASE_URL}/cotacoes/${cotacao.id}`, {
-        method: "PATCH",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ observacoes: cotacao.observacoes }),
       });
@@ -123,10 +123,10 @@ export default function EditarCotacao() {
             </div>
 
             <div className="detalhes-cotacao">
-              <h2>PEDIDO Nº {cotacao?.id}</h2>
+              <h2>PEDIDO Nº {cotacao?.id ?? "_"}</h2>
               <p><strong>Cliente:</strong> {clienteNome}</p>
               <p><strong>Data:</strong> {cotacao?.data_criacao}</p>
-              <p><strong>Valor:</strong> {cotacao?.valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
+              <p><strong>Valor:</strong> {cotacao?.valor_total?.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
               <p><strong>Status:</strong> {cotacao?.status}</p>
 
               <textarea

@@ -49,7 +49,7 @@ const CotacoesCard = () => {
 
   return (
     <div className="cotacoes-card-container">
-      <BotaoNovo rota="/cotacoes/novo" texto="NOVO ORÇAMENTO"/>
+      <BotaoNovo rota="/cotacoes/novo" texto="NOVO ORÇAMENTO" />
 
       <ul>
         {cotacoes.map((item) => (

@@ -20,12 +20,12 @@
 }
 
 .cotacoes-card li {
+  margin-top: 5px;
   display: flex;
   background-color: white;
   margin-bottom: 20px;
   overflow: hidden;
   border-radius: 12px;
-  border: 1px solid var(--primary-color);
 }
 
 .linha-lateral {

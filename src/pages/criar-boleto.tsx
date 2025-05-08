@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
 import { getClientes } from "../services/clientService";
+import { createBoleto } from "../services/boletoService";
 import "../styles/pages/criar-pages.css";
 
 interface Cliente {
@@ -56,25 +57,36 @@ export default function CriarBoleto() {
     return dataBase.toISOString().split("T")[0];
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!clienteSelecionado || !clienteSelecionado.id) {
-      alert("Selecione um cliente válido da lista.");
+    if (!clienteSelecionado) {
+      alert("Selecione um cliente válido.");
       return;
     }
 
     const dataVencimento = calcularDataVencimento(parseInt(form.vencimento));
 
-    const boleto = {
-      cliente_id: clienteSelecionado.id,
-      data: form.data,
-      vencimento: dataVencimento,
-      valor: form.valor
-    };
+    const valorNumerico = parseFloat(
+      form.valor.replace(/[^\d,]/g, "").replace(",", ".")
+    );
 
-    console.log("Novo boleto:", boleto);
-    // Enviar para backend futuramente
+    try {
+      const payload = {
+        cliente_id: clienteSelecionado.id,
+        data: form.data,
+        vencimento: dataVencimento,
+        valor: valorNumerico.toFixed(2),
+      };
+
+      const response = await createBoleto(payload);
+
+      alert("Boleto criado com sucesso!");
+      console.log("Resposta:", response);
+    } catch (error) {
+      console.error("Erro ao criar boleto:", error);
+      alert("Erro ao criar boleto.");
+    }
   };
 
   return (
@@ -89,7 +101,7 @@ export default function CriarBoleto() {
               <div className="linha">
                 <div className="grupo grupo-cliente">
                   <label htmlFor="cliente">Cliente<span>*</span></label>
-                  <div className="campo-cliente">
+                  <div className="grupo">
                     <input
                       type="text"
                       id="cliente"

@@ -160,12 +160,6 @@ button[type="submit"]:hover {
   background-color: var(--primary-color-transparent);
 }
 
-.campo-cliente {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
 .limpar-cliente {
   position: absolute;
   right: 8px;

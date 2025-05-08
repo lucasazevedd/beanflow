@@ -59,35 +59,36 @@ export default function CriarBoleto() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (!clienteSelecionado) {
       alert("Selecione um cliente válido.");
       return;
     }
-
-    const dataVencimento = calcularDataVencimento(parseInt(form.vencimento));
-
+  
+    const diasVencimento = parseInt(form.vencimento);
+    const dataVencimento = calcularDataVencimento(diasVencimento);
+  
     const valorNumerico = parseFloat(
       form.valor.replace(/[^\d,]/g, "").replace(",", ".")
     );
-
+  
     try {
       const payload = {
         cliente_id: clienteSelecionado.id,
-        data: form.data,
-        vencimento: dataVencimento,
+        data: form.data,               // Data selecionada pelo usuário
+        vencimento: dataVencimento,    // Data de vencimento calculada corretamente
         valor: valorNumerico.toFixed(2),
       };
-
+  
       const response = await createBoleto(payload);
-
+  
       alert("Boleto criado com sucesso!");
       console.log("Resposta:", response);
     } catch (error) {
       console.error("Erro ao criar boleto:", error);
       alert("Erro ao criar boleto.");
     }
-  };
+  };  
 
   return (
     <div className="home">

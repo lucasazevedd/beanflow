@@ -1,34 +1,122 @@
-.editar-cotacao-wrapper {
+/* Container principal da página */
+.editar-cotacao-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 32px;
+  background-color: var(--background-color);
+  padding: var(--padding-default);
+  border-radius: var(--border-radius);
+}
+
+/* Etapas laterais */
+.etapas-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: white;
+  padding: var(--padding-default);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-default);
+}
+
+.etapa-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--border-radius);
+  border: 2px dashed var(--primary-color);
+  cursor: pointer;
+  transition: var(--transition-default);
+  background-color: var(--white-color);
+}
+
+.etapa-item:hover {
+  background-color: #f0f0f0;
+}
+
+.etapa-item.concluida {
+  background-color: #e6f4ea;
+  border-color: var(--sucess-color);
+  font-weight: bold;
+}
+
+.etapa-item .numero {
+  background-color: var(--primary-color);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.etapa-item.concluida .numero {
+  background-color: var(--sucess-color);
+  content: '✓';
+}
+
+.etapa-item .titulo {
+  font-family: var(--font-subtitle);
+  font-size: var(--font-size-body);
+  color: var(--text-color);
+}
+
+/* Detalhes da cotação */
+.detalhes-cotacao {
   background-color: white;
   border-radius: var(--border-radius);
   padding: var(--padding-default);
-  max-width: 1000px;
-  margin: 32px auto;
-  box-shadow: var(--box-shadow);
-}
-
-.etapas-container {
+  box-shadow: var(--box-shadow-default);
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.etapa {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-left: 4px solid var(--primary-color);
-  padding: 12px 16px;
-  background-color: #f9f9f9;
-  border-radius: var(--border-radius);
-}
-
-.etapa label {
-  font-family: var(--font-subtitle);
+.detalhes-cotacao h2 {
+  font-family: var(--font-title);
+  font-size: var(--font-size-title);
   color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 16px;
 }
 
-.etapa input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
+.detalhes-cotacao p {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  color: var(--text-color);
+  margin: 4px 0;
+}
+
+.detalhes-cotacao textarea {
+  padding: 12px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--input-border);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  resize: vertical;
+  min-height: 120px;
+}
+
+.detalhes-cotacao button {
+  align-self: flex-end;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-family: var(--font-subtitle);
+  font-weight: var(--font-weight-title);
+  font-size: 16px;
+  cursor: pointer;
+  transition: var(--transition-default);
+}
+
+.detalhes-cotacao button:hover {
+  background-color: white;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  box-shadow: var(--box-shadow-default);
 }

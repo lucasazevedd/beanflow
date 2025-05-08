@@ -3,6 +3,7 @@ import { Sidebar } from "../components/sidebar";
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 import { useParams } from "react-router-dom";
+import { API_BASE_URL } from "../services/api";
 import "../styles/pages/editar-cotacoes.css";
 
 interface Etapa {
@@ -38,16 +39,20 @@ export default function EditarCotacao() {
 
   useEffect(() => {
     async function fetchCotacao() {
-      const response = await fetch(`/api/cotacoes/${id}`);
-      const data = await response.json();
-      setCotacao(data);
+      try {
+        const response = await fetch(`${API_BASE_URL}/cotacoes/${id}`);
+        const data = await response.json();
+        setCotacao(data);
 
-      const etapasConcluidas = data.etapas_concluidas; // supondo que vem do backend
-      const novasEtapas = etapasFixas.map((etapa, index) => ({
-        ...etapa,
-        concluida: index < etapasConcluidas.length,
-      }));
-      setEtapas(novasEtapas);
+        const ordemAtual = etapasFixas.findIndex(e => e.nome === data.etapa);
+        const novasEtapas = etapasFixas.map((etapa, index) => ({
+          ...etapa,
+          concluida: index <= ordemAtual,
+        }));
+        setEtapas(novasEtapas);
+      } catch (err) {
+        console.error("Erro ao buscar cotação:", err);
+      }
     }
 
     fetchCotacao();
@@ -56,7 +61,7 @@ export default function EditarCotacao() {
   function handleEtapaClick(index: number) {
     if (!etapas[index].concluida && (index === 0 || etapas[index - 1].concluida)) {
       const novaEtapa = etapas[index].nome;
-      fetch(`/api/etapas-cotacao`, {
+      fetch(`${API_BASE_URL}/etapas-cotacao`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ cotacao_id: id, etapa: novaEtapa, responsavel: "Usuário X" })
@@ -70,10 +75,11 @@ export default function EditarCotacao() {
   }
 
   function handleSalvarObservacoes() {
-    fetch(`/api/cotacoes/${id}`, {
+    if (!cotacao) return;
+    fetch(`${API_BASE_URL}/cotacoes/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ observacoes: cotacao?.observacoes }),
+      body: JSON.stringify({ observacoes: cotacao.observacoes }),
     });
   }
 
@@ -92,7 +98,7 @@ export default function EditarCotacao() {
                   className={`etapa-item ${etapa.concluida ? "concluida" : ""}`}
                   onClick={() => handleEtapaClick(i)}
                 >
-                  <span className="numero">{i + 1}</span>
+                  <span className="numero">{etapa.concluida ? "✓" : i + 1}</span>
                   <span className="titulo">{etapa.nome}</span>
                 </div>
               ))}
@@ -106,12 +112,11 @@ export default function EditarCotacao() {
               <p><strong>Status:</strong> {cotacao?.status}</p>
               <textarea
                 value={cotacao?.observacoes || ""}
-                onChange={(e) => setCotacao((prev) => prev ? { ...prev, observacoes: e.target.value } : null)}
+                onChange={(e) => setCotacao(prev => prev ? { ...prev, observacoes: e.target.value } : null)}
                 placeholder="Observações"
               />
               <button onClick={handleSalvarObservacoes}>Salvar</button>
             </div>
-
           </div>
 
           <Footer />

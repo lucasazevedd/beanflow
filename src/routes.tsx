@@ -22,7 +22,7 @@ export default function AppRoutes() {
         <Route path="/cotacoes" element={<ListaCotacoes />} />
         <Route path="/cotacoes/novo" element={<CriarCotacao />} /> 
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/cotacoes/editar/:id" element={<EditarCotacao />} /> */}
+        <Route path="/cotacoes/editar/:id" element={<EditarCotacao />} />
         <Route path="/boletos/novo" element={<CriarBoleto />} />
         <Route path="/tarefas/novo" element={<CriarTarefa />} />
         <Route path="/configuracoes" element={<Configuracoes />} />

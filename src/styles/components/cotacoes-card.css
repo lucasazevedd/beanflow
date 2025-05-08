@@ -1,29 +1,13 @@
-.cotacoes-card {
-  border-radius: 8px;
+.cotacoes-card-container {
+  border-radius: var(--border-radius);
   color: var(--text-color);
   display: flex;
   flex-direction: column;
   background-color: transparent;
   height: 100%;
   overflow: hidden;
-}
-
-.add-cotacao {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 8px;
-  background-color: var(--primary-color);
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 12px;
-  font-family: var(--font-subtitle);
-  font-weight: var(--font-weight-subtitle);
-  font-size: var(--font-size-subtitle);
-  cursor: pointer;
-  transition: filter 0.2s;
-  margin-bottom: 16px;
+  padding: var(--padding-default);
+  background-color: var(--white-color);
 }
 
 .cotacoes-card ul {
@@ -42,6 +26,7 @@
   overflow: hidden;
   border-radius: 12px;
   height: 80px;
+  box-shadow: var(--box-shadow-default);
 }
 
 .linha-lateral {

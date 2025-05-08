@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCotacoes } from "../services/quoteService";
 import { getClientes } from "../services/clientService";
+import BotaoNovo from "./botao-novo";
 
 import "../styles/components/cotacoes-card.css";
 
@@ -49,11 +50,8 @@ const CotacoesCard = () => {
   };
 
   return (
-    <div className="cotacoes-card">
-      <button className="add-cotacao" onClick={() => navigate("/cotacoes/novo")}>
-        <AddNewIcon className="add-new-icon" />
-        NOVO ORÇAMENTO
-      </button>
+    <div className="cotacoes-card-container">
+      <BotaoNovo rota="/cotacoes/novo" texto="NOVO ORÇAMENTO"/>
 
       <ul>
         {cotacoes.map((item) => (

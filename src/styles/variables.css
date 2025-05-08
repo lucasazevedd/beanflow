@@ -33,6 +33,7 @@
   /* Layout e espaçamento */
   --border-radius: 12px;
   --padding-default: 16px;
+  --padding-cards: 24px;  
   --margin-default: 16px;
   --container-max-width: 1200px;
 

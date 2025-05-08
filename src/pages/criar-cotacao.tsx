@@ -91,19 +91,35 @@ export default function CriarCotacao() {
             <form className="criar-form" onSubmit={handleSubmit}>
               <h2>NOVO ORÇAMENTO</h2>
 
-              <div className="grupo">
+              <div className="grupo grupo-cliente">
                 <label htmlFor="cliente">Cliente<span>*</span></label>
-                <input
-                  type="text"
-                  id="cliente"
-                  placeholder="Digite o nome do cliente"
-                  value={clienteBusca}
-                  onChange={(e) => {
-                    setClienteBusca(e.target.value);
-                    setClienteSelecionado(null);
-                  }}
-                  disabled={!!clienteSelecionado}
-                />
+                <div className="campo-cliente">
+                  <input
+                    type="text"
+                    id="cliente"
+                    placeholder="Digite um nome ou CNPJ..."
+                    value={clienteBusca}
+                    onChange={(e) => {
+                      setClienteBusca(e.target.value);
+                      setClienteSelecionado(null);
+                    }}
+                    disabled={!!clienteSelecionado}
+                    required
+                  />
+                  {clienteSelecionado && (
+                    <button
+                      type="button"
+                      className="limpar-cliente"
+                      onClick={() => {
+                        setClienteBusca("");
+                        setClienteSelecionado(null);
+                      }}
+                    >
+                      ❌
+                    </button>
+                  )}
+                </div>
+
                 {clienteBusca && !clienteSelecionado && (
                   <ul className="sugestoes-clientes">
                     {clientes
@@ -120,7 +136,7 @@ export default function CriarCotacao() {
                             setClienteBusca(`${cliente.nome} – ${cliente.cnpj}`);
                           }}
                         >
-                          {cliente.nome} – {cliente.cnpj}
+                          {cliente.nome} | {cliente.cnpj}
                         </li>
                       ))}
                   </ul>

@@ -124,7 +124,7 @@ export default function CriarBoleto() {
                           setClienteSelecionado(null);
                         }}
                       >
-                        ❌
+                        limpar seleção
                       </button>
                     )}
                   </div>
@@ -144,7 +144,7 @@ export default function CriarBoleto() {
                               setClienteBusca(`${cliente.nome} – ${cliente.cnpj}`);
                             }}
                           >
-                            {cliente.nome} – {cliente.cnpj}
+                            {cliente.nome} | {cliente.cnpj}
                           </li>
                         ))}
                     </ul>

@@ -91,57 +91,59 @@ export default function CriarCotacao() {
             <form className="criar-form" onSubmit={handleSubmit}>
               <h2>NOVO ORÇAMENTO</h2>
 
-              <div className="grupo grupo-cliente">
-                <label htmlFor="cliente">Cliente<span>*</span></label>
-                <div className="campo-cliente">
-                  <input
-                    type="text"
-                    id="cliente"
-                    placeholder="Digite um nome ou CNPJ..."
-                    value={clienteBusca}
-                    onChange={(e) => {
-                      setClienteBusca(e.target.value);
-                      setClienteSelecionado(null);
-                    }}
-                    disabled={!!clienteSelecionado}
-                    required
-                  />
-                  {clienteSelecionado && (
-                    <button
-                      type="button"
-                      className="limpar-cliente"
-                      onClick={() => {
-                        setClienteBusca("");
+              <div className="linha">
+                <div className="grupo grupo-cliente">
+                  <label htmlFor="cliente">Cliente<span>*</span></label>
+                  <div className="grupo">
+                    <input
+                      type="text"
+                      id="cliente"
+                      placeholder="Digite o nome do cliente"
+                      value={clienteBusca}
+                      onChange={(e) => {
+                        setClienteBusca(e.target.value);
                         setClienteSelecionado(null);
                       }}
-                    >
-                      limpar seleção
-                    </button>
+                      disabled={!!clienteSelecionado}
+                      required
+                    />
+                    {clienteSelecionado && (
+                      <button
+                        type="button"
+                        className="limpar-cliente"
+                        onClick={() => {
+                          setClienteBusca("");
+                          setClienteSelecionado(null);
+                        }}
+                      >
+                        limpar seleção
+                      </button>
+                    )}
+                  </div>
+                  {clienteBusca && !clienteSelecionado && (
+                    <ul className="sugestoes-clientes">
+                      {clientes
+                        .filter((c) =>
+                          c.nome.toLowerCase().includes(clienteBusca.toLowerCase()) ||
+                          c.cnpj.includes(clienteBusca)
+                        )
+                        .slice(0, 5)
+                        .map((cliente) => (
+                          <li
+                            key={cliente.id}
+                            onClick={() => {
+                              setClienteSelecionado(cliente);
+                              setClienteBusca(`${cliente.nome} – ${cliente.cnpj}`);
+                            }}
+                          >
+                            {cliente.nome} – {cliente.cnpj}
+                          </li>
+                        ))}
+                    </ul>
                   )}
                 </div>
-
-                {clienteBusca && !clienteSelecionado && (
-                  <ul className="sugestoes-clientes">
-                    {clientes
-                      .filter((c) =>
-                        c.nome.toLowerCase().includes(clienteBusca.toLowerCase()) ||
-                        c.cnpj.includes(clienteBusca)
-                      )
-                      .slice(0, 5)
-                      .map((cliente) => (
-                        <li
-                          key={cliente.id}
-                          onClick={() => {
-                            setClienteSelecionado(cliente);
-                            setClienteBusca(`${cliente.nome} – ${cliente.cnpj}`);
-                          }}
-                        >
-                          {cliente.nome} | {cliente.cnpj}
-                        </li>
-                      ))}
-                  </ul>
-                )}
               </div>
+
 
               <div className="grupo">
                 <label htmlFor="valor">Valor Total (R$)<span>*</span></label>

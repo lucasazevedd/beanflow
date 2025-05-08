@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Sidebar } from "../components/sidebar";
-import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 import { useParams } from "react-router-dom";
 import { API_BASE_URL } from "../services/api";
@@ -14,12 +13,17 @@ interface Etapa {
 
 interface Cotacao {
   id: number;
-  cliente: string;
-  data: string;
+  cliente_id: number;
   valor: number;
+  data_criacao: string;
   status: string;
   etapa: string;
   observacoes: string;
+}
+
+interface Cliente {
+  id: number;
+  nome: string;
 }
 
 const etapasFixas: Etapa[] = [
@@ -35,52 +39,68 @@ const etapasFixas: Etapa[] = [
 export default function EditarCotacao() {
   const { id } = useParams();
   const [cotacao, setCotacao] = useState<Cotacao | null>(null);
+  const [clienteNome, setClienteNome] = useState<string>("");
   const [etapas, setEtapas] = useState<Etapa[]>(etapasFixas);
 
   useEffect(() => {
     async function fetchCotacao() {
       try {
         const response = await fetch(`${API_BASE_URL}/cotacoes/${id}`);
-        const data = await response.json();
+        const data: Cotacao = await response.json();
         setCotacao(data);
 
-        const ordemAtual = etapasFixas.findIndex(e => e.nome === data.etapa);
-        const novasEtapas = etapasFixas.map((etapa, index) => ({
+        const ordemAtual = etapasFixas.findIndex((e) => e.nome === data.etapa);
+        const atualizadas = etapasFixas.map((etapa, i) => ({
           ...etapa,
-          concluida: index <= ordemAtual,
+          concluida: i <= ordemAtual,
         }));
-        setEtapas(novasEtapas);
+        setEtapas(atualizadas);
+
+        const clienteRes = await fetch(`${API_BASE_URL}/clientes/${data.cliente_id}`);
+        const cliente: Cliente = await clienteRes.json();
+        setClienteNome(cliente.nome);
       } catch (err) {
-        console.error("Erro ao buscar cotação:", err);
+        console.error("Erro ao carregar cotação ou cliente:", err);
       }
     }
 
     fetchCotacao();
   }, [id]);
 
-  function handleEtapaClick(index: number) {
-    if (!etapas[index].concluida && (index === 0 || etapas[index - 1].concluida)) {
-      const novaEtapa = etapas[index].nome;
-      fetch(`${API_BASE_URL}/etapas-cotacao`, {
+  async function handleEtapaClick(index: number) {
+    if (!cotacao) return;
+
+    const etapaSelecionada = etapas[index];
+    if (etapaSelecionada.concluida || (index > 0 && !etapas[index - 1].concluida)) return;
+
+    try {
+      await fetch(`${API_BASE_URL}/etapas-cotacao`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cotacao_id: id, etapa: novaEtapa, responsavel: "Usuário X" })
+        body: JSON.stringify({ cotacao_id: cotacao.id, etapa: etapaSelecionada.nome }),
       });
 
       const novasEtapas = etapas.map((etapa, i) =>
         i <= index ? { ...etapa, concluida: true } : etapa
       );
       setEtapas(novasEtapas);
+      setCotacao({ ...cotacao, etapa: etapaSelecionada.nome });
+    } catch (error) {
+      console.error("Erro ao atualizar etapa:", error);
     }
   }
 
-  function handleSalvarObservacoes() {
+  async function handleSalvarObservacoes() {
     if (!cotacao) return;
-    fetch(`${API_BASE_URL}/cotacoes/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ observacoes: cotacao.observacoes }),
-    });
+    try {
+      await fetch(`${API_BASE_URL}/cotacoes/${cotacao.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ observacoes: cotacao.observacoes }),
+      });
+    } catch (error) {
+      console.error("Erro ao salvar observações:", error);
+    }
   }
 
   return (
@@ -88,8 +108,6 @@ export default function EditarCotacao() {
       <Sidebar />
       <div className="main">
         <div className="content">
-          <Header />
-
           <div className="editar-cotacao-container">
             <div className="etapas-lateral">
               {etapas.map((etapa, i) => (
@@ -105,20 +123,22 @@ export default function EditarCotacao() {
             </div>
 
             <div className="detalhes-cotacao">
-              <h2>PEDIDO_Nº_{cotacao?.id}</h2>
-              <p><strong>Cliente:</strong> {cotacao?.cliente}</p>
-              <p><strong>Data:</strong> {cotacao?.data}</p>
-              <p><strong>Valor:</strong> R$ {cotacao?.valor.toLocaleString("pt-BR")}</p>
+              <h2>PEDIDO Nº {cotacao?.id}</h2>
+              <p><strong>Cliente:</strong> {clienteNome}</p>
+              <p><strong>Data:</strong> {cotacao?.data_criacao}</p>
+              <p><strong>Valor:</strong> {cotacao?.valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
               <p><strong>Status:</strong> {cotacao?.status}</p>
+
               <textarea
                 value={cotacao?.observacoes || ""}
-                onChange={(e) => setCotacao(prev => prev ? { ...prev, observacoes: e.target.value } : null)}
+                onChange={(e) =>
+                  setCotacao((prev) => prev ? { ...prev, observacoes: e.target.value } : null)
+                }
                 placeholder="Observações"
               />
               <button onClick={handleSalvarObservacoes}>Salvar</button>
             </div>
           </div>
-
           <Footer />
         </div>
       </div>

@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Sidebar } from "../components/sidebar";
-// import { Header } from "../components/header";
 import { Footer } from "../components/footer";
-
 import SearchBar from "../components/search-bar";
 import BotaoFiltro from "../components/filters";
 import BotaoNovo from "../components/botao-novo";
 import { getCotacoes } from "../services/quoteService";
 import { getClientes } from "../services/clientService";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/pages/lista-pages.css";
 
@@ -31,6 +30,7 @@ export default function ListaCotacoes() {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
   const [termoBusca, setTermoBusca] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function carregarDados() {
@@ -67,7 +67,6 @@ export default function ListaCotacoes() {
       <Sidebar />
       <div className="main">
         <div className="content">
-          {/* <Header /> */}
           <div className="lista-page-container">
             <div className="top-bar">
               <SearchBar onSearch={setTermoBusca} />
@@ -97,13 +96,25 @@ export default function ListaCotacoes() {
                     <tr><td colSpan={7}>Nenhuma cotação encontrada</td></tr>
                   ) : (
                     cotacoesFiltradas.map((cotacao) => (
-                      <tr key={cotacao.id}>
+                      <tr
+                        key={cotacao.id}
+                        className="linha-clicavel"
+                        onClick={() => navigate(`/cotacoes/editar/${cotacao.id}`)}
+                        style={{ cursor: "pointer" }}
+                      >
                         <td>{cotacao.id}</td>
                         <td>{getNomeCliente(cotacao.cliente_id)}</td>
                         <td>{new Date(cotacao.data_criacao).toLocaleDateString()}</td>
                         <td>{cotacao.status}</td>
                         <td>{cotacao.etapa}</td>
-                        <td>{cotacao.valor_total ? cotacao.valor_total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) : "R$ 0,00"}</td>
+                        <td>
+                          {cotacao.valor_total
+                            ? cotacao.valor_total.toLocaleString("pt-BR", {
+                                style: "currency",
+                                currency: "BRL",
+                              })
+                            : "R$ 0,00"}
+                        </td>
                         <td>{cotacao.observacoes || "-"}</td>
                       </tr>
                     ))

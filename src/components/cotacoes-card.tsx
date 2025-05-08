@@ -29,10 +29,12 @@ const CotacoesCard = () => {
       try {
         const [cotacoesData, clientesData] = await Promise.all([
           getCotacoes(),
-          getClientes()
+          getClientes(),
         ]);
 
-        setCotacoes(cotacoesData.slice(0, 5)); // mostra no máximo 5
+        // Filtra somente cotações em aberto
+        const emAberto = cotacoesData.filter((c: Cotacao) => c.status === "Em aberto");
+        setCotacoes(emAberto.slice(0, 5)); // exibe até 5
         setClientes(clientesData);
       } catch (error) {
         console.error("Erro ao carregar cotações ou clientes:", error);

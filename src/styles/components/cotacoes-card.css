@@ -26,7 +26,7 @@
   margin-bottom: 20px;
   overflow: hidden;
   border-radius: 12px;
-  background-color: var(--active-color);
+  background-color: var(--secondary-color);
 }
 
 .linha-lateral {

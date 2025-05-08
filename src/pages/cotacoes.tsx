@@ -26,15 +26,9 @@ interface Cliente {
   nome: string;
 }
 
-const [clientes, setClientes] = useState<Cliente[]>([]);
-
-const getNomeCliente = (cliente_id: number) => {
-  const cliente = clientes.find((c) => c.id === cliente_id);
-  return cliente ? cliente.nome : `ID ${cliente_id}`;
-};
-
 export default function ListaCotacoes() {
   const [cotacoes, setCotacoes] = useState<Cotacao[]>([]);
+  const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
   const [termoBusca, setTermoBusca] = useState("");
 
@@ -53,15 +47,19 @@ export default function ListaCotacoes() {
         setLoading(false);
       }
     }
-  
+
     carregarDados();
   }, []);
-  
+
+  const getNomeCliente = (cliente_id: number) => {
+    const cliente = clientes.find((c) => c.id === cliente_id);
+    return cliente ? cliente.nome : `ID ${cliente_id}`;
+  };
 
   const cotacoesFiltradas = cotacoes.filter((cotacao) =>
     cotacao.status?.toLowerCase().includes(termoBusca.toLowerCase()) ||
     cotacao.etapa?.toLowerCase().includes(termoBusca.toLowerCase()) ||
-    String(cotacao.cliente_id).includes(termoBusca)
+    getNomeCliente(cotacao.cliente_id).toLowerCase().includes(termoBusca.toLowerCase())
   );
 
   return (
@@ -105,7 +103,7 @@ export default function ListaCotacoes() {
                         <td>{new Date(cotacao.data_criacao).toLocaleDateString()}</td>
                         <td>{cotacao.status}</td>
                         <td>{cotacao.etapa}</td>
-                        <td>{cotacao.valor_total ? Number(cotacao.valor_total).toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) : "R$ 0,00"}</td>
+                        <td>{cotacao.valor_total ? cotacao.valor_total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) : "R$ 0,00"}</td>
                         <td>{cotacao.observacoes || "-"}</td>
                       </tr>
                     ))

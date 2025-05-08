@@ -22,6 +22,7 @@
   --background-color: #ebebeb;      /* Fundo branco padrão */
   --white-color: #FFFFFF;          /* Branco puro */
   --sucess-color: #47B249;         /* Verde sucesso */
+  --fail-color: #FF0000;         /* Vermelho erro */
 
   /* Cores adicionais */
   --input-background: #f0f0f0;

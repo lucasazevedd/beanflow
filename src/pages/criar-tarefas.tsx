@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
 import { createTarefa } from "../services/taskService";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/pages/criar-pages.css";
 
@@ -11,6 +12,8 @@ export default function CriarTarefa() {
     descricao: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -18,12 +21,12 @@ export default function CriarTarefa() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (!form.titulo || !form.descricao) {
       alert("Preencha todos os campos.");
       return;
     }
-
+  
     try {
       await createTarefa({
         titulo: form.titulo,
@@ -31,6 +34,7 @@ export default function CriarTarefa() {
       });
       alert("Tarefa criada com sucesso!");
       setForm({ titulo: "", descricao: "" });
+      navigate("/tarefas");
     } catch (error) {
       console.error(error);
       alert("Erro ao criar tarefa.");
@@ -67,7 +71,6 @@ export default function CriarTarefa() {
                   placeholder="Digite a descrição da tarefa"
                   value={form.descricao}
                   onChange={handleChange}
-                  required
                 />
               </div>
 

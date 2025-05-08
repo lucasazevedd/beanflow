@@ -20,8 +20,34 @@
   }
 
   .task-buttons {
-    outline: none;
-    margin: 0 10px;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    font-family: var(--font-subtitle);
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-subtitle);
+    cursor: pointer;
+    transition: var(--transition-default);
+    border: 1px solid transparent;
+  }
+
+  .btn-concluir:hover {
+    background-color: var(--white-color);
+    color: var(--sucess-color);
+    border: 1px solid var(--sucess-color);
+    box-shadow: var(--box-shadow-default);
+  }
+  
+  .btn-excluir {
+    background-color: var(--fail-color);
+    color: var(--white-color);
+    margin-left: var(--margin-default);
+  }
+  
+  .btn-excluir:hover {
+    background-color: var(--white-color);
+    color: var(--fail-color);
+    border: 1px solid var(--fail-color);
+    box-shadow: var(--box-shadow-default);
   }
 
   .boletos-abertos {

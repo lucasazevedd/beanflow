@@ -5,7 +5,7 @@ import ListaClientes from "./pages/clientes";
 import ListaCotacoes from "./pages/cotacoes";
 import CriarCotacao from "./pages/criar-cotacao";
 import Login from "./pages/login";
-import EditarCotacao from "./pages/editar-cotacoes";
+import EditarCotacao from "./pages/editar-cotacao";
 import CriarBoleto from "./pages/criar-boleto";
 import CriarTarefa from "./pages/criar-tarefas";
 import Configuracoes from "./pages/configuracoes";

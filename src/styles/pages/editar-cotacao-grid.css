@@ -1,26 +1,25 @@
-/* Container principal da página */
-.editar-cotacao-container {
+.editar-cotacao-grid {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  align-items: flex-start;
-  gap: 32px;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  gap: 24px;
   padding: var(--padding-default);
   background-color: var(--background-color);
-  min-height: 100%;
 }
 
-/* Etapas laterais */
-.etapas-lateral {
+.etapas-cotacao-card {
+  grid-column: span 4;
+  grid-row: span 8;
+  background-color: var(--white-color);
+  border-radius: var(--border-radius);
+  padding: var(--padding-default);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  background-color: white;
-  padding: var(--padding-default);
-  border-radius: var(--border-radius);
+  gap: 12px;
   box-shadow: var(--box-shadow-default);
 }
 
-.etapa-item {
+.etapa-botao {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -28,21 +27,17 @@
   border-radius: var(--border-radius);
   border: 2px dashed var(--primary-color);
   cursor: pointer;
-  transition: var(--transition-default);
   background-color: var(--white-color);
+  transition: var(--transition-default);
 }
 
-.etapa-item:hover {
-  background-color: #f0f0f0;
-}
-
-.etapa-item.concluida {
+.etapa-botao.concluida {
   background-color: #e6f4ea;
   border-color: var(--sucess-color);
   font-weight: bold;
 }
 
-.etapa-item .numero {
+.etapa-numero {
   background-color: var(--primary-color);
   color: white;
   width: 24px;
@@ -54,19 +49,19 @@
   font-size: 14px;
 }
 
-.etapa-item.concluida .numero {
+.etapa-botao.concluida .etapa-numero {
   background-color: var(--sucess-color);
-  content: '✓';
 }
 
-.etapa-item .titulo {
+.etapa-nome {
   font-family: var(--font-subtitle);
   font-size: var(--font-size-body);
   color: var(--text-color);
 }
 
-/* Detalhes da cotação */
-.detalhes-cotacao {
+.formulario-cotacao-card {
+  grid-column: span 8;
+  grid-row: span 8;
   background-color: white;
   border-radius: var(--border-radius);
   padding: var(--padding-default);
@@ -76,22 +71,24 @@
   gap: 16px;
 }
 
-.detalhes-cotacao h2 {
+.formulario-cotacao-card h2 {
   font-family: var(--font-title);
   font-size: var(--font-size-title);
   color: var(--primary-color);
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
-.detalhes-cotacao p {
+.linha-info {
+  display: flex;
+  justify-content: space-between;
   font-family: var(--font-body);
   font-size: var(--font-size-body);
   color: var(--text-color);
-  margin: 4px 0;
 }
 
-.detalhes-cotacao textarea {
+.grupo textarea {
+  width: 100%;
   padding: 12px;
   border-radius: var(--border-radius);
   border: 1px solid var(--input-border);
@@ -101,7 +98,7 @@
   min-height: 120px;
 }
 
-.detalhes-cotacao button {
+.formulario-cotacao-card button {
   align-self: flex-end;
   background-color: var(--primary-color);
   color: white;
@@ -115,7 +112,7 @@
   transition: var(--transition-default);
 }
 
-.detalhes-cotacao button:hover {
+.formulario-cotacao-card button:hover {
   background-color: white;
   color: var(--primary-color);
   border: 1px solid var(--primary-color);

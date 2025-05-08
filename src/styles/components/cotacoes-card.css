@@ -27,14 +27,16 @@
   border-radius: 12px;
   height: 80px;
   box-shadow: var(--box-shadow-default);
+  padding: 0;
 }
 
 .linha-lateral {
-  width: 4px;
+  width: 2px;
   background-color: var(--primary-color);
-  border-radius: 4px 0 0 4px;
+  border-radius: var(--border-radius);
   margin: 12px;
   margin-right: 0;
+  height: 100%;
 }
 
 .conteudo {

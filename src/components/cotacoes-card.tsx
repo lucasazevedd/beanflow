@@ -1,6 +1,4 @@
-import AddNewIcon from "../assets/icons/add-new-icon";
 import RightArrowIcon from "../assets/icons/right-arrow-icon";
-import { statusCotacoes } from "../constants/statusCotacoes";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCotacoes } from "../services/quoteService";
@@ -59,7 +57,7 @@ const CotacoesCard = () => {
             <div className="linha-lateral"></div>
             <div className="conteudo">
               <span className="cliente">{getNomeCliente(item.cliente_id)}</span>
-              <span className="etapas">{statusCotacoes(item.status)} – {item.etapa}</span>
+              <span className="etapas">{item.etapa}</span>
             </div>
           </li>
         ))}

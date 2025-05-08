@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { getBoletos } from "../services/boletoService";
 import { getClientes } from "../services/clientService";
-import AddNewIcon from "../assets/icons/add-new-icon";
-import { useNavigate } from "react-router-dom";
 import BotaoNovo from "./botao-novo";
 import "../styles/components/boletos-abertos.css";
 import "../styles/pages/lista-pages.css";
@@ -14,7 +12,7 @@ interface Cliente {
 
 interface Boleto {
   id: number;
-  cliente: number; // <- este campo agora é tratado como cliente_id
+  cliente: number;
   valor: string;
   vencimento: string;
   pago: boolean;
@@ -36,18 +34,16 @@ const getStatusBoleto = (vencimento: string) => {
 const BoletosAbertos = () => {
   const [boletos, setBoletos] = useState<Boleto[]>([]);
   const [clientes, setClientes] = useState<Cliente[]>([]);
-  const navigate = useNavigate();
-
 
   useEffect(() => {
     async function fetchBoletos() {
       try {
-        const [boletosData, clientesData]: [Boleto[], Cliente[]] = await Promise.all([
+        const [boletosData, clientesData] = await Promise.all([
           getBoletos(),
           getClientes(),
         ]);
         
-        const boletosEmAberto = boletosData.filter((b) => b.pago === false);
+        const boletosEmAberto = boletosData.filter((b: Boleto) => b.pago === false);
         setBoletos(boletosEmAberto);
         setClientes(clientesData);
       } catch (error) {
@@ -58,7 +54,8 @@ const BoletosAbertos = () => {
     fetchBoletos();
   }, []);
 
-  const getNomeCliente = (cliente_id: number) => {
+  const getNomeCliente = (cliente_id: number | undefined) => {
+    if (!cliente_id) return "Cliente não definido";
     const cliente = clientes.find((c) => c.id === cliente_id);
     return cliente ? cliente.nome : `Cliente ${cliente_id}`;
   };
@@ -66,9 +63,7 @@ const BoletosAbertos = () => {
   return (
     <div className="boletos-abertos-container">
       <div className="boletos-abertos-header">
-        <button>
-          <BotaoNovo rota="/boletos/novo" texto="NOVO BOLETO"/>
-        </button>
+        <BotaoNovo rota="/boletos/novo" texto="NOVO BOLETO" />
       </div>
 
       <ul className="boletos-abertos-lista">
@@ -82,7 +77,12 @@ const BoletosAbertos = () => {
                 </span>
                 <span className="boletos-abertos-status">{status}</span>
               </div>
-              <span className="boletos-abertos-valor">{boleto.valor}</span>
+              <span className="boletos-abertos-valor">
+                {Number(boleto.valor).toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </span>
             </li>
           );
         })}

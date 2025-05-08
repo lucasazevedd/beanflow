@@ -22,8 +22,8 @@ export default function CriarTarefa() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
-    if (!form.titulo || !form.descricao) {
-      alert("Preencha todos os campos.");
+    if (!form.titulo) {
+      alert("O campo título é obrigatório.");
       return;
     }
   

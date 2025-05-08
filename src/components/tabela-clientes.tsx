@@ -12,10 +12,27 @@ interface Cliente {
 
 interface TabelaClientesProps {
   clientes: Cliente[];
+  cotacoes: Cotacao[];
   loading: boolean;
 }
 
-export default function TabelaClientes({ clientes, loading }: TabelaClientesProps) {
+interface Cotacao {
+  cliente_id: number;
+  data_criacao: string;
+}
+
+export default function TabelaClientes({ clientes, cotacoes , loading }: TabelaClientesProps) {
+
+  const getUltimoPedido = (clienteId: number): string => {
+    const cotacoesCliente = cotacoes
+      .filter(c => c.cliente_id === clienteId)
+      .sort((a, b) => new Date(b.data_criacao).getTime() - new Date(a.data_criacao).getTime());
+  
+    if (cotacoesCliente.length === 0) return "-";
+    return new Date(cotacoesCliente[0].data_criacao).toLocaleDateString();
+  };
+  
+
   return (
     <div className="tabela-clientes-wrapper">
       <table className="tabela-clientes">
@@ -48,7 +65,7 @@ export default function TabelaClientes({ clientes, loading }: TabelaClientesProp
                 <td>{cliente.razaoSocial}</td>
                 <td>{cliente.telefone}</td>
                 <td>{cliente.email}</td>
-                <td>{cliente.ultimoPedido || "-"}</td>
+                <td>{getUltimoPedido(cliente.id)}</td>
               </tr>
             ))
           )}

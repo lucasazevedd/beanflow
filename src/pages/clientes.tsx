@@ -9,6 +9,7 @@ import TabelaClientes from "../components/tabela-clientes";
 
 import { useEffect, useState } from "react";
 import { getClientes } from "../services/clientService";
+import { getCotacoes } from "../services/quoteService";
 
 interface Cliente {
   id: number;
@@ -17,6 +18,11 @@ interface Cliente {
   razaoSocial: string;
   email: string;
   telefone: string;
+}
+
+interface Cotacao {
+  cliente_id: number;
+  data_criacao: string;
 }
 
 import "../styles/pages/lista-pages.css";
@@ -31,20 +37,25 @@ export default function ListaClientes() {
     cliente.cnpj.toLowerCase().includes(termoBusca.toLowerCase()) ||
     cliente.razaoSocial?.toLowerCase().includes(termoBusca.toLowerCase())
   );
+  const [cotacoes, setCotacoes] = useState<Cotacao[]>([]);
 
   useEffect(() => {
-    async function carregarClientes() {
+    async function carregarDados() {
       try {
-        const data = await getClientes();
-        setClientes(data);
+        const [clientesData, cotacoesData] = await Promise.all([
+          getClientes(),
+          getCotacoes()
+        ]);
+        setClientes(clientesData);
+        setCotacoes(cotacoesData);
       } catch (error) {
-        console.error("Erro ao buscar clientes:", error);
+        console.error("Erro ao buscar dados:", error);
       } finally {
         setLoading(false);
       }
     }
   
-    carregarClientes();
+    carregarDados();
   }, []);
 
   return (
@@ -61,10 +72,7 @@ export default function ListaClientes() {
                 <BotaoNovo rota="/clientes/novo" texto="NOVO CLIENTE" />
               </div>
             </div>
-
-            {/* 👉 Agora passando os dados pro componente da tabela */}
-            <TabelaClientes clientes={clientesFiltrados} loading={loading} />
-
+            <TabelaClientes clientes={clientesFiltrados} cotacoes={cotacoes} loading={loading} />
           </div>
 
           <Footer />

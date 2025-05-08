@@ -115,7 +115,7 @@ export default function CriarCotacao() {
                         setClienteSelecionado(null);
                       }}
                     >
-                      ❌
+                      limpar seleção
                     </button>
                   )}
                 </div>

@@ -29,7 +29,7 @@ export default function TarefasCard() {
   }, []);
 
   return (
-    <div className="tarefas-card">
+    <div className="tarefas-card-root">
       <div className="tarefas-header">
         <span className="titulo">📌 TAREFAS</span>
         <button className="nova-tarefa" onClick={() => navigate("/tarefas/novo")}>

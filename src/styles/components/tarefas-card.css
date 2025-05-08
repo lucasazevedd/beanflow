@@ -1,4 +1,4 @@
-.tarefas-card {
+.tarefas-card-root {
   background-color: var(--white-color);
   border-radius: var(--border-radius);
   padding: var(--padding-default);
@@ -75,18 +75,4 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.ver-todas {
-  align-self: flex-end;
-  background: none;
-  border: none;
-  color: var(--primary-color);
-  font-weight: var(--font-weight-subtitle);
-  font-family: var(--font-subtitle);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 0;
 }

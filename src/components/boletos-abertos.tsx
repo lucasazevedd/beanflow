@@ -3,9 +3,9 @@ import { getBoletos } from "../services/boletoService";
 import { getClientes } from "../services/clientService";
 import AddNewIcon from "../assets/icons/add-new-icon";
 import { useNavigate } from "react-router-dom";
+import BotaoNovo from "./botao-novo";
 import "../styles/components/boletos-abertos.css";
 import "../styles/pages/lista-pages.css";
-import "../styles/components/cotacoes-card.css";
 
 interface Cliente {
   id: number;
@@ -66,10 +66,9 @@ const BoletosAbertos = () => {
   return (
     <div className="boletos-abertos-container">
       <div className="boletos-abertos-header">
-      <button className="add-cotacao" onClick={() => navigate("/boletos/novo")}>
-        <AddNewIcon className="add-new-icon" />
-        NOVO BOLETO
-      </button>
+        <button>
+          <BotaoNovo rota="/boletos/novo" texto="NOVO BOLETO"/>
+        </button>
       </div>
 
       <ul className="boletos-abertos-lista">

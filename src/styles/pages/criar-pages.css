@@ -161,7 +161,6 @@ button[type="submit"]:hover {
 }
 
 .limpar-cliente {
-  position: absolute;
   background: none;
   border: none;
   cursor: pointer;

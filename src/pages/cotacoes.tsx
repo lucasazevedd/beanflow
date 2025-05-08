@@ -7,6 +7,7 @@ import SearchBar from "../components/search-bar";
 import BotaoFiltro from "../components/filters";
 import BotaoNovo from "../components/botao-novo";
 import { getCotacoes } from "../services/quoteService";
+import { getClientes } from "../services/clientService";
 
 import "../styles/pages/lista-pages.css";
 
@@ -20,25 +21,42 @@ interface Cotacao {
   observacoes: string;
 }
 
+interface Cliente {
+  id: number;
+  nome: string;
+}
+
+const [clientes, setClientes] = useState<Cliente[]>([]);
+
+const getNomeCliente = (cliente_id: number) => {
+  const cliente = clientes.find((c) => c.id === cliente_id);
+  return cliente ? cliente.nome : `ID ${cliente_id}`;
+};
+
 export default function ListaCotacoes() {
   const [cotacoes, setCotacoes] = useState<Cotacao[]>([]);
   const [loading, setLoading] = useState(true);
   const [termoBusca, setTermoBusca] = useState("");
 
   useEffect(() => {
-    async function carregarCotacoes() {
+    async function carregarDados() {
       try {
-        const data = await getCotacoes();
-        setCotacoes(data);
+        const [cotacoesData, clientesData] = await Promise.all([
+          getCotacoes(),
+          getClientes()
+        ]);
+        setCotacoes(cotacoesData);
+        setClientes(clientesData);
       } catch (error) {
-        console.error("Erro ao carregar cotações:", error);
+        console.error("Erro ao carregar dados:", error);
       } finally {
         setLoading(false);
       }
     }
-
-    carregarCotacoes();
+  
+    carregarDados();
   }, []);
+  
 
   const cotacoesFiltradas = cotacoes.filter((cotacao) =>
     cotacao.status?.toLowerCase().includes(termoBusca.toLowerCase()) ||
@@ -83,7 +101,7 @@ export default function ListaCotacoes() {
                     cotacoesFiltradas.map((cotacao) => (
                       <tr key={cotacao.id}>
                         <td>{cotacao.id}</td>
-                        <td>{`ID ${cotacao.cliente_id}`}</td>
+                        <td>{getNomeCliente(cotacao.cliente_id)}</td>
                         <td>{new Date(cotacao.data_criacao).toLocaleDateString()}</td>
                         <td>{cotacao.status}</td>
                         <td>{cotacao.etapa}</td>

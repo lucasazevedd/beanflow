@@ -23,7 +23,7 @@
   .task-buttons {
     display: flex;
     gap: 12px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
   }
   .task-button {

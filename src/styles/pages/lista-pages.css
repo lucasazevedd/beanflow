@@ -19,17 +19,26 @@
     white-space: nowrap;
   }
 
+
   .task-buttons {
-    padding: var(--padding-default);
-    border-radius: var(--border-radius);
-    font-family: var(--font-subtitle);
-    font-size: var(--font-size-body);
-    font-weight: var(--font-weight-subtitle);
-    cursor: pointer;
-    transition: var(--transition-default);
-    border: 1px solid var(--primary-color);
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
   }
-  
+  .task-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+    transition: var(--transition-default);
+  }
+
+  .task-button:hover {
+    transform: scale(1.1);
+  }
+
   .boletos-abertos {
     grid-column: span 4;
     grid-row: span 8;

@@ -22,8 +22,8 @@ export default function CriarTarefa() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
-    if (!form.titulo) {
-      alert("O campo título é obrigatório.");
+    if (!form.titulo || !form.descricao) {
+      alert("Título e Descrição são obrigatórios.");
       return;
     }
   
@@ -71,6 +71,7 @@ export default function CriarTarefa() {
                   placeholder="Digite a descrição da tarefa"
                   value={form.descricao}
                   onChange={handleChange}
+                  required
                 />
               </div>
 

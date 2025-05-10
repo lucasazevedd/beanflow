@@ -23,7 +23,9 @@ export default function CriarCotacao() {
   const [form, setForm] = useState({
     valor: "",
     observacoes: "",
-    data_criacao: new Date().toISOString().split("T")[0],
+    data_criacao: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      .toISOString()
+      .split("T")[0],
   });
   
 

@@ -23,6 +23,7 @@ export default function CriarCotacao() {
   const [form, setForm] = useState({
     valor: "",
     observacoes: "",
+    data_criacao: new Date().toISOString().split("T")[0],
   });
   
 
@@ -61,16 +62,14 @@ export default function CriarCotacao() {
       parseFloat(form.valor.replace(/[^\d,]/g, "").replace(",", ".")).toFixed(2)
     );
 
-    if (isNaN(valorNumerico) || valorNumerico <= 0) {
-      alert("Digite um valor válido para a cotação.");
-      return;
-    }
+    let valor_total = isNaN(valorNumerico) ? undefined : valorNumerico;
 
     try {
       const response = await createCotacao({
         cliente_id: clienteSelecionado.id,
-        valor_total: valorNumerico,
+        valor_total,
         observacoes: form.observacoes || undefined,
+        data_criacao: form.data_criacao,
       });
 
       console.log("Cotação criada:", response.cotacao);
@@ -144,9 +143,20 @@ export default function CriarCotacao() {
                 </div>
               </div>
 
+              <div className="grupo">
+                <label htmlFor="data_criacao">Data da Cotação<span>*</span></label>
+                <input
+                  type="date"
+                  id="data_criacao"
+                  name="data_criacao"
+                  value={form.data_criacao}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
               <div className="grupo">
-                <label htmlFor="valor">Valor Total (R$)<span>*</span></label>
+                <label htmlFor="valor">Valor Total (R$)</label>
                 <input
                   type="text"
                   name="valor"
@@ -156,7 +166,6 @@ export default function CriarCotacao() {
                     setForm({ ...form, valor: formatarValor(e.target.value) })
                   }
                   placeholder="R$ 0,00"
-                  required
                 />
               </div>
 

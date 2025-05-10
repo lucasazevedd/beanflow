@@ -13,9 +13,10 @@ export async function getCotacoes() {
 
 export async function createCotacao(data: {
   cliente_id: number;
-  valor_total: number;
+  valor_total?: number;
   observacoes?: string;
   etapa?: string;
+  data_criacao?: string;
 }) {
   const response = await fetch(`${API_BASE_URL}/cotacoes`, {
     method: "POST",

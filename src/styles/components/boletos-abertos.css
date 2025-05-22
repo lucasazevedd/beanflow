@@ -1,77 +1,82 @@
-.boletos-abertos-container {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: var(--padding-default);
-    font-family: var(--font-subtitle);
-    box-sizing: border-box;
-  }
-  
-  .boletos-abertos-header {
-    text-align: center;
-    margin-bottom: var(--margin-default);
-  }
+/* boletos-abertos.css */
 
-  .boletos-abertos-header button {
-    width: 100%;
-    border: none;
-  }
-  
-  .boletos-abertos-titulo {
-    font-size: var(--font-size-title);
-    font-family: var(--font-title);
-    font-weight: var(--font-weight-subtitle);
-    color: var(--primary-color);
-  }
-  
-  .boletos-abertos-lista {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .boletos-abertos-item {
-    background-color: var(--secondary-color);
-    padding: 12px var(--padding-default);
-    border-radius: var(--border-radius);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .boletos-abertos-info {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .boletos-abertos-cliente {
-    font-weight: var(--font-weight-title);
-    font-size: var(--font-size-body);
-  }
-  
-  .boletos-abertos-status {
-    font-size: var(--font-size-body);
-    color: var(--text-color);
-  }
-  
-  .boletos-abertos-valor {
-    font-weight: var(--font-weight-title);
-    font-size: var(--font-size-subtitle);
-    color: var(--sucess-color);
-  }
-  
-  .boletos-abertos-rodape {
-    margin-top: 24px;
-    padding: var(--padding-default);
-    background-color: var(--secondary-color);
-    border-radius: var(--border-radius);
-    text-align: center;
-    font-weight: var(--font-weight-subtitle);
-    font-size: var(--font-size-body);
-    color: var(--text-color);
-  }
-  
+.boletos-card-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-default);
+  box-sizing: border-box;
+  font-family: var(--font-subtitle);
+  justify-content: space-between;
+}
+
+/* Header com botão de ação */
+.boletos-card-header {
+  margin-bottom: var(--margin-default);
+}
+
+.boletos-card-header button {
+  width: 100%;
+  border: none;
+}
+
+/* Lista de boletos */
+.boletos-card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* 12px */
+}
+
+.boletos-card-item {
+  background-color: var(--secondary-color);
+  padding: 0.75rem var(--padding-default);
+  border-radius: var(--border-radius);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Informações de cada boleto */
+.boletos-card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.boletos-card-cliente {
+  font-weight: var(--font-weight-title);
+  font-size: var(--font-size-body);
+}
+
+.boletos-card-status {
+  font-size: var(--font-size-body);
+  color: var(--text-color);
+}
+
+/* Valor em destaque */
+.boletos-card-valor {
+  font-weight: var(--font-weight-title);
+  font-size: var(--font-size-subtitle);
+  color: var(--sucess-color);
+}
+
+/* Rodapé com total */
+.boletos-card-footer {
+  margin-top: 1.5rem; /* 24px */
+  padding: var(--padding-default);
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  text-align: center;
+  font-weight: var(--font-weight-subtitle);
+  font-size: var(--font-size-body);
+  color: var(--text-color);
+}
+
+/* Comentários:
+- Todos os nomes foram padronizados para "boletos-card-*"
+- Unidades fixas substituídas por rem
+- Uso completo de variáveis visuais e espaciais
+*/

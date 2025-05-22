@@ -1,9 +1,10 @@
 import { Sidebar } from "../components/sidebar";
 // import { Header } from "../components/header";
 import { Footer } from "../components/footer";
-import CotacoesCard from "../components/cotacoes-card";
-import BoletosCard from "../components/boletos-card";
-import TarefasCard from "../components/tarefas-card";
+import CotacoesCard from "../components/widgets/cotacoes-card";
+import BoletosCard from "../components/widgets/boletos-card";
+import TarefasCard from "../components/widgets/tarefas-card";
+import SupersetCard from "../components/widgets/superset-card";
 
 import "../styles/pages/home.css";
 
@@ -24,13 +25,13 @@ export default function Home() {
             <div className="tarefas-card">
               <TarefasCard />
             </div>
-            <div className="status-card">STATUS GERAL</div>
+            <div className="status-card"><SupersetCard/></div>
           </div>
         </div>
         <Footer />
-    </div>
       </div>
-      
+    </div>
+
   );
 }
 

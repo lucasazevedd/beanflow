@@ -1,0 +1,153 @@
+/* widgets-cards.css (unifica estilos de boletos, cotações e tarefas) */
+
+.widget-card {
+  background-color: var(--white-color);
+  border-radius: var(--border-radius);
+  padding: var(--padding-default);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  gap: 1rem; /* 16px */
+  overflow: hidden;
+  justify-content: space-between;
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.widget-title {
+  font-family: var(--font-subtitle);
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-title);
+  color: var(--primary-color);
+}
+
+.widget-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* 12px */
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.widget-item {
+  background-color: var(--secondary-color);
+  padding: var(--padding-default);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  box-shadow: var(--box-shadow-default);
+}
+
+.widget-item-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: var(--font-weight-subtitle);
+  color: var(--text-color);
+  font-size: var(--font-size-body);
+  font-family: var(--font-body);
+}
+
+.widget-item-description {
+  font-size: var(--font-size-body);
+  font-family: var(--font-body);
+  color: var(--text-color);
+  opacity: 0.7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.widget-status {
+  font-size: 0.85rem;
+  color: #666;
+  text-align: right;
+}
+
+.widget-value {
+  font-weight: bold;
+  font-size: var(--font-size-body);
+  color: var(--text-color);
+}
+
+.widget-line {
+  width: 0.25rem;
+  background-color: var(--primary-color);
+  border-radius: var(--border-radius);
+  margin: 0.5rem 0 0.5rem 0;
+}
+
+/* Status visuais para boletos */
+.widget-item.vencido,
+.widget-item.vermelho {
+  background-color: #fcd4d4;
+}
+
+.widget-item.laranja {
+  background-color: #ffe7c2;
+}
+
+.widget-item.amarelo {
+  background-color: #fff6c2;
+}
+
+.widget-item.verde {
+  background-color: #d4fcd9;
+}
+
+.widget-item.branco {
+  background-color: #f0f0f0;
+}
+
+/* Botões gerais dentro dos cards */
+.widget-action {
+  align-self: flex-end;
+  background-color: transparent;
+  border: none;
+  font-family: var(--font-subtitle);
+  font-size: var(--font-size-body);
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: var(--transition-default);
+  padding: 0;
+}
+
+.widget-action:hover {
+  text-decoration: underline;
+}
+
+.widget-button {
+  border-radius: var(--border-radius);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-default);
+  color: var(--primary-color);
+  fill: var(--primary-color);
+  font-weight: var(--font-weight-subtitle);
+  cursor: pointer;
+}
+
+.widget-embed {
+  flex: 1;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  position: relative;
+  min-height: 18.75rem; /* 300px */
+}
+
+/* Comentários:
+- Agrupamento em "widget-card" permite consolidar estilos de boletos, cotações e tarefas.
+- Pode ser estendido por cada componente com classes adicionais (ex: .tarefas-card-root).
+- Usadas medidas relativas (rem) e variáveis do projeto.
+*/

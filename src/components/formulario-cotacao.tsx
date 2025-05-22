@@ -1,21 +1,8 @@
 // components/formulario-cotacao.tsx
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../services/api";
-
-interface Cotacao {
-  id: number;
-  cliente_id: number;
-  valor_total: number;
-  observacoes: string;
-  status: string;
-  etapa: string;
-  data_criacao: string;
-}
-
-interface Cliente {
-  id: number;
-  nome: string;
-}
+import { Cliente } from "../types/Cliente";
+import { Cotacao } from "../types/Cotacao";
 
 interface FormularioCotacaoProps {
   cotacaoId: number;

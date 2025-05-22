@@ -88,7 +88,7 @@ export default function EditarCotacao() {
         <div className="content">
           <div className="criar-form-wrapper">
             <form className="criar-form" onSubmit={handleSubmit}>
-              <h2>COTAÇÃO Nº {id}</h2>
+              <h2>NOVA COTAÇÃO</h2>
 
               <div className="linha">
                 <CampoClienteSelecionavel

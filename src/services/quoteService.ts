@@ -48,9 +48,11 @@ export async function createCotacao(data: {
 
 // Atualizar uma cotação existente
 export async function updateCotacao(id: number, data: {
+  cliente_id: number;
   valor_total?: number;
   observacoes?: string;
   etapa?: string;
+  data_criacao?: string;
 }) {
   const response = await fetch(`${API_BASE_URL}/cotacoes/${id}`, {
     method: "PUT",
@@ -61,9 +63,8 @@ export async function updateCotacao(id: number, data: {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    console.error("Erro ao atualizar cotação:", errorText);
-    throw new Error("Erro ao atualizar cotação");
+    const texto = await response.text();
+    throw new Error(`Erro ao atualizar cotação: ${texto}`);
   }
 
   return response.json();

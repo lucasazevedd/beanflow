@@ -1,6 +1,6 @@
-import "../styles/components/tabela-base.css";
-import { Cliente } from "../types/Cliente";
-import { Cotacao } from "../types/Cotacao";
+import "../../styles/components/tabela-base.css";
+import { Cliente } from "../../types/Cliente";
+import { Cotacao } from "../../types/Cotacao";
 
 interface TabelaClientesProps {
   clientes: Cliente[];

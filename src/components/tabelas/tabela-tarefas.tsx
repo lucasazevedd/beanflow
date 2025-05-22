@@ -1,5 +1,5 @@
-import { Tarefa } from "../types/Tarefa";
-import "../styles/components/tabela-base.css";
+import { Tarefa } from "../../types/Tarefa";
+import "../../styles/components/tabela-base.css";
 
 interface TabelaTarefasProps {
   tarefas: Tarefa[];

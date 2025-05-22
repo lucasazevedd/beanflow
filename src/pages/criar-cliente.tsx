@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Sidebar } from "../components/sidebar";
-// import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 import { cadastrarCliente } from "../services/clientService";
 

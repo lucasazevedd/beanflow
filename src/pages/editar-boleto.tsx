@@ -1,22 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
-import CampoClienteSelecionavel from "../components/campo-cliente-selecionavel";
-import { Cliente } from "../types/Cliente";
-import { createBoleto } from "../services/boletoService";
+import { getBoletoPorId, updateBoleto, deleteBoleto } from "../services/boletoService";
+import { calcularDataVencimento, calcularDiasParaVencimento } from "../utils/date";
 import { formatarMoeda, formatarParaNumero } from "../utils/money";
-import { calcularDataVencimento } from "../utils/date";
+import { Cliente } from "../types/Cliente";
 
 import "../styles/pages/criar-pages.css";
 
-export default function CriarBoleto() {
+export default function EditarBoleto() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
-    data: new Date().toISOString().split("T")[0],
+    data: "",
     vencimento: "30",
     valor: ""
   });
 
   const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function carregarBoleto() {
+      try {
+        const boleto = await getBoletoPorId(Number(id));
+        setForm({
+          data: boleto.data,
+          vencimento: calcularDiasParaVencimento(boleto.data, boleto.vencimento).toString(),
+          valor: formatarMoeda(boleto.valor)
+        });
+        setClienteSelecionado(boleto.cliente);
+      } catch (error) {
+        console.error("Erro ao carregar boleto:", error);
+        alert("Erro ao buscar boleto.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    carregarBoleto();
+  }, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -30,28 +55,39 @@ export default function CriarBoleto() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!clienteSelecionado) {
-      alert("Selecione um cliente válido.");
-      return;
-    }
+    if (!clienteSelecionado) return;
 
     const dias = parseInt(form.vencimento);
     const dataVencimento = calcularDataVencimento(form.data, dias);
-    const valorNumerico = formatarParaNumero(form.valor);
+    const valorNumerico = form.valor.trim() ? formatarParaNumero(form.valor) : 0;
 
     try {
-      await createBoleto({
+      await updateBoleto(Number(id), {
         cliente_id: clienteSelecionado.id,
         data: form.data,
         vencimento: dataVencimento,
         valor: valorNumerico.toFixed(2)
       });
 
-      alert("Boleto criado com sucesso!");
+      alert("Boleto atualizado com sucesso!");
+      navigate("/boletos");
     } catch (error) {
-      console.error("Erro ao criar boleto:", error);
-      alert("Erro ao criar boleto.");
+      console.error("Erro ao atualizar boleto:", error);
+      alert("Erro ao atualizar boleto.");
+    }
+  };
+
+  const handleExcluir = async () => {
+    const confirmacao = window.confirm("Tem certeza que deseja excluir este boleto?");
+    if (!confirmacao) return;
+
+    try {
+      await deleteBoleto(Number(id));
+      alert("Boleto excluído com sucesso!");
+      navigate("/boletos");
+    } catch (error) {
+      console.error("Erro ao excluir boleto:", error);
+      alert("Erro ao excluir boleto.");
     }
   };
 
@@ -62,13 +98,17 @@ export default function CriarBoleto() {
         <div className="content">
           <div className="criar-form-wrapper">
             <form className="criar-form" onSubmit={handleSubmit}>
-              <h2>NOVO BOLETO</h2>
+              <h2>BOLETO Nº {id}</h2>
 
               <div className="linha">
-                <CampoClienteSelecionavel
-                  clienteSelecionado={clienteSelecionado}
-                  setClienteSelecionado={setClienteSelecionado}
-                />
+                <div className="grupo">
+                  <label>Cliente</label>
+                  <input
+                    type="text"
+                    value={clienteSelecionado?.nome || ""}
+                    disabled
+                  />
+                </div>
 
                 <div className="grupo">
                   <label htmlFor="data">Data</label>
@@ -106,12 +146,21 @@ export default function CriarBoleto() {
                     placeholder="R$ 0,00"
                     value={form.valor}
                     onChange={handleValorChange}
-                    required
                   />
                 </div>
               </div>
 
-              <button type="submit">Criar</button>
+              <div className="linha" style={{ justifyContent: "space-between" }}>
+                <button type="submit" disabled={loading}>Salvar</button>
+                <button
+                  type="button"
+                  className="limpar-cliente"
+                  onClick={handleExcluir}
+                  style={{ color: "red" }}
+                >
+                  Excluir boleto
+                </button>
+              </div>
             </form>
           </div>
         </div>

@@ -2,7 +2,7 @@ import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
 import SearchBar from "../components/search-bar";
 import BotaoNovo from "../components/botao-novo";
-import TabelaClientes from "../components/tabela-clientes";
+import TabelaClientes from "../components/tabelas/tabela-clientes";
 import { Cliente } from "../types/Cliente";
 import { Cotacao } from "../types/Cotacao";
 import { useEffect, useState } from "react";

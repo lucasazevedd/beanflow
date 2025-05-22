@@ -5,7 +5,7 @@ import SearchBar from "../components/search-bar";
 import BotaoNovo from "../components/botao-novo";
 import { getTarefas, deleteTarefa } from "../services/taskService";
 import { Tarefa } from "../types/Tarefa";
-import TabelaTarefas from "../components/tabela-tarefas";
+import TabelaTarefas from "../components/tabelas/tabela-tarefas";
 
 import "../styles/pages/lista-pages.css";
 

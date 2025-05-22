@@ -1,7 +1,7 @@
-import "../styles/components/tabela-base.css";
-import { Cotacao } from "../types/Cotacao";
-import { Cliente } from "../types/Cliente";
-import { getNomeClientePorId } from "../utils/clientes";
+import "../../styles/components/tabela-base.css";
+import { Cotacao } from "../../types/Cotacao";
+import { Cliente } from "../../types/Cliente";
+import { getNomeClientePorId } from "../../utils/clientes";
 
 interface TabelaCotacoesProps {
   cotacoes: Cotacao[];

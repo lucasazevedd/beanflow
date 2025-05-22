@@ -1,45 +1,45 @@
-import "../styles/components/tabela-cotacoes.css";
+import "../styles/components/tabela-base.css";
+import { Cotacao } from "../types/Cotacao";
+import { Cliente } from "../types/Cliente";
+import { getNomeClientePorId } from "../utils/clientes";
 
-const cotacoes = [
-  {
-    id: "9999",
-    cliente: "Smart Fit Vinhais",
-    data: "21/04/2025",
-    status: "INFINITY FACILITIES",
-    proximaEtapa: "📄 Realizar orçamento",
-    ultimaAtualizacao: "21/04/2025",
-    observacoes: "Esfregão tem que ser..."
-  },
-  // Adicione mais cotações conforme necessário
-];
+interface TabelaCotacoesProps {
+  cotacoes: Cotacao[];
+  clientes: Cliente[];
+  loading: boolean;
+}
 
-export default function TabelaCotacoes() {
+export default function TabelaCotacoes({ cotacoes, clientes, loading }: TabelaCotacoesProps) {
   return (
-    <div className="tabela-cotacoes-wrapper">
-      <table className="tabela-cotacoes">
+    <div className="tabela-wrapper">
+      <table className="tabela">
         <thead>
           <tr>
             <th>ID</th>
             <th>Cliente</th>
             <th>Data</th>
             <th>Status</th>
-            <th>Próxima Etapa</th>
-            <th>Última Atualização</th>
+            <th>Etapa</th>
             <th>Observações</th>
           </tr>
         </thead>
         <tbody>
-          {cotacoes.map((cotacao, index) => (
-            <tr key={index}>
-              <td>{cotacao.id}</td>
-              <td>{cotacao.cliente}</td>
-              <td>{cotacao.data}</td>
-              <td>{cotacao.status}</td>
-              <td>{cotacao.proximaEtapa}</td>
-              <td>{cotacao.ultimaAtualizacao}</td>
-              <td>{cotacao.observacoes}</td>
-            </tr>
-          ))}
+          {loading ? (
+            <tr><td colSpan={6}>Carregando...</td></tr>
+          ) : cotacoes.length === 0 ? (
+            <tr><td colSpan={6}>Nenhuma cotação encontrada</td></tr>
+          ) : (
+            cotacoes.map((cotacao) => (
+              <tr key={cotacao.id}>
+                <td>{cotacao.id}</td>
+                <td>{getNomeClientePorId(clientes, cotacao.cliente_id)}</td>
+                <td>{new Date(cotacao.data_criacao).toLocaleDateString()}</td>
+                <td>{cotacao.status}</td>
+                <td>{cotacao.etapa}</td>
+                <td>{cotacao.observacoes || "-"}</td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

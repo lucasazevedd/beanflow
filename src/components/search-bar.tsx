@@ -10,7 +10,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     <div className="search-bar">
       <input
         type="text"
-        placeholder="Digite um nome ou CNPJ..."
+        placeholder="Digite alguma coisa..."
         onChange={(e) => onSearch(e.target.value)}
         className="search-input"
       />

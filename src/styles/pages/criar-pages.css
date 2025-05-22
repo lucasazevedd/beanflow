@@ -2,35 +2,35 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 48px 0;
+  padding: 3rem 0; /* 48px */
   height: 100%;
   box-sizing: border-box;
 }
 
 .criar-form {
-  background-color: white;
-  border-radius: 24px;
-  padding: 32px;
+  background-color: var(--white-color);
+  border-radius: var(--border-radius);
+  padding: 2rem; /* 32px */
   width: 100%;
-  max-width: 720px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-width: 45rem; /* 720px */
+  box-shadow: var(--box-shadow-default);
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 1.5rem;
 }
 
 .criar-form h2 {
   font-family: var(--font-title);
-  font-size: 28px;
+  font-size: var(--font-size-title);
   font-weight: var(--font-weight-title);
   text-align: center;
   color: var(--primary-color);
-  margin: 16px 0;
+  margin: 1rem 0;
 }
 
 .linha {
   display: flex;
-  gap: 16px;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
@@ -38,7 +38,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-width: 200px;
+  min-width: 12.5rem; /* 200px */
 }
 
 .grupo label {
@@ -46,102 +46,72 @@
   font-size: var(--font-size-subtitle);
   font-weight: var(--font-weight-subtitle);
   color: var(--primary-color);
-  margin: 0 0 6px 12px;
+  margin: 0 0 0.375rem 0.75rem;
 }
 
 .grupo label span {
   color: red;
-  margin-left: 4px;
+  margin-left: 0.25rem;
 }
 
 .grupo input,
-.grupo textarea {
-  padding: 12px;
+.grupo textarea,
+.grupo select {
+  padding: 0.75rem;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   font-family: var(--font-body);
   font-size: var(--font-size-body);
-  background-color: #f7f7f7;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  background-color: var(--input-background);
+  box-shadow: inset 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
 }
 
 .grupo input:focus,
-.grupo textarea:focus {
+.grupo textarea:focus,
+.grupo select:focus {
   border: 1px solid var(--primary-color);
+  outline: none;
 }
 
 .grupo textarea {
-  resize: vertical;
-  min-height: 120px;
+  resize: none;
 }
 
 .grupo select {
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  font-family: var(--font-body);
-  font-size: var(--font-size-body);
-  background-color: #f7f7f7;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-  outline-color: var(--primary-color);
   appearance: none;
 }
 
-.grupo select:focus {
-  border: 1px solid var(--primary-color);
-}
-
-.logoff {
-  margin-top: 16px;
-  width: 100%;
-  padding: 12px;
-  font-size: var(--font-size-body);
-  font-family: var(--font-subtitle);
-  font-weight: var(--font-weight-subtitle);
+button[type="submit"],
+.formulario-cotacao-card button {
+  align-self: flex-end;
   background-color: var(--primary-color);
   color: var(--white-color);
   border: none;
   border-radius: var(--border-radius);
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-subtitle);
+  font-weight: var(--font-weight-title);
+  font-size: var(--font-size-body);
   cursor: pointer;
   transition: var(--transition-default);
 }
 
-.logoff:hover {
+button[type="submit"]:hover,
+.formulario-cotacao-card button:hover {
   background-color: var(--white-color);
   color: var(--primary-color);
   border: 1px solid var(--primary-color);
-  box-shadow: var(--box-shadow-default)
-}
-
-button[type="submit"] {
-  align-self: flex-end;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-family: var(--font-subtitle);
-  font-weight: var(--font-weight-title);
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s, color 0.3s, border 0.3s;
-}
-
-button[type="submit"]:hover {
-  background-color: white;
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--box-shadow-default);
 }
 
 .sugestoes-clientes {
   list-style: none;
-  background: white;
+  background-color: var(--white-color);
   border: 1px solid var(--primary-color);
-  max-height: 200px;
+  max-height: 12.5rem;
   overflow-y: auto;
-  margin-top: 4px;
-  border-radius: 8px;
+  margin-top: 0.25rem;
+  border-radius: var(--border-radius);
   position: absolute;
   z-index: 10;
   max-width: 30%;
@@ -151,7 +121,7 @@ button[type="submit"]:hover {
 }
 
 .sugestoes-clientes li {
-  padding: 10px 16px;
+  padding: 0.625rem 1rem;
   cursor: pointer;
 }
 

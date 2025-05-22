@@ -1,0 +1,43 @@
+/* tabela-base.css (unificado para clientes e cotações) */
+
+.tabela-wrapper {
+  background-color: var(--white-color);
+  border-radius: var(--border-radius);
+  overflow-x: auto;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+}
+
+.tabela thead {
+  background-color: var(--table-header-bg);
+  text-align: left;
+}
+
+.tabela th,
+.tabela td {
+  padding: 0.75rem 1rem; /* 12px 16px */
+  border-bottom: 1px solid var(--table-border);
+}
+
+.tabela tbody tr:nth-child(even) {
+  background-color: var(--table-body-bg);
+}
+
+.tabela th {
+  color: var(--primary-color);
+  font-weight: var(--font-weight-title);
+}
+
+.tabela td {
+  color: var(--text-color);
+}
+
+/* Comentários:
+- Arquivo unificado reduz duplicidade entre tabela-clientes.css e tabela-cotacoes.css.
+- Prefixos como ".tabela-wrapper" e ".tabela" tornam o código mais reutilizável.
+*/

@@ -1,62 +1,66 @@
 .lista-page-container {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    padding: 24px;
-    flex: 1;
-  }
-  
-  .top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    gap: 24px;
-  }
-  
-  .botoes {
-    display: flex;
-    gap: 24px;
-    white-space: nowrap;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: var(--padding-default);
+  flex: 1;
+}
 
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1.5rem;
+}
 
-  .task-buttons {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-start;
-    align-items: center;
-  }
-  .task-button {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 4px;
-    transition: var(--transition-default);
-  }
+.botoes {
+  display: flex;
+  gap: 1.5rem;
+  white-space: nowrap;
+}
 
-  .task-button:hover {
-    transform: scale(1.1);
-  }
+.task-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-start;
+  align-items: center;
+}
 
-  .boletos-abertos {
-    grid-column: span 4;
-    grid-row: span 8;
-    background-color: var(--white-color);
-    border-radius: var(--border-radius);
-  }
+.task-button {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: var(--transition-default);
+}
 
-  .boletos-vencidos, .faturamento-mensal {
-    grid-column: span 8;
-    grid-row: span 3;
-    background-color: var(--white-color);
-    border-radius: var(--border-radius);
-  }
+.task-button:hover {
+  transform: scale(1.1);
+}
 
-  .faturamento-boletos, .faturamento-cotacoes {
-    grid-column: span 4;
-    grid-row: span 2;
-    background-color: var(--white-color);
-    border-radius: var(--border-radius);
-  }
+.boletos-abertos,
+.boletos-vencidos,
+.faturamento-mensal,
+.faturamento-boletos,
+.faturamento-cotacoes {
+  background-color: var(--white-color);
+  border-radius: var(--border-radius);
+}
 
+.boletos-abertos {
+  grid-column: span 4;
+  grid-row: span 8;
+}
+
+.boletos-vencidos,
+.faturamento-mensal {
+  grid-column: span 8;
+  grid-row: span 3;
+}
+
+.faturamento-boletos,
+.faturamento-cotacoes {
+  grid-column: span 4;
+  grid-row: span 2;
+}

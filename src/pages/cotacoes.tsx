@@ -1,29 +1,17 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
 import SearchBar from "../components/search-bar";
-import BotaoFiltro from "../components/filters";
 import BotaoNovo from "../components/botao-novo";
 import { getCotacoes } from "../services/quoteService";
 import { getClientes } from "../services/clientService";
-import { useNavigate } from "react-router-dom";
+import { getNomeClientePorId } from "../utils/clientes";
+import { Cliente } from "../types/Cliente";
+import { Cotacao } from "../types/Cotacao";
 
 import "../styles/pages/lista-pages.css";
-
-interface Cotacao {
-  id: number;
-  cliente_id: number;
-  data_criacao: string;
-  status: string;
-  etapa: string;
-  valor_total: number;
-  observacoes: string;
-}
-
-interface Cliente {
-  id: number;
-  nome: string;
-}
+import "../styles/components/tabela-base.css";
 
 export default function ListaCotacoes() {
   const [cotacoes, setCotacoes] = useState<Cotacao[]>([]);
@@ -51,15 +39,10 @@ export default function ListaCotacoes() {
     carregarDados();
   }, []);
 
-  const getNomeCliente = (cliente_id: number) => {
-    const cliente = clientes.find((c) => c.id === cliente_id);
-    return cliente ? cliente.nome : `ID ${cliente_id}`;
-  };
-
   const cotacoesFiltradas = cotacoes.filter((cotacao) =>
     cotacao.status?.toLowerCase().includes(termoBusca.toLowerCase()) ||
     cotacao.etapa?.toLowerCase().includes(termoBusca.toLowerCase()) ||
-    getNomeCliente(cotacao.cliente_id).toLowerCase().includes(termoBusca.toLowerCase())
+    getNomeClientePorId(clientes, cotacao.cliente_id).toLowerCase().includes(termoBusca.toLowerCase())
   );
 
   return (
@@ -71,13 +54,12 @@ export default function ListaCotacoes() {
             <div className="top-bar">
               <SearchBar onSearch={setTermoBusca} />
               <div className="botoes">
-                <BotaoFiltro />
                 <BotaoNovo rota="/cotacoes/novo" texto="NOVO ORÇAMENTO" />
               </div>
             </div>
 
-            <div className="tabela-clientes-wrapper">
-              <table className="tabela-clientes">
+            <div className="tabela-wrapper">
+              <table className="tabela">
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -103,7 +85,7 @@ export default function ListaCotacoes() {
                         style={{ cursor: "pointer" }}
                       >
                         <td>{cotacao.id}</td>
-                        <td>{getNomeCliente(cotacao.cliente_id)}</td>
+                        <td>{getNomeClientePorId(clientes, cotacao.cliente_id)}</td>
                         <td>{new Date(cotacao.data_criacao).toLocaleDateString()}</td>
                         <td>{cotacao.status}</td>
                         <td>{cotacao.etapa}</td>

@@ -1,85 +1,83 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
-import { getClientes } from "../services/clientService";
-import { createCotacao } from "../services/quoteService";
-import { useNavigate } from "react-router-dom";
+import CampoClienteSelecionavel from "../components/campo-cliente-selecionavel";
+import { Cliente } from "../types/Cliente";
+import { getCotacaoPorId, updateCotacao } from "../services/quoteService";
+import { formatarMoeda, formatarParaNumero } from "../utils/money";
+import { nomesEtapasCotacao } from "../utils/etapasCotacao";
+
 
 import "../styles/pages/criar-pages.css";
 
-function formatarValor(valor: string) {
-  const somenteNumeros = valor.replace(/\D/g, "");
-  const valorFormatado = (parseInt(somenteNumeros || "0") / 100).toFixed(2);
-  return "R$ " + valorFormatado.replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
-
-interface Cliente {
-  id: number;
-  nome: string;
-  cnpj: string;
-}
-
-export default function CriarCotacao() {
-  const [form, setForm] = useState({
-    valor: "",
-    observacoes: "",
-    data_criacao: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .split("T")[0],
-  });
-  
-
-  const [clientes, setClientes] = useState<Cliente[]>([]);
-  const [clienteBusca, setClienteBusca] = useState("");
-  const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
+export default function EditarCotacao() {
+  const { id } = useParams();
   const navigate = useNavigate();
 
+  const [form, setForm] = useState({
+    data_criacao: "",
+    valor: "",
+    observacoes: "",
+    etapa: ""
+  });
+
+  const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    async function carregarClientes() {
+    async function carregarCotacao() {
       try {
-        const data = await getClientes();
-        setClientes(data);
+        const cotacao = await getCotacaoPorId(Number(id));
+        setForm({
+          data_criacao: cotacao.data_criacao,
+          valor: formatarMoeda(cotacao.valor_total || 0),
+          observacoes: cotacao.observacoes || "",
+          etapa: cotacao.etapa || ""
+        });
+        setClienteSelecionado(cotacao.cliente); // objeto completo
       } catch (error) {
-        console.error("Erro ao buscar clientes:", error);
+        console.error("Erro ao carregar cotação:", error);
+        alert("Erro ao buscar cotação.");
+      } finally {
+        setLoading(false);
       }
     }
 
-    carregarClientes();
-  }, []);
+    carregarCotacao();
+  }, [id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
+  const handleValorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const valorFormatado = formatarMoeda(e.target.value);
+    setForm({ ...form, valor: valorFormatado });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!clienteSelecionado) {
-      alert("Selecione um cliente da lista.");
+      alert("Cliente inválido.");
       return;
     }
 
-    const valorNumerico = Number(
-      parseFloat(form.valor.replace(/[^\d,]/g, "").replace(",", ".")).toFixed(2)
-    );
-
-    let valor_total = isNaN(valorNumerico) ? undefined : valorNumerico;
-
     try {
-      const response = await createCotacao({
+      await updateCotacao(Number(id), {
         cliente_id: clienteSelecionado.id,
-        valor_total,
-        observacoes: form.observacoes || undefined,
         data_criacao: form.data_criacao,
+        valor_total: form.valor.trim() ? formatarParaNumero(form.valor) : 0,
+        observacoes: form.observacoes,
+        etapa: form.etapa
       });
 
-      console.log("Cotação criada:", response.cotacao);
-      alert("Cotação cadastrada com sucesso!");
+      alert("Cotação atualizada com sucesso!");
       navigate("/cotacoes");
     } catch (error) {
-      console.error(error);
-      alert("Erro ao criar cotação.");
+      console.error("Erro ao atualizar cotação:", error);
+      alert("Erro ao atualizar cotação.");
     }
   };
 
@@ -90,85 +88,48 @@ export default function CriarCotacao() {
         <div className="content">
           <div className="criar-form-wrapper">
             <form className="criar-form" onSubmit={handleSubmit}>
-              <h2>NOVO ORÇAMENTO</h2>
+              <h2>COTAÇÃO Nº {id}</h2>
 
               <div className="linha">
-                <div className="grupo grupo-cliente">
-                  <label htmlFor="cliente">Cliente<span>*</span></label>
-                  <div className="grupo">
-                    <input
-                      type="text"
-                      id="cliente"
-                      placeholder="Digite o nome do cliente"
-                      value={clienteBusca}
-                      onChange={(e) => {
-                        setClienteBusca(e.target.value);
-                        setClienteSelecionado(null);
-                      }}
-                      disabled={!!clienteSelecionado}
-                      required
-                    />
-                    {clienteSelecionado && (
-                      <button
-                        type="button"
-                        className="limpar-cliente"
-                        onClick={() => {
-                          setClienteBusca("");
-                          setClienteSelecionado(null);
-                        }}
-                      >
-                        limpar seleção
-                      </button>
-                    )}
-                  </div>
-                  {clienteBusca && !clienteSelecionado && (
-                    <ul className="sugestoes-clientes">
-                      {clientes
-                        .filter((c) =>
-                          c.nome.toLowerCase().includes(clienteBusca.toLowerCase()) ||
-                          c.cnpj.includes(clienteBusca)
-                        )
-                        .slice(0, 5)
-                        .map((cliente) => (
-                          <li
-                            key={cliente.id}
-                            onClick={() => {
-                              setClienteSelecionado(cliente);
-                              setClienteBusca(`${cliente.nome} – ${cliente.cnpj}`);
-                            }}
-                          >
-                            {cliente.nome} – {cliente.cnpj}
-                          </li>
-                        ))}
-                    </ul>
-                  )}
+                <CampoClienteSelecionavel
+                  clienteSelecionado={clienteSelecionado}
+                  setClienteSelecionado={() => {}} // campo desativado
+                />
+              </div>
+
+              <div className="linha">
+                <div className="grupo">
+                  <label htmlFor="data_criacao">Data da Cotação<span>*</span></label>
+                  <input
+                    type="date"
+                    id="data_criacao"
+                    name="data_criacao"
+                    value={form.data_criacao}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="grupo">
+                  <label htmlFor="valor">Valor</label>
+                  <input
+                    type="text"
+                    name="valor"
+                    id="valor"
+                    placeholder="R$ 0,00"
+                    value={form.valor}
+                    onChange={handleValorChange}
+                  />
                 </div>
               </div>
 
               <div className="grupo">
-                <label htmlFor="data_criacao">Data da Cotação<span>*</span></label>
-                <input
-                  type="date"
-                  id="data_criacao"
-                  name="data_criacao"
-                  value={form.data_criacao}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="grupo">
-                <label htmlFor="valor">Valor Total (R$)</label>
-                <input
-                  type="text"
-                  name="valor"
-                  id="valor"
-                  value={form.valor}
-                  onChange={(e) =>
-                    setForm({ ...form, valor: formatarValor(e.target.value) })
-                  }
-                  placeholder="R$ 0,00"
-                />
+                <label htmlFor="etapa">Etapa</label>
+                <select name="etapa" id="etapa" value={form.etapa} onChange={handleChange}>
+                  {nomesEtapasCotacao.map((etapa) => (
+                    <option key={etapa} value={etapa}>{etapa}</option>
+                  ))}
+                </select>
               </div>
 
               <div className="grupo">
@@ -178,11 +139,10 @@ export default function CriarCotacao() {
                   id="observacoes"
                   value={form.observacoes}
                   onChange={handleChange}
-                  placeholder="Adicione observações aqui..."
                 />
               </div>
 
-              <button type="submit">Criar</button>
+              <button type="submit" disabled={loading}>Salvar</button>
             </form>
           </div>
         </div>

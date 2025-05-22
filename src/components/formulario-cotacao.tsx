@@ -12,7 +12,6 @@ interface FormularioCotacaoProps {
 
 export default function FormularioCotacao({
   cotacaoId,
-  etapaAtual,
   onEtapaAtualizar,
 }: FormularioCotacaoProps) {
   const [cotacao, setCotacao] = useState<Cotacao | null>(null);

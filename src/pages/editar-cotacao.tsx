@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
-import CampoClienteSelecionavel from "../components/campo-cliente-selecionavel";
+import ClienteSelecionado from "../components/cliente-selecionado";
 import { Cliente } from "../types/Cliente";
 import { getCotacaoPorId, updateCotacao } from "../services/quoteService";
 import { formatarMoeda, formatarParaNumero } from "../utils/money";
-import { nomesEtapasCotacao } from "../utils/etapasCotacao";
+import { opcoesEtapasCotacao } from "../constants/etapasCotacoes";
+import { getClientePorId } from "../services/clientService";
 
 import "../styles/pages/criar-pages.css";
 
@@ -25,26 +26,31 @@ export default function EditarCotacao() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function carregarCotacao() {
-      try {
-        const cotacao = await getCotacaoPorId(Number(id));
-        setForm({
-          data_criacao: cotacao.data_criacao,
-          valor: formatarMoeda(cotacao.valor_total || 0),
-          observacoes: cotacao.observacoes || "",
-          etapa: cotacao.etapa || ""
-        });
-        setClienteSelecionado(cotacao.cliente); // objeto completo
-      } catch (error) {
-        console.error("Erro ao carregar cotação:", error);
-        alert("Erro ao buscar cotação.");
-      } finally {
-        setLoading(false);
-      }
-    }
+  async function carregarCotacao() {
+    try {
+      const cotacao = await getCotacaoPorId(Number(id));
+      const cliente = await getClientePorId(cotacao.cliente_id);
+      const dataFormatada = cotacao.data_criacao.split("T")[0];
 
-    carregarCotacao();
-  }, [id]);
+      setForm({
+        data_criacao: dataFormatada,
+        valor: formatarMoeda(cotacao.valor_total || 0),
+        observacoes: cotacao.observacoes || "",
+        etapa: cotacao.etapa || ""
+      });
+
+      setClienteSelecionado(cliente);
+    } catch (error) {
+      console.error("Erro ao carregar cotação ou cliente:", error);
+      alert("Erro ao buscar dados da cotação.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  carregarCotacao();
+}, [id]);
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -87,13 +93,10 @@ export default function EditarCotacao() {
         <div className="content">
           <div className="criar-form-wrapper">
             <form className="criar-form" onSubmit={handleSubmit}>
-              <h2>NOVA Nº {id}</h2>
+              <h2>COTAÇÃO Nº {id}</h2>
 
               <div className="linha">
-                <CampoClienteSelecionavel
-                  clienteSelecionado={clienteSelecionado}
-                  setClienteSelecionado={() => {}} // campo desativado
-                />
+                <ClienteSelecionado cliente={clienteSelecionado} />
               </div>
 
               <div className="linha">
@@ -125,11 +128,14 @@ export default function EditarCotacao() {
               <div className="grupo">
                 <label htmlFor="etapa">Etapa</label>
                 <select name="etapa" id="etapa" value={form.etapa} onChange={handleChange}>
-                  {nomesEtapasCotacao.map((etapa) => (
-                    <option key={etapa} value={etapa}>{etapa}</option>
+                  {opcoesEtapasCotacao.map((etapa) => (
+                    <option key={etapa.value} value={etapa.value}>
+                      {etapa.label}
+                    </option>
                   ))}
                 </select>
               </div>
+
 
               <div className="grupo">
                 <label htmlFor="observacoes">Observações</label>
@@ -141,7 +147,9 @@ export default function EditarCotacao() {
                 />
               </div>
 
-              <button type="submit" disabled={loading}>Salvar</button>
+              <button type="submit" disabled={loading || !form.data_criacao || !clienteSelecionado}>
+                Salvar
+              </button>
             </form>
           </div>
         </div>

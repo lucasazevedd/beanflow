@@ -2,13 +2,7 @@
 @import './styles/variables.css';
 
 :root {
-  --primary-color: #1B5E4B;
-  --font-subtitle: 'Quicksand', sans-serif;
-  --font-body: 'Quicksand', sans-serif;
-  --font-size-body: 14px;
-  --font-size-subtitle: 16px;
-  --font-weight-subtitle: 500;
-  --font-weight-body: 300;
+  font-family: var(--font-body);
 }
 
 * {

@@ -1,12 +1,9 @@
-export function statusCotacoes(status: string) {
-    const mapa: Record<string, string> = {
-      "Realizar orçamento": "📐 Realizar orçamento",
-      "Ajustar Preço": "🛠️ Ajustar Preço",
-      "Enviar cotação": "📤 Enviar cotação",
-      "Aprovação do Orçamento": "✅ Aprovação do Orçamento",
-      "Faturar pedido": "🧾 Faturar pedido",
-      "Pagamento": "💳 Pagamento",
-      "Entrega do material": "📦 Entrega do material",
-    };
-    return mapa[status] || status;
-  }
+export const opcoesEtapasCotacao = [
+  { value: "Realizar orcamento", label: "📄 Realizar orçamento" },
+  { value: "Ajustar Preco", label: "🛠 Ajustar Preço" },
+  { value: "Enviar cotacao", label: "📧 Enviar cotação" },
+  { value: "Aprovacao do Orcamento", label: "✅ Aprovação do Orçamento" },
+  { value: "Faturar pedido", label: "🧾 Faturar pedido" },
+  { value: "Pagamento", label: "💵 Pagamento" },
+  { value: "Entrega do material", label: "📦 Entrega do material" },
+];

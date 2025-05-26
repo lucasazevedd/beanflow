@@ -42,7 +42,7 @@ export async function getBoletoPorId(id: number) {
 // Atualiza um boleto existente
 export async function updateBoleto(id: number, data: {
   cliente_id: number;
-  data: string;
+  data_criacao: string;
   vencimento: string;
   valor: string;
 }) {

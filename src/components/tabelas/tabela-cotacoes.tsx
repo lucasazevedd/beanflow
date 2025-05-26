@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "../../styles/components/tabela-base.css";
 import { Cotacao } from "../../types/Cotacao";
 import { Cliente } from "../../types/Cliente";
@@ -10,6 +11,8 @@ interface TabelaCotacoesProps {
 }
 
 export default function TabelaCotacoes({ cotacoes, clientes, loading }: TabelaCotacoesProps) {
+  const navigate = useNavigate();
+
   return (
     <div className="tabela-wrapper">
       <table className="tabela">
@@ -20,6 +23,7 @@ export default function TabelaCotacoes({ cotacoes, clientes, loading }: TabelaCo
             <th>Data</th>
             <th>Status</th>
             <th>Etapa</th>
+            <th>Valor</th>
             <th>Observações</th>
           </tr>
         </thead>
@@ -30,12 +34,17 @@ export default function TabelaCotacoes({ cotacoes, clientes, loading }: TabelaCo
             <tr><td colSpan={6}>Nenhuma cotação encontrada</td></tr>
           ) : (
             cotacoes.map((cotacao) => (
-              <tr key={cotacao.id}>
+              <tr 
+                key={cotacao.id}
+                className="linha-clicavel"
+                onClick={() => navigate(`/cotacoes/editar/${cotacao.id}`)}
+              >
                 <td>{cotacao.id}</td>
                 <td>{getNomeClientePorId(clientes, cotacao.cliente_id)}</td>
                 <td>{new Date(cotacao.data_criacao).toLocaleDateString()}</td>
                 <td>{cotacao.status}</td>
                 <td>{cotacao.etapa}</td>
+                <td>R${cotacao.valor_total}</td>
                 <td>{cotacao.observacoes || "-"}</td>
               </tr>
             ))

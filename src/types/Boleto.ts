@@ -2,8 +2,9 @@
 
 export interface Boleto {
   id: number;
-  cliente: string;
+  cliente_id: number;
   valor: string;
   vencimento: string;
   pago: boolean;
+  cotacao_id: number;
 }

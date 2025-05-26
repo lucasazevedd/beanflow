@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import RightArrowIcon from "../../assets/icons/right-arrow-icon";
 import { getTarefas } from "../../services/taskService";
 import { Tarefa } from "../../types/Tarefa";
+import BotaoNovo from "../../components/botao-novo"
 
 import "../../styles/components/widgets-card.css";
 
@@ -25,19 +26,11 @@ export default function TarefasCard() {
 
   return (
     <div className="widget-card">
-      <div className="widget-header">
-        <span className="widget-title">TAREFAS</span>
-        <button
-          className="widget-action"
-          onClick={() => navigate("/tarefas/novo")}
-        >
-          + nova tarefa
-        </button>
-      </div>
+      <BotaoNovo rota="/tarefas/novo" texto="NOVA TAREFA"/>
 
-      <ul className="widget-list">
+      <ul className="widget-lista">
         {tarefas.map((tarefa) => (
-          <li key={tarefa.id} className="widget-item">
+          <li key={tarefa.id} className="widget-item-task" onClick={() => navigate(`/tarefas/editar/${tarefa.id}`)}>
             <div className="widget-item-header">{tarefa.titulo}</div>
             <div className="widget-item-description">{tarefa.descricao}</div>
           </li>

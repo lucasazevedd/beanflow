@@ -22,6 +22,7 @@ export function getStatusBoleto(vencimento: string): StatusBoleto | null {
   if (diff <= 3) return { emoji: "🟠", texto: `Vence em ${diff} dias`, classe: "laranja" };
   if (diff <= 7) return { emoji: "🟡", texto: `Vence em ${diff} dias`, classe: "amarelo" };
   if (diff <= 14) return { emoji: "🟢", texto: `Vence em ${diff} dias`, classe: "verde" };
+  if (diff > 14) return { emoji: "⚪️", texto: `Vence em ${diff} dias`, classe: "branco" };
 
   return null;
 }

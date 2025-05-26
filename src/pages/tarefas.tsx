@@ -3,9 +3,11 @@ import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
 import SearchBar from "../components/search-bar";
 import BotaoNovo from "../components/botao-novo";
-import { getTarefas, deleteTarefa } from "../services/taskService";
+import { getTarefas } from "../services/taskService";
 import { Tarefa } from "../types/Tarefa";
 import TabelaTarefas from "../components/tabelas/tabela-tarefas";
+import { useNavigate } from "react-router-dom";
+
 
 import "../styles/pages/lista-pages.css";
 
@@ -13,6 +15,8 @@ export default function ListaTarefas() {
   const [tarefas, setTarefas] = useState<Tarefa[]>([]);
   const [loading, setLoading] = useState(true);
   const [termoBusca, setTermoBusca] = useState("");
+  const navigate = useNavigate();
+  const handleEditar = (id: number) => {navigate(`/tarefas/editar/${id}`)};
 
   useEffect(() => {
     async function carregarTarefas() {
@@ -28,15 +32,6 @@ export default function ListaTarefas() {
 
     carregarTarefas();
   }, []);
-
-  const handleExcluir = async (id: number) => {
-    try {
-      await deleteTarefa(id);
-      setTarefas((tarefasAtuais) => tarefasAtuais.filter((t) => t.id !== id));
-    } catch (error) {
-      console.error("Erro ao excluir tarefa:", error);
-    }
-  };
 
   const tarefasFiltradas = tarefas.filter((tarefa) =>
     tarefa.titulo.toLowerCase().includes(termoBusca.toLowerCase()) ||
@@ -56,7 +51,7 @@ export default function ListaTarefas() {
               </div>
             </div>
 
-            <TabelaTarefas tarefas={tarefasFiltradas} loading={loading} onDelete={handleExcluir} />
+            <TabelaTarefas tarefas={tarefasFiltradas} loading={loading} onEdit={handleEditar}/>
 
           </div>
           <Footer />

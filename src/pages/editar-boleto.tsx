@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
+import ClienteSelecionado from "../components/cliente-selecionado";
 import { getBoletoPorId, updateBoleto, deleteBoleto } from "../services/boletoService";
-import { calcularDataVencimento, calcularDiasParaVencimento } from "../utils/date";
+import { getClientePorId } from "../services/clientService";
 import { formatarMoeda, formatarParaNumero } from "../utils/money";
 import { Cliente } from "../types/Cliente";
 
@@ -14,8 +15,8 @@ export default function EditarBoleto() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    data: "",
-    vencimento: "30",
+    data_criacao: "",
+    vencimento: "",
     valor: ""
   });
 
@@ -26,12 +27,20 @@ export default function EditarBoleto() {
     async function carregarBoleto() {
       try {
         const boleto = await getBoletoPorId(Number(id));
+
+        if (!boleto.cliente_id) {
+          throw new Error("Cliente ID indefinido");
+        }
+
+        const cliente = await getClientePorId(boleto.cliente_id);
+
         setForm({
-          data: boleto.data,
-          vencimento: calcularDiasParaVencimento(boleto.data, boleto.vencimento).toString(),
+          data_criacao: boleto.data_criacao?.split("T")[0] || "",
+          vencimento: boleto.vencimento?.split("T")[0] || "",
           valor: formatarMoeda(boleto.valor)
         });
-        setClienteSelecionado(boleto.cliente);
+
+        setClienteSelecionado(cliente);
       } catch (error) {
         console.error("Erro ao carregar boleto:", error);
         alert("Erro ao buscar boleto.");
@@ -43,30 +52,27 @@ export default function EditarBoleto() {
     carregarBoleto();
   }, [id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleValorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const valorFormatado = formatarMoeda(e.target.value);
-    setForm({ ...form, valor: valorFormatado });
+    setForm((prev) => ({ ...prev, valor: valorFormatado }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!clienteSelecionado) return;
 
-    const dias = parseInt(form.vencimento);
-    const dataVencimento = calcularDataVencimento(form.data, dias);
-    const valorNumerico = form.valor.trim() ? formatarParaNumero(form.valor) : 0;
-
     try {
       await updateBoleto(Number(id), {
         cliente_id: clienteSelecionado.id,
-        data: form.data,
-        vencimento: dataVencimento,
-        valor: valorNumerico.toFixed(2)
+        data_criacao: form.data_criacao,
+        vencimento: form.vencimento,
+        valor: formatarParaNumero(form.valor).toFixed(2)
       });
 
       alert("Boleto atualizado com sucesso!");
@@ -101,22 +107,15 @@ export default function EditarBoleto() {
               <h2>BOLETO Nº {id}</h2>
 
               <div className="linha">
-                <div className="grupo">
-                  <label>Cliente</label>
-                  <input
-                    type="text"
-                    value={clienteSelecionado?.nome || ""}
-                    disabled
-                  />
-                </div>
+                <ClienteSelecionado cliente={clienteSelecionado} />
 
                 <div className="grupo">
-                  <label htmlFor="data">Data</label>
+                  <label htmlFor="data_criacao">Data de Emissão</label>
                   <input
                     type="date"
-                    name="data"
-                    id="data"
-                    value={form.data}
+                    name="data_criacao"
+                    id="data_criacao"
+                    value={form.data_criacao}
                     onChange={handleChange}
                     required
                   />
@@ -125,16 +124,15 @@ export default function EditarBoleto() {
 
               <div className="linha">
                 <div className="grupo">
-                  <label htmlFor="vencimento">Vencimento</label>
-                  <select
+                  <label htmlFor="vencimento">Data de Vencimento</label>
+                  <input
+                    type="date"
                     name="vencimento"
                     id="vencimento"
                     value={form.vencimento}
                     onChange={handleChange}
-                  >
-                    <option value="21">21 dias</option>
-                    <option value="30">30 dias</option>
-                  </select>
+                    required
+                  />
                 </div>
 
                 <div className="grupo">
@@ -154,9 +152,8 @@ export default function EditarBoleto() {
                 <button type="submit" disabled={loading}>Salvar</button>
                 <button
                   type="button"
-                  className="limpar-cliente"
+                  className="button-excluir"  
                   onClick={handleExcluir}
-                  style={{ color: "red" }}
                 >
                   Excluir boleto
                 </button>

@@ -21,7 +21,7 @@ export default function ListaClientes() {
   const clientesFiltrados = clientes.filter((cliente) =>
     cliente.nome.toLowerCase().includes(termoBusca.toLowerCase()) ||
     cliente.cnpj.toLowerCase().includes(termoBusca.toLowerCase()) ||
-    cliente.razaoSocial?.toLowerCase().includes(termoBusca.toLowerCase())
+    cliente.razao_social?.toLowerCase().includes(termoBusca.toLowerCase())
   );
 
   useEffect(() => {

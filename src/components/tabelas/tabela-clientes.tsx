@@ -1,6 +1,7 @@
 import "../../styles/components/tabela-base.css";
 import { Cliente } from "../../types/Cliente";
 import { Cotacao } from "../../types/Cotacao";
+import { useNavigate } from "react-router-dom";
 
 interface TabelaClientesProps {
   clientes: Cliente[];
@@ -9,7 +10,9 @@ interface TabelaClientesProps {
 }
 
 export default function TabelaClientes({ clientes, cotacoes, loading }: TabelaClientesProps) {
-  // Retorna a data do último pedido de um cliente, ou "-" se não houver
+  
+  const navigate = useNavigate();
+
   const getUltimoPedido = (clienteId: number): string => {
     const cotacoesCliente = cotacoes
       .filter(c => c.cliente_id === clienteId)
@@ -41,11 +44,11 @@ export default function TabelaClientes({ clientes, cotacoes, loading }: TabelaCl
             <tr><td colSpan={7}>Nenhum cliente encontrado</td></tr>
           ) : (
             clientes.map((cliente) => (
-              <tr key={cliente.id}>
+              <tr key={cliente.id} onClick={() => navigate(`/clientes/editar/${cliente.id}`)} className="linha-clicavel" style={{ cursor: "pointer" }}>
                 <td>{cliente.id}</td>
                 <td>{cliente.nome}</td>
                 <td>{cliente.cnpj}</td>
-                <td>{cliente.razaoSocial}</td>
+                <td>{cliente.razao_social}</td>
                 <td>{cliente.telefone}</td>
                 <td>{cliente.email}</td>
                 <td>{getUltimoPedido(cliente.id)}</td>

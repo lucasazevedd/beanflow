@@ -6,6 +6,7 @@ import { getClientes } from "../../services/clientService";
 
 import { getNomeClientePorId } from "../../utils/clientes";
 import { STATUS } from "../../constants/status";
+import { opcoesEtapasCotacao } from "../../constants/etapasCotacoes";
 
 import { Cliente } from "../../types/Cliente";
 import { Cotacao } from "../../types/Cotacao";
@@ -32,7 +33,7 @@ export default function CotacoesCard() {
           (cotacao: Cotacao) => cotacao.status === STATUS.EM_ABERTO
         );
 
-        setCotacoes(emAberto.slice(0, 5));
+        setCotacoes(emAberto);
         setClientes(clientesData);
       } catch (error) {
         console.error("Erro ao carregar cotações ou clientes:", error);
@@ -48,13 +49,13 @@ export default function CotacoesCard() {
 
       <ul className="widget-lista">
         {cotacoes.map((cotacao) => (
-          <li key={cotacao.id} className="widget-item">
+          <li key={cotacao.id} className="widget-item" onClick={() => navigate(`/cotacoes/editar/${cotacao.id}`)}>
             <div className="widget-linha-lateral"></div>
             <div className="widget-conteudo">
               <span className="widget-cliente">
                 {getNomeClientePorId(clientes, cotacao.cliente_id)}
               </span>
-              <span className="widget-etapa">{cotacao.etapa}</span>
+              <span className="widget-etapa">{opcoesEtapasCotacao.find(opcao => opcao.value === cotacao.etapa)?.label || cotacao.etapa}</span>
             </div>
           </li>
         ))}

@@ -26,7 +26,7 @@
   color: var(--primary-color);
 }
 
-.widget-list {
+.widget-lista {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -38,14 +38,52 @@
   min-height: 0;
 }
 
+.widget-linha-lateral {
+  width: 0.2rem; /* 4px */
+  height: 100%;
+  background-color: var(--primary-color);
+  border-radius: var(--border-radius);
+  margin-right: 0.2rem;
+}
+
+.widget-cliente {
+  color: var(--text-color);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-title);
+  font-size: 1rem;
+}
+
+.widget-etapa {
+  font-size: var(--font-size-body);
+}
+
+.widget-conteudo {
+  display: flex;
+  flex-direction: column;
+}
+
 .widget-item {
   background-color: var(--secondary-color);
   padding: var(--padding-default);
   border-radius: var(--border-radius);
   display: flex;
-  flex-direction: column;
   gap: 0.25rem;
-  box-shadow: var(--box-shadow-default);
+  align-items: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  
+}
+
+.widget-item-task {
+  background-color: #E5EEFA;
+  padding: var(--padding-default);
+  border-radius: var(--border-radius);
+  display: flex;
+  gap: 0.25rem;
+  align-items: start;
+  flex-direction: column;
+  max-height: 5rem;
+  cursor: pointer;
 }
 
 .widget-item-header {
@@ -55,6 +93,7 @@
   color: var(--text-color);
   font-size: var(--font-size-body);
   font-family: var(--font-body);
+  flex-direction: column;
 }
 
 .widget-item-description {
@@ -68,15 +107,14 @@
 }
 
 .widget-status {
-  font-size: 0.85rem;
+  font-size: var(--font-size-body);
   color: #666;
-  text-align: right;
+  text-align: left;
 }
 
 .widget-value {
   font-weight: bold;
-  font-size: var(--font-size-body);
-  color: var(--text-color);
+  font-size: var(--font-size-subtitle);
 }
 
 .widget-line {
@@ -90,22 +128,35 @@
 .widget-item.vencido,
 .widget-item.vermelho {
   background-color: #fcd4d4;
+  color: var(--fail-color);
 }
 
 .widget-item.laranja {
   background-color: #ffe7c2;
+  color: #D77300;
 }
 
 .widget-item.amarelo {
   background-color: #fff6c2;
+  color: #DAB400;
 }
 
 .widget-item.verde {
   background-color: #d4fcd9;
+  color: var(--sucess-color);
 }
 
 .widget-item.branco {
-  background-color: #f0f0f0;
+  background-color: #F4F4F4;
+}
+
+.widget-item.undefined {
+  background-color: var(--table-body-bg);
+}
+
+.widget-item.branco, .widget-item.verde, .widget-item.laranja, .widget-item.amarelo, .widget-item.vencido,
+.widget-item.vermelho, .widget-item.undefined {
+  justify-content: space-between;
 }
 
 /* Botões gerais dentro dos cards */
@@ -144,6 +195,12 @@
   border-radius: var(--border-radius);
   position: relative;
   min-height: 18.75rem; /* 300px */
+}
+
+.widget-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Comentários:

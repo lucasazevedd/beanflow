@@ -21,7 +21,6 @@
 .tabela th,
 .tabela td {
   padding: 0.75rem 1rem; /* 12px 16px */
-  border-bottom: 1px solid var(--table-border);
 }
 
 .tabela tbody tr:nth-child(even) {
@@ -36,6 +35,15 @@
 .tabela td {
   color: var(--text-color);
 }
+
+.linha-clicavel {
+  cursor: pointer;
+}
+
+.linha-clicavel:hover {
+  background-color: var(--table-body-bg);
+}
+
 
 /* Comentários:
 - Arquivo unificado reduz duplicidade entre tabela-clientes.css e tabela-cotacoes.css.

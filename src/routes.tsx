@@ -11,6 +11,9 @@ import CriarTarefa from "./pages/criar-tarefas";
 import Configuracoes from "./pages/configuracoes";
 import ListaTarefas from "./pages/tarefas";
 import Boletos from "./pages/boletos";
+import EditarBoleto from "./pages/editar-boleto";
+import EditarTarefa from "./pages/editar-tarefas";
+import EditarCliente from "./pages/editar-clientes";
 
 export default function AppRoutes() {
   return (
@@ -28,6 +31,9 @@ export default function AppRoutes() {
         <Route path="/configuracoes" element={<Configuracoes />} />
         <Route path="/tarefas" element={<ListaTarefas />} />
         <Route path="/boletos" element={<Boletos />} />
+        <Route path="/boletos/editar/:id" element={<EditarBoleto />} />
+        <Route path="/tarefas/editar/:id" element={<EditarTarefa />} />
+        <Route path="/clientes/editar/:id" element={<EditarCliente />} />
       </Routes>
     </BrowserRouter>
   );

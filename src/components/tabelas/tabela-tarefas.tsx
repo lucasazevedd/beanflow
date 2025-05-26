@@ -4,10 +4,10 @@ import "../../styles/components/tabela-base.css";
 interface TabelaTarefasProps {
   tarefas: Tarefa[];
   loading: boolean;
-  onDelete: (id: number) => void;
+  onEdit: (id: number) => void;
 }
 
-export default function TabelaTarefas({ tarefas, loading, onDelete }: TabelaTarefasProps) {
+export default function TabelaTarefas({ tarefas, loading, onEdit }: TabelaTarefasProps) {
   return (
     <div className="tabela-wrapper">
       <table className="tabela">
@@ -16,7 +16,6 @@ export default function TabelaTarefas({ tarefas, loading, onDelete }: TabelaTare
             <th>ID</th>
             <th>Título</th>
             <th>Descrição</th>
-            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -26,18 +25,10 @@ export default function TabelaTarefas({ tarefas, loading, onDelete }: TabelaTare
             <tr><td colSpan={4}>Nenhuma tarefa encontrada</td></tr>
           ) : (
             tarefas.map((tarefa) => (
-              <tr key={tarefa.id}>
+              <tr key={tarefa.id} className="linha-clicavel" onClick={() => onEdit(tarefa.id)} style={{ cursor: "pointer" }}>
                 <td>{tarefa.id}</td>
                 <td>{tarefa.titulo}</td>
                 <td>{tarefa.descricao}</td>
-                <td className="task-buttons">
-                  <button className="task-button" onClick={() => onDelete(tarefa.id)} title="Concluir">
-                    ✅
-                  </button>
-                  <button className="task-button" onClick={() => onDelete(tarefa.id)} title="Excluir">
-                    ❌
-                  </button>
-                </td>
               </tr>
             ))
           )}

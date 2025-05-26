@@ -1,49 +1,33 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { getBoletos } from "../services/boletoService";
 import { getClientes } from "../services/clientService";
 import BotaoNovo from "./botao-novo";
-import "../styles/components/boletos-abertos.css";
-import "../styles/pages/lista-pages.css";
+// import RightArrowIcon from "../assets/icons/right-arrow-icon";
 
-interface Cliente {
-  id: number;
-  nome: string;
-}
+import { getStatusBoleto } from "../utils/date";
+import { getNomeClientePorId } from "../utils/clientes";
 
-interface Boleto {
-  id: number;
-  cliente: number;
-  valor: string;
-  vencimento: string;
-  pago: boolean;
-}
+import { Cliente } from "../types/Cliente";
+import { Boleto } from "../types/Boleto";
 
-const getStatusBoleto = (vencimento: string) => {
-  const hoje = new Date();
-  const dataVencimento = new Date(vencimento);
-  const diffDias = Math.ceil((dataVencimento.getTime() - hoje.getTime()) / (1000 * 60 * 60 * 24));
+import "../styles/components/widgets-card.css";
 
-  if (diffDias < 0) return { emoji: "🔴", status: "Vencido", classe: "vencido" };
-  if (diffDias === 0) return { emoji: "🔴", status: "Vence hoje", classe: "vermelho" };
-  if (diffDias <= 3) return { emoji: "🟠", status: `Vence em ${diffDias} dias`, classe: "laranja" };
-  if (diffDias <= 7) return { emoji: "🟡", status: `Vence em ${diffDias} dias`, classe: "amarelo" };
-  if (diffDias <= 14) return { emoji: "🟢", status: `Vence em ${diffDias} dias`, classe: "verde" };
-  return { emoji: "⚪️", status: `Vence em ${diffDias} dias`, classe: "branco" };
-};
-
-const BoletosAbertos = () => {
+export default function BoletosAbertos() {
   const [boletos, setBoletos] = useState<Boleto[]>([]);
   const [clientes, setClientes] = useState<Cliente[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchBoletos() {
+    async function carregarDados() {
       try {
         const [boletosData, clientesData] = await Promise.all([
           getBoletos(),
           getClientes(),
         ]);
-        
-        const boletosEmAberto = boletosData.filter((b: Boleto) => b.pago === false);
+
+        const boletosEmAberto = boletosData.filter((b: Boleto) => !b.pago);
         setBoletos(boletosEmAberto);
         setClientes(clientesData);
       } catch (error) {
@@ -51,33 +35,25 @@ const BoletosAbertos = () => {
       }
     }
 
-    fetchBoletos();
+    carregarDados();
   }, []);
 
-  const getNomeCliente = (cliente_id: number | undefined) => {
-    if (!cliente_id) return "Cliente não definido";
-    const cliente = clientes.find((c) => c.id === cliente_id);
-    return cliente ? cliente.nome : `Cliente ${cliente_id}`;
-  };
-
   return (
-    <div className="boletos-abertos-container">
-      <div className="boletos-abertos-header">
-        <BotaoNovo rota="/boletos/novo" texto="NOVO BOLETO" />
-      </div>
+    <div className="widget-card">
+      <BotaoNovo rota="/boletos/novo" texto="NOVO BOLETO" />
 
-      <ul className="boletos-abertos-lista">
+      <ul className="widget-lista">
         {boletos.map((boleto) => {
-          const { emoji, status, classe } = getStatusBoleto(boleto.vencimento);
+          const status = getStatusBoleto(boleto.vencimento);
           return (
-            <li key={boleto.id} className={`boletos-abertos-item ${classe}`}>
-              <div className="boletos-abertos-info">
-                <span className="boletos-abertos-cliente">
-                  {emoji} {getNomeCliente(boleto.cliente)}
+            <li key={boleto.id} className={`widget-item ${status?.classe}`} onClick={() => navigate(`/boletos/editar/${boleto.id}`)}>
+              <div className="widget-item-header">
+                <span>
+                  {status?.emoji} {getNomeClientePorId(clientes, boleto.cliente_id)}
                 </span>
-                <span className="boletos-abertos-status">{status}</span>
+                <span className="widget-status">{status?.texto}</span>
               </div>
-              <span className="boletos-abertos-valor">
+              <span className="widget-value">
                 {Number(boleto.valor).toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
@@ -88,11 +64,9 @@ const BoletosAbertos = () => {
         })}
       </ul>
 
-      <div className="boletos-abertos-rodape">
+      <div className="widget-footer">
         <span>{boletos.length} boletos em aberto</span>
       </div>
     </div>
   );
-};
-
-export default BoletosAbertos;
+}

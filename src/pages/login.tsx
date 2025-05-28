@@ -1,7 +1,47 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/pages/login.css";
 import LogoIcon from "../assets/icons/bean-flow-logo";
 
 export default function Login() {
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("logado", "true"); // pode usar também sessionStorage
+        navigate("/"); // redireciona para home
+      } else {
+        alert(data.mensagem); // Usuário ou senha inválidos
+      }
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      alert("Erro ao tentar logar.");
+    }
+  };
+
   return (
     <div className="login-container">
       <div className="login-box">
@@ -10,25 +50,29 @@ export default function Login() {
           <h1 className="beanflow-title">beanflow</h1>
         </div>
 
-        <form className="form-login" onSubmit={(e) => e.preventDefault()}>
+        <form className="form-login" onSubmit={handleSubmit}>
           <div className="grupo">
-            <label htmlFor="login">login</label>
+            <label htmlFor="username">login</label>
             <input
-              type="email"
-              id="login"
-              name="login"
-              placeholder="seumelhor@email.com"
+              type="text"
+              id="username"
+              name="username"
+              placeholder="seu usuário por favor :)"
+              value={form.username}
+              onChange={handleChange}
               required
             />
           </div>
 
           <div className="grupo">
-            <label htmlFor="senha">senha</label>
+            <label htmlFor="password">senha</label>
             <input
               type="password"
-              id="senha"
-              name="senha"
+              id="password"
+              name="password"
               placeholder="sua senha mais secreta"
+              value={form.password}
+              onChange={handleChange}
               required
             />
           </div>

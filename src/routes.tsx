@@ -14,26 +14,27 @@ import Boletos from "./pages/boletos";
 import EditarBoleto from "./pages/editar-boleto";
 import EditarTarefa from "./pages/editar-tarefas";
 import EditarCliente from "./pages/editar-clientes";
+import RotaPrivada from "./components/rota-privada";
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/clientes" element={<ListaClientes />} />
-        <Route path="/clientes/novo" element={<CriarCliente />} />
-        <Route path="/cotacoes" element={<ListaCotacoes />} />
-        <Route path="/cotacoes/novo" element={<CriarCotacao />} /> 
+        <Route path="/" element={<RotaPrivada><Home /></RotaPrivada>} />
+        <Route path="/clientes" element={<RotaPrivada><ListaClientes /></RotaPrivada>} />
+        <Route path="/clientes/novo" element={<RotaPrivada><CriarCliente /></RotaPrivada>} />
+        <Route path="/cotacoes" element={<RotaPrivada><ListaCotacoes /></RotaPrivada>} />
+        <Route path="/cotacoes/novo" element={<RotaPrivada><CriarCotacao /></RotaPrivada>} /> 
         <Route path="/login" element={<Login />} />
-        <Route path="/cotacoes/editar/:id" element={<EditarCotacao />} />
-        <Route path="/boletos/novo" element={<CriarBoleto />} />
-        <Route path="/tarefas/novo" element={<CriarTarefa />} />
-        <Route path="/configuracoes" element={<Configuracoes />} />
-        <Route path="/tarefas" element={<ListaTarefas />} />
-        <Route path="/boletos" element={<Boletos />} />
-        <Route path="/boletos/editar/:id" element={<EditarBoleto />} />
-        <Route path="/tarefas/editar/:id" element={<EditarTarefa />} />
-        <Route path="/clientes/editar/:id" element={<EditarCliente />} />
+        <Route path="/cotacoes/editar/:id" element={<RotaPrivada><EditarCotacao /></RotaPrivada>} />
+        <Route path="/boletos/novo" element={<RotaPrivada><CriarBoleto /></RotaPrivada>} />
+        <Route path="/tarefas/novo" element={<RotaPrivada><CriarTarefa /></RotaPrivada>} />
+        <Route path="/configuracoes" element={<RotaPrivada><Configuracoes /></RotaPrivada>} />
+        <Route path="/tarefas" element={<RotaPrivada><ListaTarefas /></RotaPrivada>} />
+        <Route path="/boletos" element={<RotaPrivada><Boletos /></RotaPrivada>} />
+        <Route path="/boletos/editar/:id" element={<RotaPrivada><EditarBoleto /></RotaPrivada>} />
+        <Route path="/tarefas/editar/:id" element={<RotaPrivada><EditarTarefa /></RotaPrivada>} />
+        <Route path="/clientes/editar/:id" element={<RotaPrivada><EditarCliente /></RotaPrivada>} />
       </Routes>
     </BrowserRouter>
   );

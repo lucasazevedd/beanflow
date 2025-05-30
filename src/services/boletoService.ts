@@ -45,6 +45,7 @@ export async function updateBoleto(id: number, data: {
   data_criacao: string;
   vencimento: string;
   valor: string;
+  pago?: boolean;
 }) {
   const response = await fetch(`${API_BASE_URL}/boletos/${id}`, {
     method: "PUT",

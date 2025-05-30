@@ -17,7 +17,8 @@ export default function EditarBoleto() {
   const [form, setForm] = useState({
     data_criacao: "",
     vencimento: "",
-    valor: ""
+    valor: "",
+    pago: false,
   });
 
   const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
@@ -37,7 +38,8 @@ export default function EditarBoleto() {
         setForm({
           data_criacao: boleto.data_criacao?.split("T")[0] || "",
           vencimento: boleto.vencimento?.split("T")[0] || "",
-          valor: formatarMoeda(boleto.valor)
+          valor: formatarMoeda(boleto.valor),
+          pago: boleto.pago || false,
         });
 
         setClienteSelecionado(cliente);
@@ -54,9 +56,13 @@ export default function EditarBoleto() {
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const { name, type, value, checked } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
+
 
   const handleValorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const valorFormatado = formatarMoeda(e.target.value);
@@ -72,7 +78,8 @@ export default function EditarBoleto() {
         cliente_id: clienteSelecionado.id,
         data_criacao: form.data_criacao,
         vencimento: form.vencimento,
-        valor: formatarParaNumero(form.valor).toFixed(2)
+        valor: formatarParaNumero(form.valor).toFixed(2),
+        pago: form.pago,
       });
 
       alert("Boleto atualizado com sucesso!");
@@ -146,6 +153,19 @@ export default function EditarBoleto() {
                     onChange={handleValorChange}
                   />
                 </div>
+              </div>
+
+              <div className="grupo">
+                <label htmlFor="pago">
+                  <input
+                    type="checkbox"
+                    id="pago"
+                    name="pago"
+                    checked={form.pago}
+                    onChange={handleChange}
+                  />
+                  Marcar como pago
+                </label>
               </div>
 
               <div className="linha" style={{ justifyContent: "space-between" }}>

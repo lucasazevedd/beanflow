@@ -155,28 +155,33 @@ export default function EditarBoleto() {
                 </div>
               </div>
 
-              <div className="grupo">
-                <label htmlFor="pago">
-                  <input
-                    type="checkbox"
-                    id="pago"
-                    name="pago"
-                    checked={form.pago}
-                    onChange={handleChange}
-                  />
-                  Marcar como pago
-                </label>
-              </div>
+              
+
 
               <div className="linha" style={{ justifyContent: "space-between" }}>
-                <button type="submit" disabled={loading}>Salvar</button>
-                <button
-                  type="button"
-                  className="button-excluir"  
-                  onClick={handleExcluir}
-                >
-                  Excluir boleto
-                </button>
+                <div className="grupo">
+                  <div className="checkbox-wrapper-16">
+                    <label className="checkbox-wrapper">
+                      <input
+                        className="checkbox-input"
+                        type="checkbox"
+                        id="pago"
+                        name="pago"
+                        checked={form.pago}
+                        onChange={(e) =>
+                          setForm((prev) => ({ ...prev, pago: e.target.checked }))
+                        }
+                      />
+                      <span className="checkbox-tile">
+                        <span className="checkbox-label">
+                          {form.pago ? "Pago" : "Não pago"}
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                </div>                
+                <div className="grupo"><button type="submit" disabled={loading}>Salvar</button></div>
+                <div className="grupo"><button type="button" className="button-excluir" onClick={handleExcluir}>Excluir</button></div>
               </div>
             </form>
           </div>

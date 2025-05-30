@@ -69,3 +69,18 @@ export async function updateCotacao(id: number, data: {
 
   return response.json();
 }
+
+// Deletar uma cotação pelo ID
+export async function deleteCotacao(id: number) {
+  const response = await fetch(`${API_BASE_URL}/cotacoes/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error("Erro ao deletar cotação:", errorText);
+    throw new Error("Erro ao deletar cotação");
+  }
+
+  return response.json();
+}

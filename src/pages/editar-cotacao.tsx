@@ -4,7 +4,7 @@ import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
 import ClienteSelecionado from "../components/cliente-selecionado";
 import { Cliente } from "../types/Cliente";
-import { getCotacaoPorId, updateCotacao } from "../services/quoteService";
+import { getCotacaoPorId, updateCotacao, deleteCotacao } from "../services/quoteService";
 import { formatarMoeda, formatarParaNumero } from "../utils/money";
 import { opcoesEtapasCotacao } from "../constants/etapasCotacoes";
 import { getClientePorId } from "../services/clientService";
@@ -86,6 +86,21 @@ export default function EditarCotacao() {
     }
   };
 
+  const handleExcluir = async () => {
+    const confirmacao = window.confirm("Tem certeza que deseja excluir esta cotação?");
+    if (!confirmacao) return;
+
+    try {
+      await deleteCotacao(Number(id));
+      alert("Cotação excluída com sucesso!");
+      navigate("/cotacoes");
+    } catch (error) {
+      console.error("Erro ao excluir cotação:", error);
+      alert("Erro ao excluir cotação.");
+    }
+  };
+
+
   return (
     <div className="home">
       <Sidebar />
@@ -147,9 +162,15 @@ export default function EditarCotacao() {
                 />
               </div>
 
-              <button type="submit" disabled={loading || !form.data_criacao || !clienteSelecionado}>
-                Salvar
-              </button>
+              <div className="linha" style={{ justifyContent: "space-between" }}>
+                <button type="submit" disabled={loading || !form.data_criacao || !clienteSelecionado}>
+                  Salvar
+                </button>
+                <button type="button" className="button-excluir" onClick={handleExcluir}>
+                  Excluir
+                </button>
+              </div>
+
             </form>
           </div>
         </div>

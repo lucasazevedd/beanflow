@@ -194,7 +194,6 @@
   overflow: hidden;
   border-radius: var(--border-radius);
   position: relative;
-  min-height: 18.75rem; /* 300px */
 }
 
 .widget-footer {

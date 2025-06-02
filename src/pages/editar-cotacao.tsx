@@ -26,31 +26,35 @@ export default function EditarCotacao() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  async function carregarCotacao() {
-    try {
-      const cotacao = await getCotacaoPorId(Number(id));
-      const cliente = await getClientePorId(cotacao.cliente_id);
-      const dataFormatada = cotacao.data_criacao.split("T")[0];
+    async function carregarCotacao() {
+      try {
+        const cotacao = await getCotacaoPorId(Number(id));
+        const cliente = await getClientePorId(cotacao.cliente_id);
 
-      setForm({
-        data_criacao: dataFormatada,
-        valor: formatarMoeda(cotacao.valor_total || 0),
-        observacoes: cotacao.observacoes || "",
-        etapa: cotacao.etapa || ""
-      });
+        let dataFormatada = "";
+        if (cotacao.data_criacao) {
+          const raw = String(cotacao.data_criacao);
+          dataFormatada = raw.split("T")[0];
+        }
 
-      setClienteSelecionado(cliente);
-    } catch (error) {
-      console.error("Erro ao carregar cotação ou cliente:", error);
-      alert("Erro ao buscar dados da cotação.");
-    } finally {
-      setLoading(false);
+        setForm({
+          data_criacao: dataFormatada,
+          valor: formatarMoeda(cotacao.valor_total || 0),
+          observacoes: cotacao.observacoes || "",
+          etapa: cotacao.etapa || ""
+        });
+
+        setClienteSelecionado(cliente);
+      } catch (error) {
+        console.error("Erro ao carregar cotação ou cliente:", error);
+        alert("Erro ao buscar dados da cotação.");
+      } finally {
+        setLoading(false);
+      }
     }
-  }
 
-  carregarCotacao();
-}, [id]);
-
+    carregarCotacao();
+  }, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -99,7 +103,6 @@ export default function EditarCotacao() {
       alert("Erro ao excluir cotação.");
     }
   };
-
 
   return (
     <div className="home">
@@ -150,7 +153,6 @@ export default function EditarCotacao() {
                   ))}
                 </select>
               </div>
-
 
               <div className="grupo">
                 <label htmlFor="observacoes">Observações</label>

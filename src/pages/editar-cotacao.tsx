@@ -33,7 +33,7 @@ export default function EditarCotacao() {
 
         let dataFormatada = "";
         if (cotacao.data_criacao) {
-          const raw = String(cotacao.data_criacao);
+          const raw = new Date(cotacao.data_criacao).toISOString();
           dataFormatada = raw.split("T")[0];
         }
 

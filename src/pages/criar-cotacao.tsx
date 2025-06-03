@@ -42,9 +42,7 @@ export default function CriarCotacao() {
       return;
     }
 
-    const valor_total = form.valor.trim()
-      ? formatarParaNumero(form.valor)
-      : undefined;
+    const valor_total = formatarParaNumero(form.valor || "0,00");
 
     try {
       await createCotacao({

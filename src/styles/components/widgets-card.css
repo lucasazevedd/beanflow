@@ -101,7 +101,8 @@
   font-family: var(--font-body);
   color: var(--text-color);
   opacity: 0.7;
-  white-space: nowrap;
+  white-space: normal;
+  word-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
 }

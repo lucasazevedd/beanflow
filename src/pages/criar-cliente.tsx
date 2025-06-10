@@ -2,10 +2,13 @@ import { useState } from "react";
 import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
 import { cadastrarCliente } from "../services/clientService";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/pages/criar-pages.css";
 
 export default function CriarCliente() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     nome: "",
     cnpj: "",
@@ -30,6 +33,7 @@ export default function CriarCliente() {
         email: form.email,
       });
       alert("Cliente cadastrado com sucesso!");
+      navigate("/clientes");
     } catch (error) {
       console.error("Erro ao cadastrar cliente", error);
       alert("Erro ao cadastrar cliente");

@@ -197,6 +197,10 @@
   position: relative;
 }
 
+#widget-embed {
+  padding: 0;
+}
+
 .widget-embed iframe {
   width: 100%;
   height: 100vh;

@@ -29,12 +29,19 @@ export default function SupersetEmbed({ dashboardId }: SupersetEmbedProps) {
             hideTitle: true,
             hideChartControls: true,
             hideTab: true,
+            hideNavigation: true,
             filters: {
               expanded: false,
               visible: false,
             },
-            hideNavigation: true,
           } as any,
+        }).then(() => {
+          const iframe = mountPoint.querySelector("iframe");
+          if (iframe) {
+            iframe.style.width = "100%";
+            iframe.style.height = mountPoint.offsetHeight + "px";
+            iframe.style.border = "none";
+          }
         });
       } catch (error: any) {
         console.error("Erro ao gerar token:", error.response?.data || error.message);
@@ -45,8 +52,6 @@ export default function SupersetEmbed({ dashboardId }: SupersetEmbedProps) {
   }, [dashboardId]);
 
   return (
-    <div className="widget-embed">
-      <div id="superset-container" />
-    </div>
+    <div className="widget-embed" id="superset-container" />
   );
 }

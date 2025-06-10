@@ -33,7 +33,7 @@
   --table-border: #e0e0e0;
 
   /* Layout e espaçamento */
-  --border-radius: 0.75rem;            /* 12px */
+  --border-radius: 0;            /* 12px */
   --padding-default: 1rem;            /* 16px */
   --padding-cards: 1.5rem;            /* 24px */
   --margin-default: 1rem;             /* 16px */

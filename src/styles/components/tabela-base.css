@@ -4,6 +4,7 @@
   background-color: var(--white-color);
   border-radius: var(--border-radius);
   overflow-x: auto;
+  overflow-y: auto;
 }
 
 .tabela {

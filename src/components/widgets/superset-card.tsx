@@ -1,17 +1,11 @@
 import "../../styles/components/widgets-card.css";
+import SupersetEmbed from "../superset-embed";
 
 export default function SupersetCard() {
   return (
     <div className="widget-card">
       <div className="widget-embed">
-        <iframe
-          title="Clientes Inativos do Mês"
-          src="https://beanflow-superset.onrender.com/superset/explore/p/5M8oEbQOGVx/?standalone=1&height=400"
-          width="100%"
-          height="100%"
-          style={{ border: "none", borderRadius: "var(--border-radius)" }}
-          allowFullScreen
-        />
+        <SupersetEmbed dashboardId="11762471-ca60-4004-810a-40a8d42ad334"/>
       </div>
     </div>
   );

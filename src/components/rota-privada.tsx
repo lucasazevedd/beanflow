@@ -6,9 +6,9 @@ interface Props {
 }
 
 export default function RotaPrivada({ children }: Props) {
-  const logado = localStorage.getItem("logado") === "true";
+  const token = localStorage.getItem("token");
 
-  if (!logado) {
+  if (!token) {
     return <Navigate to="/login" replace />;
   }
 

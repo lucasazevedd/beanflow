@@ -32,10 +32,10 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("logado", "true"); // pode usar também sessionStorage
+        localStorage.setItem("token", data.token); // 🔐 salva o JWT
         navigate("/"); // redireciona para home
       } else {
-        alert(data.mensagem); // Usuário ou senha inválidos
+        alert(data.mensagem); // exemplo: "Usuário ou senha inválidos"
       }
     } catch (error) {
       console.error("Erro ao fazer login:", error);

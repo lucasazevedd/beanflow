@@ -6,14 +6,13 @@ import { useNavigate } from "react-router-dom";
 import "../styles/pages/criar-pages.css";
 
 export default function Configuracoes() {
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
     const confirmar = window.confirm("Deseja realmente sair da conta?");
     if (!confirmar) return;
 
-    localStorage.removeItem("logado");
+    localStorage.removeItem("token"); // 🔁 remove o token JWT
     navigate("/login");
   };
 
@@ -29,10 +28,12 @@ export default function Configuracoes() {
 
               <div className="grupo">
                 <label>Usuário</label>
-                <input type="text" value="admin" disabled />
+                <input type="text" value="admin.beanflow.2025" disabled />
               </div>
 
-              <button className="logoff" type="button" onClick={handleLogout}>Sair da Conta</button>
+              <button className="logoff" type="button" onClick={handleLogout}>
+                Sair da Conta
+              </button>
             </form>
           </div>
         </div>

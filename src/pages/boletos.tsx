@@ -14,17 +14,8 @@ export default function Boletos() {
             <div className="boletos-abertos">
               <BoletosAbertos />
             </div>
-            <div className="boletos-vencidos">
+            <div className="boletos-dashboard">
               
-            </div>
-            <div className="faturamento-boletos">
-              
-            </div>
-            <div className="faturamento-cotacoes">
-              
-            </div>
-            <div className="faturamento-mensal">
-
             </div>
           </div>
         </div>

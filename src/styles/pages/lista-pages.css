@@ -39,11 +39,7 @@
   transform: scale(1.1);
 }
 
-.boletos-abertos,
-.boletos-vencidos,
-.faturamento-mensal,
-.faturamento-boletos,
-.faturamento-cotacoes {
+.boletos-abertos, .boletos-dashboard {
   background-color: var(--white-color);
   border-radius: var(--border-radius);
 }
@@ -53,14 +49,7 @@
   grid-row: span 8;
 }
 
-.boletos-vencidos,
-.faturamento-mensal {
+.boletos-dashboard {
   grid-column: span 8;
-  grid-row: span 3;
-}
-
-.faturamento-boletos,
-.faturamento-cotacoes {
-  grid-column: span 4;
-  grid-row: span 2;
+  grid-row: span 8;
 }

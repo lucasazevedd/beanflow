@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function RotaPrivada({ children }: Props) {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token"); // ⬅️ agora usa sessionStorage
 
   if (!token) {
     return <Navigate to="/login" replace />;

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/pages/login.css";
 import LogoIcon from "../assets/icons/bean-flow-logo";
-import { API_BASE_URL } from "../services/api";
+import api from "../services/api"; // usando o axios configurado
 
 export default function Login() {
   const navigate = useNavigate();
@@ -21,25 +21,14 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${API_BASE_URL}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
+      const response = await api.post("/login", form);
+      const data = response.data;
 
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem("token", data.token); // 🔐 salva o JWT
-        navigate("/"); // redireciona para home
-      } else {
-        alert(data.mensagem); // exemplo: "Usuário ou senha inválidos"
-      }
-    } catch (error) {
-      console.error("Erro ao fazer login:", error);
-      alert("Erro ao tentar logar.");
+      sessionStorage.setItem("token", data.token); // ⬅️ salva token na session
+      navigate("/");
+    } catch (error: any) {
+      const msg = error.response?.data?.mensagem || "Erro ao tentar logar.";
+      alert(msg);
     }
   };
 

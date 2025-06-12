@@ -3,12 +3,23 @@ import ClientsIcon from "../assets/icons/clients-icon";
 import CheckIcon from "../assets/icons/check-icon";
 import PaymentIcon from "../assets/icons/payment-icon";
 import LogoIcon from "../assets/icons/bean-flow-logo";
-import SettingsIcon from "../assets/icons/settings-icon";
+import LogoutIcon from "../assets/icons/logout-icon";
 
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../styles/components/sidebar.css";
 
 export function Sidebar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    const confirmar = window.confirm("Deseja realmente sair da conta?");
+    if (!confirmar) return;
+
+    sessionStorage.removeItem("token");
+    navigate("/login");
+  };
+
   console.log("Sidebar renderizou");
   return (
     <aside className="sidebar">
@@ -25,7 +36,9 @@ export function Sidebar() {
       </nav>
 
       <div className="bottom">
-        <Link to="/configuracoes"><SettingsIcon className='sidebar-icons'/></Link>
+        <button className="sidebar-icons" onClick={handleLogout} title="Logout">
+          <LogoutIcon />
+        </button>
       </div>
     </aside>
   )

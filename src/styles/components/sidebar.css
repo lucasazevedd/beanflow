@@ -50,6 +50,7 @@
 
 .sidebar-icons {
   fill: var(--primary-color);
+  color: var(--primary-color);
   width: 2rem;
   margin: 1.25rem; /* 20px */
   transition: var(--transition-default);

@@ -42,6 +42,7 @@
 .boletos-abertos, .boletos-dashboard {
   background-color: var(--white-color);
   border-radius: var(--border-radius);
+  overflow: auto;
 }
 
 .boletos-abertos {

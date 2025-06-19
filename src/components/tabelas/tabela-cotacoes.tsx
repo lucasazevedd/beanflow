@@ -22,7 +22,9 @@ export default function TabelaCotacoes({ cotacoes, clientes, loading }: TabelaCo
             <th>Cliente</th>
             <th>Data</th>
             <th>Status</th>
+            <th>Data Finalização</th>
             <th>Etapa</th>
+            <th>Data Faturamento</th>
             <th>Valor</th>
             <th>Observações</th>
           </tr>
@@ -43,7 +45,9 @@ export default function TabelaCotacoes({ cotacoes, clientes, loading }: TabelaCo
                 <td>{getNomeClientePorId(clientes, cotacao.cliente_id)}</td>
                 <td>{new Date(cotacao.data_criacao).toLocaleDateString()}</td>
                 <td>{cotacao.status}</td>
+                <td>{cotacao.data_finalizacao ? new Date(cotacao.data_finalizacao).toLocaleDateString() : "-"}</td>
                 <td>{cotacao.etapa}</td>
+                <td>{cotacao.data_faturamento ? new Date(cotacao.data_faturamento).toLocaleDateString() : "Não faturado"}</td>
                 <td>R${cotacao.valor_total}</td>
                 <td>{cotacao.observacoes || "-"}</td>
               </tr>

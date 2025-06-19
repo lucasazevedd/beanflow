@@ -6,4 +6,6 @@ export interface Cotacao {
   valor_total: number;
   observacoes?: string;
   data_criacao: string;
+  data_finalizacao?: string;
+  data_faturamento?: string;
 }

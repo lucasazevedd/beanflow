@@ -1,3 +1,4 @@
+import "../styles/pages/criar-pages.css";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Sidebar } from "../components/sidebar";
@@ -8,8 +9,7 @@ import { getCotacaoPorId, updateCotacao, deleteCotacao } from "../services/quote
 import { formatarMoeda, formatarParaNumero } from "../utils/money";
 import { opcoesEtapasCotacao } from "../constants/etapasCotacoes";
 import { getClientePorId } from "../services/clientService";
-
-import "../styles/pages/criar-pages.css";
+import StepperEtapas from "../components/stepper-cotacoes";
 
 export default function EditarCotacao() {
   const { id } = useParams();
@@ -24,6 +24,7 @@ export default function EditarCotacao() {
 
   const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
   const [loading, setLoading] = useState(true);
+  const [mensagemEtapa, setMensagemEtapa] = useState("");
 
   useEffect(() => {
     async function carregarCotacao() {
@@ -56,18 +57,46 @@ export default function EditarCotacao() {
     carregarCotacao();
   }, [id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  useEffect(() => {
+    if (mensagemEtapa) {
+      const timeout = setTimeout(() => setMensagemEtapa(""), 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [mensagemEtapa]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleValorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const valorFormatado = formatarMoeda(e.target.value);
-    setForm({ ...form, valor: valorFormatado });
+    setForm((prev) => ({ ...prev, valor: valorFormatado }));
+  };
+
+  const handleEtapaChange = async (novaEtapa: string) => {
+    if (!clienteSelecionado) return;
+
+    try {
+      await updateCotacao(Number(id), {
+        cliente_id: clienteSelecionado.id,
+        data_criacao: form.data_criacao,
+        valor_total: form.valor.trim() ? formatarParaNumero(form.valor) : 0,
+        observacoes: form.observacoes,
+        etapa: novaEtapa
+      });
+
+      setForm((prev) => ({ ...prev, etapa: novaEtapa }));
+      setMensagemEtapa("Etapa atualizada com sucesso!");
+    } catch (error) {
+      console.error("Erro ao atualizar etapa:", error);
+      setMensagemEtapa("Erro ao atualizar etapa.");
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!clienteSelecionado) {
       alert("Cliente inválido.");
       return;
@@ -144,14 +173,15 @@ export default function EditarCotacao() {
               </div>
 
               <div className="grupo">
-                <label htmlFor="etapa">Etapa</label>
-                <select name="etapa" id="etapa" value={form.etapa} onChange={handleChange}>
-                  {opcoesEtapasCotacao.map((etapa) => (
-                    <option key={etapa.value} value={etapa.value}>
-                      {etapa.label}
-                    </option>
-                  ))}
-                </select>
+                <label>Etapa</label>
+                <StepperEtapas
+                  etapas={opcoesEtapasCotacao}
+                  etapaAtual={form.etapa}
+                  onEtapaChange={handleEtapaChange}
+                />
+                {mensagemEtapa && (
+                  <span className="mensagem-etapa">{mensagemEtapa}</span>
+                )}
               </div>
 
               <div className="grupo">
@@ -172,7 +202,6 @@ export default function EditarCotacao() {
                   Excluir
                 </button>
               </div>
-
             </form>
           </div>
         </div>

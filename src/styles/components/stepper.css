@@ -1,0 +1,50 @@
+.stepper-etapas {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.etapa {
+  flex: 1;
+  min-width: 10rem;
+  padding: 1rem;
+  background-color: var(--background-color);
+  border: 2px solid var(--background-color);
+  border-radius: var(--border-radius);
+  font-family: var(--font-subtitle);
+  font-size: 0.75rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.etapa.ativa {
+  border-color: var(--sucess-color);
+  font-weight: bold;
+  border: 2px solid var(--sucess-color);
+}
+
+.etapa.concluida:hover {
+  border-color: var(--primary-color);
+}
+
+.etapa:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+.mensagem-etapa {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+  color: var(--sucess-color); /* verde sutil */
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: opacity 0.3s ease-in-out;
+}

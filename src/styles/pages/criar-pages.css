@@ -87,6 +87,7 @@
 .grupo button {
   height: 100%;
   margin: 0;
+  text-transform: uppercase;
 }
 
 button[type="submit"],
@@ -101,6 +102,7 @@ button[type="submit"],
   font-weight: var(--font-weight-title);
   cursor: pointer;
   transition: var(--transition-default);
+  text-transform: uppercase;
 }
 
 button[type="submit"]:hover,
@@ -122,6 +124,7 @@ button[type="submit"]:hover,
   font-size: var(--font-size-body);
   cursor: pointer;
   transition: var(--transition-default);
+  text-transform: uppercase;
 }
 
 .button-excluir:hover {

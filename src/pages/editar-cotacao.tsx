@@ -24,7 +24,6 @@ export default function EditarCotacao() {
 
   const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
   const [loading, setLoading] = useState(true);
-  const [mensagemEtapa, setMensagemEtapa] = useState("");
 
   useEffect(() => {
     async function carregarCotacao() {
@@ -57,13 +56,6 @@ export default function EditarCotacao() {
     carregarCotacao();
   }, [id]);
 
-  useEffect(() => {
-    if (mensagemEtapa) {
-      const timeout = setTimeout(() => setMensagemEtapa(""), 3000);
-      return () => clearTimeout(timeout);
-    }
-  }, [mensagemEtapa]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -74,24 +66,9 @@ export default function EditarCotacao() {
     setForm((prev) => ({ ...prev, valor: valorFormatado }));
   };
 
-  const handleEtapaChange = async (novaEtapa: string) => {
-    if (!clienteSelecionado) return;
-
-    try {
-      await updateCotacao(Number(id), {
-        cliente_id: clienteSelecionado.id,
-        data_criacao: form.data_criacao,
-        valor_total: form.valor.trim() ? formatarParaNumero(form.valor) : 0,
-        observacoes: form.observacoes,
-        etapa: novaEtapa
-      });
-
-      setForm((prev) => ({ ...prev, etapa: novaEtapa }));
-      setMensagemEtapa("Etapa atualizada com sucesso!");
-    } catch (error) {
-      console.error("Erro ao atualizar etapa:", error);
-      setMensagemEtapa("Erro ao atualizar etapa.");
-    }
+  // 🔄 Agora o stepper só altera o estado local
+  const handleEtapaChange = (novaEtapa: string) => {
+    setForm((prev) => ({ ...prev, etapa: novaEtapa }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -108,7 +85,7 @@ export default function EditarCotacao() {
         data_criacao: form.data_criacao,
         valor_total: form.valor.trim() ? formatarParaNumero(form.valor) : 0,
         observacoes: form.observacoes,
-        etapa: form.etapa
+        etapa: form.etapa // ✅ Etapa será enviada somente aqui
       });
 
       alert("Cotação atualizada com sucesso!");
@@ -179,9 +156,6 @@ export default function EditarCotacao() {
                   etapaAtual={form.etapa}
                   onEtapaChange={handleEtapaChange}
                 />
-                {mensagemEtapa && (
-                  <span className="mensagem-etapa">{mensagemEtapa}</span>
-                )}
               </div>
 
               <div className="grupo">

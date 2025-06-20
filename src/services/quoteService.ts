@@ -31,6 +31,7 @@ export async function updateCotacao(id: number, data: {
   observacoes?: string;
   etapa?: string;
   data_criacao?: string;
+  status?: string;
 }) {
   const response = await api.put(`/cotacoes/${id}`, data);
   return response.data;

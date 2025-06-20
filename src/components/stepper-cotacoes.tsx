@@ -1,5 +1,4 @@
 import "../styles/components/stepper.css";
-import { useState } from "react";
 
 type Etapa = {
   value: string;
@@ -19,7 +18,6 @@ export default function StepperEtapas({
   onEtapaChange,
   disabled = false
 }: StepperEtapasProps) {
-  const [mensagem, setMensagem] = useState("");
   const indexAtual = etapas.findIndex((etapa) => etapa.value === etapaAtual);
 
   const etapasVisiveis = etapas.slice(
@@ -36,8 +34,7 @@ export default function StepperEtapas({
   );
 
   const handleClick = (novaEtapa: string) => {
-    onEtapaChange(novaEtapa);
-    setTimeout(() => setMensagem(""), 3000);
+    onEtapaChange(novaEtapa); // ✅ Apenas altera o estado no componente pai
   };
 
   return (
@@ -62,8 +59,6 @@ export default function StepperEtapas({
           </button>
         );
       })}
-
-      {mensagem && <span className="mensagem-etapa">{mensagem}</span>}
     </div>
   );
 }

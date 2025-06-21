@@ -35,7 +35,9 @@ export default function TabelaCotacoes({ cotacoes, clientes, loading }: TabelaCo
           ) : cotacoes.length === 0 ? (
             <tr><td colSpan={6}>Nenhuma cotação encontrada</td></tr>
           ) : (
-            cotacoes.map((cotacao) => (
+          [...cotacoes]
+            .sort((a, b) => new Date(b.data_criacao).getTime() - new Date(a.data_criacao).getTime())
+            .map((cotacao) => (
               <tr 
                 key={cotacao.id}
                 className="linha-clicavel"

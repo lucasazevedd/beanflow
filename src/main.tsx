@@ -6,15 +6,7 @@ import './index.css';
 import AppRoutes from './routes';
 
 import { registerSW } from 'virtual:pwa-register';
-
-if ('serviceWorker' in navigator) {
-  const updateSW = registerSW({
-    immediate: true,
-    onNeedRefresh() {
-      updateSW(true); // atualiza ao detectar novo SW
-    }
-  });
-}
+registerSW();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

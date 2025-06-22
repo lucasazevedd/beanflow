@@ -2,14 +2,28 @@
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/bean-logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <title>beanflow</title>
+    
+    <!-- Ícone da aba -->
+    <link rel="icon" type="image/svg+xml" href="/bean-logo.svg" />
+
+    <!-- Fonte Google -->
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Quicksand:wght@300;500;600&display=swap" rel="stylesheet">
-    <!-- para mobile -->
-    <!-- <link rel="manifest" href="/manifest.webmanifest" /> -->
+    
+    <!-- Manifesto PWA -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- PWA: cor da barra do navegador no mobile -->
     <meta name="theme-color" content="#036098" />
+
+    <!-- Apple (iOS) -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

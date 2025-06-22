@@ -1,5 +1,5 @@
 .sidebar {
-  width: 5rem; /* 80px */
+  width: 5rem;
   height: 100vh;
   background-color: var(--white-color);
   border-right: 1px solid var(--table-border);
@@ -7,9 +7,13 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 0; /* 20px 0 */
+  padding: 1.25rem 0;
   box-sizing: border-box;
   position: fixed;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease;
+  z-index: 1000;
 }
 
 .top,
@@ -62,4 +66,35 @@
 
 .logo-text {
   display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar.aberta {
+    transform: translateX(0) !important;
+  }
+
+  .sidebar.fechada,
+  .sidebar:not(.aberta) {
+    transform: translateX(-100%) !important;
+  }
+
+  .botao-menu-mobile {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1100;
+    background-color: transparent;
+    color: var(--primary-color);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .botao-menu-mobile.oculto {
+    display: none;
+  }
+
 }

@@ -39,8 +39,8 @@ export default function BoletosAbertos() {
   }, []);
 
   return (
-    <div className="widget-card">
-      <BotaoNovo rota="/boletos/novo" texto="NOVO BOLETO" />
+    <div className="widget-card" id="boletos-abertos">
+      <BotaoNovo rota="/boletos/novo" texto="NOVO BOLETO" className="boleto-button"/>
 
       <ul className="widget-lista">
         {boletos.map((boleto) => {

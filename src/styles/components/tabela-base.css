@@ -5,7 +5,8 @@
   border-radius: var(--border-radius);
   overflow-x: auto;
   overflow-y: auto;
-  max-height: calc(85vh - 1.5rem);
+  max-height: calc(100vh - 13rem); /* altura dinâmica com espaço para header, search e botão */
+  flex: 1;
 }
 
 .tabela {
@@ -46,8 +47,23 @@
   background-color: var(--table-body-bg);
 }
 
+@media (max-width: 768px) {
+  .tabela-wrapper {
+    overflow-x: auto;
+    max-height: calc(100vh - 14rem); /* mais espaço no mobile por causa do botão fixo */
+  }
 
-/* Comentários:
-- Arquivo unificado reduz duplicidade entre tabela-clientes.css e tabela-cotacoes.css.
-- Prefixos como ".tabela-wrapper" e ".tabela" tornam o código mais reutilizável.
-*/
+  .tabela {
+    min-width: 600px;
+  }
+
+  /* Oculta colunas específicas no mobile */
+  .tabela th:nth-child(5),
+  .tabela td:nth-child(5),
+  .tabela th:nth-child(7),
+  .tabela td:nth-child(7),
+  .tabela th:nth-child(9),
+  .tabela td:nth-child(9) {
+    display: none;
+  }
+}

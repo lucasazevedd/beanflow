@@ -10,3 +10,56 @@
   padding: 0;
   box-sizing: border-box;
 }
+.botao-menu-mobile {
+  display: none;
+}
+
+/* CSS para mobile */
+
+@media (max-width: 768px) {
+  .footer {
+    display: none !important;
+  }
+
+  .main {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .content {
+    padding: 1rem !important;
+    gap: 1rem !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tabela {
+    font-size: 0.8rem;
+    overflow-x: auto;
+  }
+
+  .linha {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .grupo {
+    width: 100%;
+  }
+
+  .botao-menu-mobile {
+    display: block;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1100;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+}
+

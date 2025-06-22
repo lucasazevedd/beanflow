@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Sidebar } from "../components/sidebar";
 import { Footer } from "../components/footer";
 import SearchBar from "../components/search-bar";
@@ -18,6 +18,8 @@ export default function ListaCotacoes() {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
   const [termoBusca, setTermoBusca] = useState("");
+  const [sidebarAberto, setSidebarAberto] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     async function carregarDados() {
@@ -38,6 +40,23 @@ export default function ListaCotacoes() {
     carregarDados();
   }, []);
 
+  useEffect(() => {
+    function handleClickFora(event: MouseEvent) {
+      if (
+        sidebarAberto &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
+        setSidebarAberto(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickFora);
+    return () => {
+      document.removeEventListener("mousedown", handleClickFora);
+    };
+  }, [sidebarAberto]);
+
   const cotacoesFiltradas = cotacoes.filter((cotacao) =>
     cotacao.status?.toLowerCase().includes(termoBusca.toLowerCase()) ||
     cotacao.etapa?.toLowerCase().includes(termoBusca.toLowerCase()) ||
@@ -46,7 +65,21 @@ export default function ListaCotacoes() {
 
   return (
     <div className="home">
-      <Sidebar />
+      {/* Botão de abrir sidebar no mobile */}
+      <button
+        className={`botao-menu-mobile ${sidebarAberto ? "oculto" : ""}`}
+        onClick={() => setSidebarAberto(true)}
+      >
+        ☰
+      </button>
+
+      {/* Sidebar controlada via props e ref */}
+      <Sidebar
+        aberto={sidebarAberto}
+        onFechar={() => setSidebarAberto(false)}
+        sidebarRef={sidebarRef}
+      />
+
       <div className="main">
         <div className="content">
           <div className="lista-page-container">
@@ -57,7 +90,16 @@ export default function ListaCotacoes() {
               </div>
             </div>
 
-            <TabelaCotacoes cotacoes={cotacoesFiltradas} clientes={clientes} loading={loading} />
+            <TabelaCotacoes
+              cotacoes={cotacoesFiltradas}
+              clientes={clientes}
+              loading={loading}
+            />
+            <BotaoNovo
+              rota="/cotacoes/novo"
+              texto="NOVO ORÇAMENTO"
+              className="botao-novo-mobile"
+            />
           </div>
           <Footer />
         </div>

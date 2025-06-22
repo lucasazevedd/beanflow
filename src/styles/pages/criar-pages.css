@@ -309,3 +309,10 @@ button[type="submit"]:hover,
   align-items: center;
   margin: 0 !important;
 }
+
+@media (max-width: 768px) {
+  .criar-form {
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+}

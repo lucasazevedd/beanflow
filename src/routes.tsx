@@ -8,7 +8,6 @@ import Login from "./pages/login";
 import EditarCotacao from "./pages/editar-cotacao";
 import CriarBoleto from "./pages/criar-boleto";
 import CriarTarefa from "./pages/criar-tarefas";
-import Configuracoes from "./pages/configuracoes";
 import ListaTarefas from "./pages/tarefas";
 import Boletos from "./pages/boletos";
 import EditarBoleto from "./pages/editar-boleto";
@@ -29,7 +28,6 @@ export default function AppRoutes() {
         <Route path="/cotacoes/editar/:id" element={<RotaPrivada><EditarCotacao /></RotaPrivada>} />
         <Route path="/boletos/novo" element={<RotaPrivada><CriarBoleto /></RotaPrivada>} />
         <Route path="/tarefas/novo" element={<RotaPrivada><CriarTarefa /></RotaPrivada>} />
-        <Route path="/configuracoes" element={<RotaPrivada><Configuracoes /></RotaPrivada>} />
         <Route path="/tarefas" element={<RotaPrivada><ListaTarefas /></RotaPrivada>} />
         <Route path="/boletos" element={<RotaPrivada><Boletos /></RotaPrivada>} />
         <Route path="/boletos/editar/:id" element={<RotaPrivada><EditarBoleto /></RotaPrivada>} />

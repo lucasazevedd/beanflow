@@ -1,3 +1,5 @@
+/* lista-pages.css */
+
 .lista-page-container {
   display: flex;
   flex-direction: column;
@@ -39,7 +41,8 @@
   transform: scale(1.1);
 }
 
-.boletos-abertos, .boletos-dashboard {
+.boletos-abertos,
+.boletos-dashboard {
   background-color: var(--white-color);
   border-radius: var(--border-radius);
   overflow: auto;
@@ -53,4 +56,57 @@
 .boletos-dashboard {
   grid-column: span 8;
   grid-row: span 8;
+}
+
+/* Botão novo visível apenas no mobile */
+.botao-novo-mobile {
+  display: none;
+}
+
+/* Estilos para mobile */
+@media (max-width: 768px) {
+  .main {
+    margin-left: 0;
+  }
+
+  .boletos-dashboard {
+    display: none;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .top-bar .botoes {
+    display: none;
+  }
+
+  .botao-novo-mobile {
+    display: flex;
+    width: 100%;
+    font-size: 1.05rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    align-self: stretch;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .botao-novo-mobile svg {
+    margin-right: 0.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .lista-page-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 3.5rem;
+  }
+
+  .tabela-wrapper {
+    flex: 1;
+    overflow: auto;
+  }
 }

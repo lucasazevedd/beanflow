@@ -6,6 +6,7 @@ import { Cliente } from "../types/Cliente";
 import { createBoleto } from "../services/boletoService";
 import { formatarMoeda, formatarParaNumero } from "../utils/money";
 import { calcularDataVencimento } from "../utils/date";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/pages/criar-pages.css";
 
@@ -15,6 +16,8 @@ export default function CriarBoleto() {
     vencimento: "30",
     valor: ""
   });
+
+  const navigate = useNavigate();
 
   const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
 
@@ -49,6 +52,7 @@ export default function CriarBoleto() {
       });
 
       alert("Boleto criado com sucesso!");
+      navigate("/boletos");
     } catch (error) {
       console.error("Erro ao criar boleto:", error);
       alert("Erro ao criar boleto.");
